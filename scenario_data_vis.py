@@ -93,8 +93,8 @@ def train(train_file, train_train_file, train_val_file):
                                                 scene_data['end_frame']+1)):
                     frame_idx = track_frames == frame  
                     frame_track_pedestrian_id_list = track_pedestrian_ids[frame_idx]
-                    frame_track_x = track_xws[frame_idx]
-                    frame_track_y = track_yws[frame_idx]
+                    frame_track_x = track_xs[frame_idx]
+                    frame_track_y = track_ys[frame_idx]
                     for j, pred_id in enumerate(frame_track_pedestrian_id_list):
                         if pred_id not in scene_pred_list:
                             pred = dict()
