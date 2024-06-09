@@ -244,7 +244,7 @@ def test(test_files):
             track_xws = []
             track_yws = []
             track_xcs = []
-            track_xcs = []
+            track_ycs = []
             
             for i in tqdm(range(len(data))):
                 if 'scene' in data[i]:
