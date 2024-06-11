@@ -59,7 +59,7 @@ def train(train_file, train_train_file, train_val_file):
             track_xws = []
             track_yws = []
             track_xcs = []
-            track_xcs = []
+            track_ycs = []
             for i in tqdm(range(len(data))):
                 if 'scene' in data[i]:
                     num_scene = num_scene + 1
