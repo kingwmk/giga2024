@@ -193,7 +193,7 @@ def train(train_file, train_train_file, train_val_file):
                                  "--", linewidth=lw, color=color)
                         plt.plot(vis_past[vi][:,0], vis_past[vi][:,1], 
                                  "-", linewidth=lw, color=color)
-                    save_path = vis_path + "train_"+ str(f_idx)  + str(i) + ".png"
+                    save_path = vis_path + "train_"+ str(f_idx) + "_"  + str(i) + ".png"
                     plt.savefig(save_path)
                     plt.cla()
                 vis_count = vis_count + 1
@@ -380,7 +380,7 @@ def test(test_files):
                                  "--", linewidth=lw, color=color)
                         plt.plot(vis_past[vi][:,0], vis_past[vi][:,1], 
                                  "-", linewidth=lw, color=color)
-                    save_path = vis_path + "test_"+ str(f_idx) + str(i) + ".png"
+                    save_path = vis_path + "test_"+ str(f_idx) +  "_"  + str(i) + ".png"
                     plt.savefig(save_path)
                     plt.cla()
                 vis_count = vis_count + 1
