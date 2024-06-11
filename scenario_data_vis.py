@@ -120,7 +120,8 @@ def train(train_file, train_train_file, train_val_file):
                 trajs = [agent_traj] + trajs
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
-                
+                if 59 not in steps[0]:
+                    continue
                 current_step_index = steps[0].tolist().index(59)
                 pre_current_step_index = current_step_index-1
                 orig = trajs[0][current_step_index].copy().astype(np.float32)
@@ -306,7 +307,8 @@ def test(test_files):
                 trajs = [agent_traj] + trajs
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
-                
+                if 59 not in steps[0]:
+                    continue                
                 current_step_index = steps[0].tolist().index(59)
                 pre_current_step_index = current_step_index-1
                 orig = trajs[0][current_step_index].copy().astype(np.float32)
