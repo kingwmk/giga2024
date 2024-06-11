@@ -22,8 +22,8 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 87090
-config["val_iters"] = 87090
+config["display_iters"] = 2938
+config["val_iters"] = 2938
 config["save_freq"] = 1.0
 config["epoch"] = 0
 config["horovod"] = True
@@ -49,14 +49,14 @@ config["val_workers"] = config["workers"]
 
 """Dataset"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
-config["train_split"] = root_path + 'train/preprocess/train.p'
+config["train_split"] = root_path + 'train/preprocess/train_train.p'
 config["val_split"] = root_path + 'train/preprocess/train_val.p'
 config["test_split"] = root_path + 'test/preprocess/test_1.p'
 
 """Model"""
 config["rot_aug"] = False
-config["n_actor"] = 128
-config["actor2actor_dist"] = 50.0
+config["n_actor"] = 64
+config["actor2actor_dist"] = 25.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
@@ -169,10 +169,10 @@ class ActorNet(nn.Module):
         self.lstm_encoder = nn.LSTM(n, n, batch_first=True)
         self.output = Res1d(n, n, norm=norm, ng=ng)
 
-    def forward(self, actors: Tensor) -> Tensor:
+    def forward(self, actors: Tensor, actor_ctrs) -> Tensor:
         actor_ctrs = torch.cat(actor_ctrs, 0)
         out = actors
-
+        M,d,L = actors.shape
         outputs = []
         for i in range(len(self.groups)):
             out = self.groups[i](out)
