@@ -132,8 +132,8 @@ def train(train_file, train_train_file, train_val_file):
                 
                 feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
                 for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
-                    #if 59 not in step:
-                    #    continue
+                    if 59 not in step:
+                        continue
                     valid_track_ids.append(pred_id)
                     gt_pred = np.zeros((60, 2), np.float32)
                     has_pred = np.zeros(60, bool)
@@ -318,8 +318,8 @@ def test(test_files):
                 
                 feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
                 for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
-                    #if 59 not in step:
-                    #    continue
+                    if 59 not in step:
+                        continue
                     valid_track_ids.append(pred_id)
                     gt_pred = np.zeros((60, 2), np.float32)
                     has_pred = np.zeros(60, bool)
