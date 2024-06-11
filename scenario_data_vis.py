@@ -244,8 +244,6 @@ def test(test_files):
             track_pedestrian_ids = []
             track_xws = []
             track_yws = []
-            track_xcs = []
-            track_ycs = []
             
             for i in tqdm(range(len(data))):
                 if 'scene' in data[i]:
@@ -258,10 +256,8 @@ def test(test_files):
                     num_track = num_track + 1
                     track_frames.append(data[i]['track']['f'])
                     track_pedestrian_ids.append(data[i]['track']['p'])
-                    track_xws.append(data[i]['track']['x_w'])
-                    track_yws.append(data[i]['track']['y_w'])
-                    track_xcs.append(data[i]['track']['x_c'])
-                    track_ycs.append(data[i]['track']['y_c'])   
+                    track_xws.append(data[i]['track']['x'])
+                    track_yws.append(data[i]['track']['y'])
             
             track_frames = np.asarray(track_frames, np.int64)
             track_pedestrian_ids = np.asarray(track_pedestrian_ids, np.int64)
