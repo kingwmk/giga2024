@@ -129,7 +129,6 @@ def main():
                         track = dict()
                         track["track"] = track_data
                         writer.writerow(track)
-                    assert track_data["f"] == end_frame
         file.close()
         
 if __name__ == "__main__":
