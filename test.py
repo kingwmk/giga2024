@@ -120,7 +120,7 @@ def main():
                 for k in range(K):
                     for l in range(L):
                         track_data = dict()
-                        track_data["f"] = end_frame + L + 1
+                        track_data["f"] = end_frame + l + 1
                         track_data["p"] = track_id.tolist()
                         track_data["x"] = preds[k,l,0]
                         track_data["y"] = preds[k,l,1]
