@@ -101,7 +101,7 @@ def main():
 
                 output = net1(data)
                 results = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
-                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
+                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
                                                 start_frames, end_frames, track_ids, results, gt_pasts)):
