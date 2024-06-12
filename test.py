@@ -108,8 +108,8 @@ def main():
                 scene_data = dict()
                 scene_data["id"] = scene_id
                 scene_data["p"] = scene_primary_pedestrian_id
-                scene_data["s"] = start_frame
-                scene_data["e"] = end_frame
+                scene_data["s"] = end_frame + 1
+                scene_data["e"] = end_frame + 60
                 scene_data["fps"] = 2
                 scene = dict()
                 scene["scene"] = scene_data
