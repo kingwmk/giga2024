@@ -228,6 +228,8 @@ def train(train_file, train_train_file, train_val_file):
     
 def test(test_files):
     t = time.time()
+    test_num = 0
+    test_num_valid = 0
     for f_idx,file in enumerate(test_set):
         vis_count = 0
         stores = []
@@ -248,6 +250,7 @@ def test(test_files):
             for i in tqdm(range(len(data))):
                 if 'scene' in data[i]:
                     num_scene = num_scene + 1
+                    test_num = test_num + 1
                     scene_ids.append(data[i]['scene']['id'])
                     scene_primary_pedestrian_ids.append(data[i]['scene']['p'])
                     scene_start_frames.append(data[i]['scene']['s'])
@@ -304,7 +307,8 @@ def test(test_files):
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
                 if 59 not in steps[0]:
-                    continue                
+                    continue      
+                test_num_valid = test_num_valid + 1
                 current_step_index = steps[0].tolist().index(59)
                 pre_current_step_index = current_step_index-1
                 orig = trajs[0][current_step_index].copy().astype(np.float32)
@@ -380,12 +384,13 @@ def test(test_files):
                     plt.savefig(save_path)
                     plt.cla()
                 vis_count = vis_count + 1
-                
-        f = open(test_files[f_idx], 'wb')
-        pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
-        f.close()
+        print(test_num)
+        print(test_num_valid)       
+        #f = open(test_files[f_idx], 'wb')
+        #pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
+        #f.close()
 
-train(train_file, train_train_file, train_val_file)
+#train(train_file, train_train_file, train_val_file)
 test(test_files)
 
 
