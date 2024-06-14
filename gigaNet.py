@@ -22,16 +22,16 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 2938
-config["val_iters"] = 2938
+config["display_iters"] = 3000
+config["val_iters"] = 3000
 config["save_freq"] = 1.0
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
-config["num_epochs"] = 20
+config["num_epochs"] = 50
 config["start_val_epoch"] = 0
 config["lr"] = [1e-3, 5e-4, 1e-4]
-config["lr_epochs"] = [10,15,]
+config["lr_epochs"] = [30,40,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
@@ -140,7 +140,7 @@ class ActorNet(nn.Module):
         ng = 1
 
         n_in = 3
-        n_out = [32, 64, 128]
+        n_out = [32, 64, 64]
         blocks = [Res1d, Res1d, Res1d]
         num_blocks = [2, 2, 2]
 
