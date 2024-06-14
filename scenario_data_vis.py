@@ -275,8 +275,7 @@ def test(test_files):
                 scene_data['start_frame'] = scene_start_frames[i]
                 scene_data['end_frame'] = scene_end_frames[i]
                 scene_pred_list = dict()
-                for frame in enumerate(range(scene_data['start_frame'],
-                                                scene_data['end_frame']+1)):
+                for frame in range(scene_data['start_frame'], scene_data['end_frame']+1):
                     frame_idx = track_frames == frame  
                     frame_track_pedestrian_id_list = track_pedestrian_ids[frame_idx]
                     frame_track_x = track_xs[frame_idx]
