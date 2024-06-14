@@ -275,7 +275,7 @@ def test(test_files):
                 scene_data['start_frame'] = scene_start_frames[i]
                 scene_data['end_frame'] = scene_end_frames[i]
                 scene_pred_list = dict()
-                for s, frame in enumerate(range(scene_data['start_frame'],
+                for frame in enumerate(range(scene_data['start_frame'],
                                                 scene_data['end_frame']+1)):
                     frame_idx = track_frames == frame  
                     frame_track_pedestrian_id_list = track_pedestrian_ids[frame_idx]
@@ -289,7 +289,7 @@ def test(test_files):
                             scene_pred_list[pred_id] = pred
                         scene_pred_list[pred_id]['position'].append([frame_track_x[j],
                                                                   frame_track_y[j]])
-                        scene_pred_list[pred_id]['step'].append(s)
+                        scene_pred_list[pred_id]['step'].append(frame-1)
 
                 trajs, steps, scene_pred_ids = [], [], []
                 for pred_key in scene_pred_list.keys():
@@ -307,6 +307,7 @@ def test(test_files):
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
                 if 59 not in steps[0]:
+                    print("LLLLLLLLLLLLLLLLLLLLLLLLLLLcut")
                     continue      
                 test_num_valid = test_num_valid + 1
                 current_step_index = steps[0].tolist().index(59)
@@ -386,9 +387,9 @@ def test(test_files):
                 vis_count = vis_count + 1
         print(test_num)
         print(test_num_valid)       
-        #f = open(test_files[f_idx], 'wb')
-        #pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
-        #f.close()
+        f = open(test_files[f_idx], 'wb')
+        pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
+        f.close()
 
 #train(train_file, train_train_file, train_val_file)
 test(test_files)
