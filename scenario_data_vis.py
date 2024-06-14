@@ -42,7 +42,7 @@ def train(train_file, train_train_file, train_val_file):
     stores = []
     train_val_ratio = 0.8
     t = time.time()
-    
+    train_num = 0
     for f_idx, file in enumerate(train_set):
         vis_count = 0
         with open(file) as f:
@@ -122,6 +122,7 @@ def train(train_file, train_train_file, train_val_file):
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
                 if 59 not in steps[0]:
                     continue
+                train_num = train_num + 1
                 current_step_index = steps[0].tolist().index(59)
                 pre_current_step_index = current_step_index-1
                 orig = trajs[0][current_step_index].copy().astype(np.float32)
@@ -197,10 +198,11 @@ def train(train_file, train_train_file, train_val_file):
                     plt.savefig(save_path)
                     plt.cla()
                 vis_count = vis_count + 1
+    """
     f = open(train_file, 'wb')
     pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
     f.close()
-    
+    """
     total_scene_num = len(stores)
     train_train_num = int(total_scene_num * train_val_ratio)
     train_val_num = total_scene_num - train_train_num
@@ -213,7 +215,7 @@ def train(train_file, train_train_file, train_val_file):
             train_train_stores.append(stores[idx])
         else:
             train_val_stores.append(stores[idx])
-        
+    """   
     f = open(train_train_file, 'wb')
     pickle.dump(train_train_stores, f, protocol=pickle.HIGHEST_PROTOCOL)
     f.close()
@@ -221,10 +223,8 @@ def train(train_file, train_train_file, train_val_file):
     f = open(train_val_file, 'wb')
     pickle.dump(train_val_stores, f, protocol=pickle.HIGHEST_PROTOCOL)
     f.close()
-    
-    print(total_scene_num)
-    print(len(train_train_stores))
-    print(len(train_val_stores))
+    """
+    print(train_num)
     
 def test(test_files):
     t = time.time()
