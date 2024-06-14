@@ -56,7 +56,7 @@ config["test_split"] = root_path + 'test/preprocess/test_1.p'
 """Model"""
 config["rot_aug"] = False
 config["n_actor"] = 64
-config["actor2actor_dist"] = 25.0
+config["actor2actor_dist"] = 30.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
