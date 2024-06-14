@@ -276,7 +276,7 @@ class PredNet(nn.Module):
         self.cls = nn.Sequential(
             LinearRes(n_actor, n_actor, norm=norm, ng=ng), nn.Linear(n_actor, 1)
         )
-        #self.softmax = nn.Softmax(dim=1)
+        self.softmax = nn.Softmax(dim=1)
 
     def forward(self, actors: Tensor, actor_idcs: List[Tensor], actor_ctrs: List[Tensor],
                ) -> Dict[str, List[Tensor]]:
@@ -296,7 +296,7 @@ class PredNet(nn.Module):
         dest_ctrs = reg[:, :, -1].detach()
         feats = self.att_dest(agents, torch.cat(agent_ctrs, 0), dest_ctrs)
         cls = self.cls(feats).view(-1, self.config["num_mods"])
-        #cls = self.softmax(cls)
+        cls = self.softmax(cls)
         
         cls, sort_idcs = cls.sort(1, descending=True)
         row_idcs = torch.arange(len(sort_idcs)).long().to(sort_idcs.device)
