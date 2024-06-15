@@ -456,84 +456,84 @@ def main():
 
                 output1 = net1(data)
                 results1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output1["reg"]]
-                cls1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output1["cls"]]
+                cls1 = [x.detach().cpu().numpy().astype(np.float64) for x in output1["cls"]]
                 cls1 = softmax(cls1, axis=-1)
                 output2 = net2(data)
                 results2 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output2["reg"]]
-                cls2 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output2["cls"]]
+                cls2 = [x.detach().cpu().numpy().astype(np.float64) for x in output2["cls"]]
                 cls2 = softmax(cls2, axis=-1)
                 output3 = net3(data)
                 results3 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output3["reg"]]
-                cls3 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output3["cls"]]
+                cls3 = [x.detach().cpu().numpy().astype(np.float64) for x in output3["cls"]]
                 cls3 = softmax(cls3, axis=-1)
                 output4 = net4(data)
                 results4 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output4["reg"]]
-                cls4 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output4["cls"]]
+                cls4 = [x.detach().cpu().numpy().astype(np.float64) for x in output4["cls"]]
                 cls4 = softmax(cls4, axis=-1)
                 output5 = net5(data)
                 results5 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output5["reg"]]
-                cls5 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output5["cls"]]
+                cls5 = [x.detach().cpu().numpy().astype(np.float64) for x in output5["cls"]]
                 cls5 = softmax(cls5, axis=-1)
                 output6 = net6(data)
                 results6 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output6["reg"]]
-                cls6 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output6["cls"]]
+                cls6 = [x.detach().cpu().numpy().astype(np.float64) for x in output6["cls"]]
                 cls6 = softmax(cls6, axis=-1)
                 output7 = net7(data)
                 results7 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output7["reg"]]
-                cls7 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output7["cls"]]
+                cls7 = [x.detach().cpu().numpy().astype(np.float64) for x in output7["cls"]]
                 cls7 = softmax(cls7, axis=-1)
                 output8 = net8(data)
                 results8 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output8["reg"]]
-                cls8 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output8["cls"]]
+                cls8 = [x.detach().cpu().numpy().astype(np.float64) for x in output8["cls"]]
                 cls8 = softmax(cls8, axis=-1)
                 output9 = net9(data)
                 results9 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output9["reg"]]
-                cls9 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output9["cls"]]
+                cls9 = [x.detach().cpu().numpy().astype(np.float64) for x in output9["cls"]]
                 cls9 = softmax(cls9, axis=-1)
                 output10 = net10(data)
                 results10 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output10["reg"]]  
-                cls10 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output10["cls"]]
+                cls10 = [x.detach().cpu().numpy().astype(np.float64) for x in output10["cls"]]
                 cls10 = softmax(cls10, axis=-1)
                 output11 = net11(data)
                 results11 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output11["reg"]]
-                cls11 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output11["cls"]]
+                cls11 = [x.detach().cpu().numpy().astype(np.float64) for x in output11["cls"]]
                 cls11 = softmax(cls11, axis=-1)
                 output12 = net12(data)
                 results12 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output12["reg"]]
-                cls12 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output12["cls"]]
+                cls12 = [x.detach().cpu().numpy().astype(np.float64) for x in output12["cls"]]
                 cls12 = softmax(cls12, axis=-1)
                 output13 = net13(data)
                 results13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["reg"]]
-                cls13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["cls"]]
+                cls13 = [x.detach().cpu().numpy().astype(np.float64) for x in output13["cls"]]
                 cls13 = softmax(cls13, axis=-1)
                 """
                 output14 = net14(data)
                 results14 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output14["reg"]]
-                cls14 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output14["cls"]]
+                cls14 = [x.detach().cpu().numpy().astype(np.float64) for x in output14["cls"]]
                 cls14 = softmax(cls14, axis=-1)
                 output15 = net15(data)
                 results15 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output15["reg"]]
-                cls15 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output15["cls"]]
+                cls15 = [x.detach().cpu().numpy().astype(np.float64) for x in output15["cls"]]
                 cls15 = softmax(cls15, axis=-1)
                 output16 = net16(data)
                 results16 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output16["reg"]]
-                cls16 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output16["cls"]]
+                cls16 = [x.detach().cpu().numpy().astype(np.float64) for x in output16["cls"]]
                 cls16 = softmax(cls16, axis=-1)
                 output17 = net17(data)
                 results17 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output17["reg"]]
-                cls17 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output17["cls"]]
+                cls17 = [x.detach().cpu().numpy().astype(np.float64) for x in output17["cls"]]
                 cls17 = softmax(cls17, axis=-1)
                 output18 = net18(data)
                 results18 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output18["reg"]]
-                cls18 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output18["cls"]]
+                cls18 = [x.detach().cpu().numpy().astype(np.float64) for x in output18["cls"]]
                 cls18 = softmax(cls18, axis=-1)
                 output19 = net19(data)
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
-                cls19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["cls"]]
+                cls19 = [x.detach().cpu().numpy().astype(np.float64) for x in output19["cls"]]
                 cls19 = softmax(cls19, axis=-1)
                 output20 = net20(data)
                 results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]] 
-                cls20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["cls"]]
+                cls20 = [x.detach().cpu().numpy().astype(np.float64) for x in output20["cls"]]
                 cls20 = softmax(cls20, axis=-1)
                 """
                 results = []
