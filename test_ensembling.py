@@ -506,7 +506,7 @@ def main():
                                            #results17[i],results18[i],results19[i],results20[i]
                                            ), 1).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
-                    labels = KMeans(n_clusters=num_modes, n_init='auto').fit_predict(traj_ends)
+                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends)
                     reduced_traj = []
                     for k in range(3):
                         traj_k = trajs[labels == k]
