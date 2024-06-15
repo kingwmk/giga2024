@@ -554,7 +554,7 @@ def main():
                                             #cls17[i],cls18[i],cls19[i],cls20[i]
                                            ), 0).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
-                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=prob)
+                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=probs)
                     reduced_traj = []
                     for k in range(3):
                         traj_k = trajs[labels == k]
