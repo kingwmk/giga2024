@@ -104,6 +104,7 @@ parser.add_argument(
 parser.add_argument(
     "-m14", "--model14", default="gigaNet_simple_14", type=str, metavar="MODEL", help="model name"
 )
+"""
 parser.add_argument(
     "--weight14", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
@@ -143,7 +144,7 @@ parser.add_argument(
 parser.add_argument(
     "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
-
+"""
 root_path = "/mnt/home/code/giga-trajectory-main/"
 data_path = root_path + "dataset/"
 
@@ -337,7 +338,7 @@ def main():
     ckpt13 = torch.load(ckpt_path13, map_location=lambda storage, loc: storage)
     load_pretrain(net13, ckpt13["state_dict"])
     net13.eval()
-    
+    """
     #model14
     model14 = import_module(args.model14)
     config14, _, collate_fn14, net14, loss14, post_process14, opt14 = model14.get_model()
@@ -421,7 +422,7 @@ def main():
     ckpt20 = torch.load(ckpt_path20, map_location=lambda storage, loc: storage)
     load_pretrain(net20, ckpt20["state_dict"])
     net20.eval()
-    
+    """
     for f_idx in range(len(test_files)):
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
@@ -478,6 +479,7 @@ def main():
                 results12 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output12["reg"]]
                 output13 = net13(data)
                 results13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["reg"]]
+                """
                 output14 = net14(data)
                 results14 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output14["reg"]]
                 output15 = net15(data)
@@ -492,15 +494,17 @@ def main():
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
                 output20 = net20(data)
                 results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]] 
-                
+                """
                 results = []
                 gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
                 for i in range(len(results1)):
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
                                             results5[i],results6[i],results7[i],results8[i],
                                            results9[i],results10[i],results11[i],results12[i],
-                                            results13[i],results14[i],results15[i],results16[i],
-                                           results17[i],results18[i],results19[i],results20[i]), 1).squeeze()
+                                            results13[i],
+                                            #results14[i],results15[i],results16[i],
+                                           #results17[i],results18[i],results19[i],results20[i]
+                                           ), 1).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
                     labels = KMeans(n_clusters=num_modes, n_init='auto').fit_predict(traj_ends)
                     reduced_traj = []
