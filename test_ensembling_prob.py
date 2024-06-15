@@ -552,9 +552,9 @@ def main():
                                             cls13[i],
                                             #cls14[i],cls15[i],cls16[i],
                                             #cls17[i],cls18[i],cls19[i],cls20[i]
-                                           ), 1).squeeze()
+                                           ), 0).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
-                    labels = KMeans(n_clusters=num_modes, n_init='auto').fit_predict(traj_ends, sample_weight=prob)
+                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=prob)
                     reduced_traj = []
                     for k in range(3):
                         traj_k = traj[labels == k]
