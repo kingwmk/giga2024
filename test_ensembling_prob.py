@@ -546,7 +546,7 @@ def main():
                                             #results14[i],results15[i],results16[i],
                                             #results17[i],results18[i],results19[i],results20[i]
                                            ), 1).squeeze()
-                    prob = np.concatenate((cls1[i],cls2[i],cls3[i],cls4[i],
+                    probs = np.concatenate((cls1[i],cls2[i],cls3[i],cls4[i],
                                             cls5[i],cls6[i],cls7[i],cls8[i],
                                             cls9[i],cls10[i],cls11[i],cls12[i],
                                             cls13[i],
@@ -557,8 +557,8 @@ def main():
                     labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=prob)
                     reduced_traj = []
                     for k in range(3):
-                        traj_k = traj[labels == k]
-                        prob_k = prob[labels == k]
+                        traj_k = trajs[labels == k]
+                        prob_k = probs[labels == k]
                         reduced_traj.append((prob_k[:, np.newaxis, np.newaxis] * traj_k / prob_k.sum()).sum(axis=0))
                     reduced_traj = np.stack(reduced_traj, axis=0)
                     results.append(reduced_traj)
