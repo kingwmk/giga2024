@@ -24,136 +24,151 @@ import math
 # define parser
 parser = argparse.ArgumentParser(description="giga")
 parser.add_argument(
-    "-m1", "--model1", default="gigaNet_obs4_mean_6d_1", type=str, metavar="MODEL", help="model name"
+    "-m1", "--model1", default="gigaNet_simple_1", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight1", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight1", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m2", "--model2", default="gigaNet_obs4_mean_6d_1", type=str, metavar="MODEL", help="model name"
+    "-m2", "--model2", default="gigaNet_simple_2", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight2", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight2", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m3", "--model3", default="gigaNet_obs4_mean_6d_2", type=str, metavar="MODEL", help="model name"
+    "-m3", "--model3", default="gigaNet_simple_3", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight3", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight3", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m4", "--model4", default="gigaNet_obs4_mean_6d_2", type=str, metavar="MODEL", help="model name"
+    "-m4", "--model4", default="gigaNet_simple_4", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight4", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight4", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m5", "--model5", default="gigaNet_obs4_mean_6d_3", type=str, metavar="MODEL", help="model name"
+    "-m5", "--model5", default="gigaNet_simple_5", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight5", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight5", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m6", "--model6", default="gigaNet_obs4_mean_6d_3", type=str, metavar="MODEL", help="model name"
+    "-m6", "--model6", default="gigaNet_simple_6", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight6", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight6", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m7", "--model7", default="gigaNet_obs4_mean_6d_4", type=str, metavar="MODEL", help="model name"
+    "-m7", "--model7", default="gigaNet_simple_7", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight7", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight7", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m8", "--model8", default="gigaNet_obs4_mean_6d_4", type=str, metavar="MODEL", help="model name"
+    "-m8", "--model8", default="gigaNet_simple_8", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight8", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight8", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m9", "--model9", default="gigaNet_obs4_mean_6d_5", type=str, metavar="MODEL", help="model name"
+    "-m9", "--model9", default="gigaNet_simple_9", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight9", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight9", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m10", "--model10", default="gigaNet_obs4_mean_6d_5", type=str, metavar="MODEL", help="model name"
+    "-m10", "--model10", default="gigaNet_simple_10", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight10", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight10", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m11", "--model11", default="gigaNet_obs5_mean_6d_1", type=str, metavar="MODEL", help="model name"
+    "-m11", "--model11", default="gigaNet_simple_11", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight11", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight11", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m12", "--model12", default="gigaNet_obs5_mean_6d_1", type=str, metavar="MODEL", help="model name"
+    "-m12", "--model12", default="gigaNet_simple_12", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight12", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight12", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m13", "--model13", default="gigaNet_obs5_mean_6d_2", type=str, metavar="MODEL", help="model name"
+    "-m13", "--model13", default="gigaNet_simple_13", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight13", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight13", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m14", "--model14", default="gigaNet_obs5_mean_6d_2", type=str, metavar="MODEL", help="model name"
+    "-m14", "--model14", default="gigaNet_simple_14", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight14", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight14", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m15", "--model15", default="gigaNet_obs5_mean_6d_3", type=str, metavar="MODEL", help="model name"
+    "-m15", "--model15", default="gigaNet_simple_15", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight15", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight15", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m16", "--model16", default="gigaNet_obs5_mean_6d_3", type=str, metavar="MODEL", help="model name"
+    "-m16", "--model16", default="gigaNet_simple_16", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight16", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight16", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m17", "--model17", default="gigaNet_obs5_mean_6d_4", type=str, metavar="MODEL", help="model name"
+    "-m17", "--model17", default="gigaNet_simple_17", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight17", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight17", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m18", "--model18", default="gigaNet_obs5_mean_6d_4", type=str, metavar="MODEL", help="model name"
+    "-m18", "--model18", default="gigaNet_simple_18", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight18", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight18", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m19", "--model19", default="gigaNet_obs5_mean_6d_5", type=str, metavar="MODEL", help="model name"
+    "-m19", "--model19", default="gigaNet_simple_19", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight19", default="12.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight19", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m20", "--model20", default="gigaNet_obs5_mean_6d_5", type=str, metavar="MODEL", help="model name"
+    "-m20", "--model20", default="gigaNet_simple_20", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight20", default="16.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 
 root_path = "/mnt/home/code/giga-trajectory-main/"
 data_path = root_path + "dataset/"
 
-test_files = [data_path + 'preprocess_data_1_test_obs4_mean_6d/test_1.p',
-              data_path + 'preprocess_data_1_test_obs4_mean_6d/test_2.p',
-              data_path + 'preprocess_data_1_test_obs4_mean_6d/test_3.p', ]
+root_path = "/mnt/home/data/giga2024/Trajectory/"
+test_data_path = root_path + "test/"
+
+test_files = [test_data_path + 'preprocess/test_1.p',
+              test_data_path + 'preprocess/test_2.p',
+              test_data_path + 'preprocess/test_3.p', 
+              test_data_path + 'preprocess/test_4.p',
+              test_data_path + 'preprocess/test_5.p', 
+              test_data_path + 'preprocess/test_6.p', 
+              test_data_path + 'preprocess/test_7.p',
+              test_data_path + 'preprocess/test_8.p', 
+             ]
     
-output_files = [data_path + 'results_94/test_1.ndjson',
-                data_path + 'results_94/test_2.ndjson',
-                data_path + 'results_94/test_3.ndjson', ]
+output_files = [test_data_path + 'results/test_1.ndjson',
+                test_data_path + 'results/test_2.ndjson',
+                test_data_path + 'results/test_3.ndjson', 
+                test_data_path + 'results/test_4.ndjson',
+                test_data_path + 'results/test_5.ndjson', 
+                test_data_path + 'results/test_6.ndjson',
+                test_data_path + 'results/test_7.ndjson', 
+                test_data_path + 'results/test_8.ndjson',
+               ]
 
 import random
 def random_color():
@@ -479,171 +494,42 @@ def main():
                 results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]] 
                 
                 results = []
-                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
+                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
                 for i in range(len(results1)):
-#                    print(results1[i].shape) (1, 3, 9, 2)
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
                                             results5[i],results6[i],results7[i],results8[i],
                                            results9[i],results10[i],results11[i],results12[i],
                                             results13[i],results14[i],results15[i],results16[i],
                                            results17[i],results18[i],results19[i],results20[i]), 1).squeeze()
-#                    print(trajs.shape) (21, 9, 2)
-                    traj_ends = trajs[:,-2,:].squeeze()
-#                    print(traj_ends.shape) (21, 2)
-                    kmeans = KMeans(n_clusters=3, random_state=0).fit(traj_ends)
-                    cts = kmeans.cluster_centers_
-                    result = np.zeros((3, 9, 2), np.float64)
-                    orign = gt_pasts[i][8:9]
-                    for j in range(3):  
-                        vel = (cts[j] - orign)/9
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        result[j] = orign + vel_pred.cumsum(0)
-                    results.append(result)
-                    vis_result_centers.append(kmeans.cluster_centers_)
-                    vis_assemble_results.append(result)
-                    vis_count = vis_count + 1
+                    traj_ends = trajs[:,-1,:].squeeze()
+                    labels = KMeans(n_clusters=num_modes, n_init='auto').fit_predict(traj_ends)
+                    reduced_traj = []
+                    for k in range(3):
+                        traj_k = trajs[labels == k]
+                        traj_mean = np.mean(traj_k, axis=0)  
+                        reduced_traj.append(traj_mean)
+                    reduced_traj = np.stack(reduced_traj, axis=0)
+                    results.append(reduced_traj)
+
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
                                                 start_frames, end_frames, track_ids, results, gt_pasts)):
                 scene_data = dict()
                 scene_data["id"] = scene_id
                 scene_data["p"] = scene_primary_pedestrian_id
-                scene_data["s"] = start_frame
-                scene_data["e"] = end_frame
-                scene_data["fps"] = 3
+                scene_data["s"] = end_frame + 1
+                scene_data["e"] = end_frame + 60
+                scene_data["fps"] = 2
                 scene = dict()
                 scene["scene"] = scene_data
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                vis_gt_pasts.append(gt_past)
-                vis_pp_ids.append(scene_primary_pedestrian_id)
-                
-                orign = gt_past[8:9]
-                vel = gt_past[8:9] - gt_past[7:8]
-                vel_pred = np.repeat(vel, 9, axis=0)
-                vel_pred = orign + vel_pred.cumsum(0)
-                min_idx = 0
-                min_dis = 9999
-                for k in range(3):
-                    dis = math.dist(preds[k][-1], vel_pred[-1])
-                    if dis < min_dis:
-                        min_dis = dis
-                        min_idx = k
-                preds[min_idx] = vel_pred
-                
-                min_cood = np.zeros((1, 2), np.float32)
-                min_cood[0,0] = min(gt_past[:,0])
-                min_cood[0,1] = min(gt_past[:,1])
-                
-                if (f_idx == 1) and (min_cood[0,0] > 100 or min_cood[0,1] >100):
-                    if min_idx == 1:
-                        idx = 2
-                    else:
-                        idx = 2 - min_idx
-                    
-                    left_cood = np.zeros((1, 2), np.float32)
-                    right_cood = np.zeros((1, 2), np.float32)    
-                    left_cood_idx = np.argmin(gt_past[:,0])
-                    left_cood[0] = gt_past[left_cood_idx]
-                    right_cood_idx = np.argmax(gt_past[:,0])
-                    right_cood[0] = gt_past[right_cood_idx]
-
-                    middle = (left_cood + right_cood)/2
-                    vel = (middle[0:1] - gt_past[8:9])/9
-                    vel_pred = np.repeat(vel, 9, axis=0)
-                    preds[idx] = gt_past[8:9] + vel_pred.cumsum(0)
-                    direct = right_cood[0,0] - left_cood[0,0]
-                    end = right_cood
-                    
-                    if (left_cood[0,0] != gt_past[0,0]) and ( 
-                        left_cood[0,0] != gt_past[-1,0]) and (
-                        right_cood[0,0] != gt_past[0,0]) and(
-                        right_cood[0,0] != gt_past[-1,0]) or ( 
-                        str(scene_primary_pedestrian_id) in ["350","582","624","674","699","976","2799","2985","4315"]):
-                        preds[0] = preds[idx]
-                        
-                        vel = (left_cood - gt_past[8:9])/9
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        preds[1] = gt_past[8:9] + vel_pred.cumsum(0)
-                        
-                        vel = (right_cood - gt_past[8:9])/9
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        preds[2] = gt_past[8:9] + vel_pred.cumsum(0)
-                        
-                    if min(gt_past[1:9,0] - gt_past[0:8,0])>-1 or (
-                       max(gt_past[1:9,0] - gt_past[0:8,0])<1):
-                        preds[0] = preds[idx]
-                        
-                        vel = gt_past[8:9] - gt_past[7:8]
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        preds[1] = gt_past[8:9] + vel_pred.cumsum(0)
-                        
-                        dist_78 = math.dist(gt_past[7], gt_past[8])
-                        dist_67 = math.dist(gt_past[6], gt_past[7])
-                        dist_56 = math.dist(gt_past[5], gt_past[6])
-                        dist_45 = math.dist(gt_past[4], gt_past[5])
-                        dist_34 = math.dist(gt_past[3], gt_past[4])
-                        dist_23 = math.dist(gt_past[2], gt_past[3])
-                        dist_12 = math.dist(gt_past[1], gt_past[2])
-                        dist_01 = math.dist(gt_past[0], gt_past[1])
-                        if dist_78 > 0.1:
-                            dist = dist_78
-                            vel = (gt_past[8:9] - gt_past[7:8])
-                            vel = vel*(dist_78 + dist_67 + dist_56)/(3*dist)
-                            direct = gt_past[8][0] - gt_past[7][0]
-                        elif dist_67 > 0.1:
-                            dist = dist_67
-                            vel = (gt_past[7:8] - gt_past[6:7])
-                            vel = vel*(dist_78 + dist_67 + dist_56)/(3*dist)
-                            direct = gt_past[7][0] - gt_past[6][0]
-                        elif dist_56 > 0.1:
-                            dist = dist_56
-                            vel = (gt_past[6:7] - gt_past[5:6])
-                            vel = vel*(dist_78 + dist_67 + dist_56)/(3*dist)
-                            direct = gt_past[6][0] - gt_past[5][0]
-                        elif dist_45 > 0.1:
-                            dist = dist_45
-                            vel = (gt_past[5:6] - gt_past[4:5])
-                            vel = vel*(dist_78 + dist_67 + dist_56 + dist_45)/(4*dist)
-                            direct = gt_past[5][0] - gt_past[4][0]
-                        elif dist_34 > 0.1:
-                            dist = dist_34
-                            vel = (gt_past[4:5] - gt_past[3:4])
-                            vel = vel*(dist_78 + dist_67 + dist_56 + dist_45 + dist_34)/(5*dist)
-                            direct = gt_past[4][0] - gt_past[3][0]
-                        elif dist_23 > 0.1:
-                            dist = dist_23
-                            vel = (gt_past[3:4] - gt_past[2:3])
-                            vel = vel*(dist_78 + dist_67 + dist_56 + dist_45 + dist_34 + dist_23)/(6*dist)
-                            direct = gt_past[3][0] - gt_past[2][0]     
-                        elif dist_12 > 0.1:
-                            dist = dist_12
-                            vel = (gt_past[2:3] - gt_past[1:2])
-                            vel = vel*(dist_78 + dist_67 + dist_56 + dist_45 + dist_34 + dist_23 + dist_12)/(7*dist)
-                            direct = gt_past[2][0] - gt_past[1][0]  
-                        elif dist_01 > 0.1:
-                            dist = dist_01
-                            vel = (gt_past[1:2] - gt_past[0:1])
-                            vel = vel*(dist_78 + dist_67 + dist_56 + dist_45 + dist_34 + dist_23 + dist_12 + dist_01)/(8*dist)
-                            direct = gt_past[1][0] - gt_past[0][0] 
-                           
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        preds[2] = gt_past[8:9] + vel_pred.cumsum(0)
-                        
-                        if direct > 0: 
-                            end = right_cood*2/3 + left_cood*1/3
-                        elif direct < 0:
-                            end = right_cood*1/3 + left_cood*2/3
-                        vel = (end - gt_past[8:9])/9
-                        vel_pred = np.repeat(vel, 9, axis=0)
-                        preds[0] = gt_past[8:9] + vel_pred.cumsum(0)
-                    
                 K, L, D = preds.shape
                 for k in range(K):
                     for l in range(L):
                         track_data = dict()
-                        track_data["f"] = start_frame + 90 + 10 * l
+                        track_data["f"] = end_frame + l + 1
                         track_data["p"] = track_id.tolist()
                         track_data["x"] = preds[k,l,0]
                         track_data["y"] = preds[k,l,1]
@@ -652,7 +538,6 @@ def main():
                         track = dict()
                         track["track"] = track_data
                         writer.writerow(track)
-                    assert track_data["f"] == end_frame
         file.close()
         """
         color_box = ['red','orange','yellow','green','blue','cyan','pink','purple','black']
