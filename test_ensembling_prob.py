@@ -21,6 +21,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import math
 from scipy.special import softmax
+import pickle
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
@@ -105,7 +106,6 @@ parser.add_argument(
 parser.add_argument(
     "-m14", "--model14", default="gigaNet_simple_14", type=str, metavar="MODEL", help="model name"
 )
-"""
 parser.add_argument(
     "--weight14", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
@@ -145,7 +145,7 @@ parser.add_argument(
 parser.add_argument(
     "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
-"""
+
 root_path = "/mnt/home/code/giga-trajectory-main/"
 data_path = root_path + "dataset/"
 
@@ -162,14 +162,14 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = [test_data_path + 'results/test_1.ndjson',
-                test_data_path + 'results/test_2.ndjson',
-                test_data_path + 'results/test_3.ndjson', 
-                test_data_path + 'results/test_4.ndjson',
-                test_data_path + 'results/test_5.ndjson', 
-                test_data_path + 'results/test_6.ndjson',
-                test_data_path + 'results/test_7.ndjson', 
-                test_data_path + 'results/test_8.ndjson',
+output_files = ['./submission/results/test_1.ndjson',
+                './submission/results/test_2.ndjson',
+                './submission/results/test_3.ndjson', 
+                './submission/results/test_4.ndjson',
+                './submission/results/test_5.ndjson', 
+                './submission/results/test_6.ndjson',
+                './submission/results/test_7.ndjson', 
+                './submission/results/test_8.ndjson',
                ]
 
 import random
@@ -425,6 +425,9 @@ def main():
     net20.eval()
     """
     for f_idx in range(len(test_files)):
+        test_prediction = []
+        for n in range(13):
+            test_prediction[n] = {}
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
         vis_count = 0
@@ -539,6 +542,24 @@ def main():
                 results = []
                 gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
                 for i in range(len(results1)):
+                    sid = scene_ids[i]
+                    pid = scene_primary_pedestrian_ids[i]
+                    sf = end_frames[i] + 1
+                    ef = end_frames[i] + 60
+                    test_prediction[0][sid] = (results1[i].squeeze(), cls1[i], sid, pid, sf, ef)
+                    test_prediction[1][sid] = (results2[i].squeeze(), cls2[i], sid, pid, sf, ef)
+                    test_prediction[2][sid] = (results3[i].squeeze(), cls3[i], sid, pid, sf, ef)
+                    test_prediction[3][sid] = (results4[i].squeeze(), cls4[i], sid, pid, sf, ef)
+                    test_prediction[4][sid] = (results5[i].squeeze(), cls5[i], sid, pid, sf, ef)
+                    test_prediction[5][sid] = (results6[i].squeeze(), cls6[i], sid, pid, sf, ef)
+                    test_prediction[6][sid] = (results7[i].squeeze(), cls7[i], sid, pid, sf, ef)
+                    test_prediction[7][sid] = (results8[i].squeeze(), cls8[i], sid, pid, sf, ef)
+                    test_prediction[8][sid] = (results9[i].squeeze(), cls9[i], sid, pid, sf, ef)
+                    test_prediction[9][sid] = (results10[i].squeeze(), cls10[i], sid, pid, sf, ef)
+                    test_prediction[10][sid] = (results11[i].squeeze(), cls11[i], sid, pid, sf, ef)
+                    test_prediction[11][sid] = (results12[i].squeeze(), cls12[i], sid, pid, sf, ef)
+                    test_prediction[12][sid] = (results13[i].squeeze(), cls13[i], sid, pid, sf, ef)
+                    
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
                                             results5[i],results6[i],results7[i],results8[i],
                                             results9[i],results10[i],results11[i],results12[i],
@@ -577,6 +598,21 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
+                orign = gt_past[59:60]
+                if (gt_past[59:60][0]!=0 or gt_past[59:60][1]!=0) and (
+                    gt_past[58:59][0]!=0 or gt_past[58:59][1]!=0):
+                    vel = gt_past[59:60] - gt_past[58:59]
+                    vel_pred = np.repeat(vel, 60, axis=0)
+                    vel_pred = orign + vel_pred.cumsum(0)
+                    min_idx = 0
+                    min_dis = 9999999
+                    for k in range(3):
+                        dis = math.dist(preds[k][-1], vel_pred[-1])
+                        if dis < min_dis:
+                            min_dis = dis
+                            min_idx = k
+                    preds[min_idx] = vel_pred
+                                  
                 K, L, D = preds.shape
                 for k in range(K):
                     for l in range(L):
@@ -591,6 +627,12 @@ def main():
                         track["track"] = track_data
                         writer.writerow(track)
         file.close()
+        for i in range(13):
+            file_path = './submission/test_' + str(f_idx + 1) + '_' + str(i) + '_' + '20.pkl'
+            file = open(file_path, 'wb')
+            pickle.dump(test_prediction[i], file)
+            file.close()
+        
         """
         color_box = ['red','orange','yellow','green','blue','cyan','pink','purple','black']
         for i in range(len(vis_gt_pasts)):
