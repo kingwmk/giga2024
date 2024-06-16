@@ -540,7 +540,7 @@ def main():
                 cls20 = softmax(cls20, axis=-1)
                 """
                 results = []
-                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
+                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
                 for i in range(len(results1)):
                     sid = scene_ids[i]
                     pid = scene_primary_pedestrian_ids[i]
