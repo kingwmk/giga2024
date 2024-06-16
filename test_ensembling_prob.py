@@ -575,14 +575,16 @@ def main():
                                             #cls17[i],cls18[i],cls19[i],cls20[i]
                                            ), 0).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
-                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=probs)
-                    reduced_traj = []
-                    for k in range(3):
-                        traj_k = trajs[labels == k]
-                        prob_k = probs[labels == k]
-                        reduced_traj.append((prob_k[:, np.newaxis, np.newaxis] * traj_k / prob_k.sum()).sum(axis=0))
-                    reduced_traj = np.stack(reduced_traj, axis=0)
-                    results.append(reduced_traj)
+                    kmeans = KMeans(n_clusters=3, n_init='auto')
+                    labels = kmeans.fit_predict(traj_ends, sample_weight=probs)
+                    cts = kmeans.cluster_centers_
+                    result = np.zeros((3, 60, 2), np.float64)
+                    orign = gt_pasts[i][59:60]
+                    for j in range(3):  
+                        vel = (cts[j] - orign)/60
+                        vel_pred = np.repeat(vel, 60, axis=0)
+                        result[j] = orign + vel_pred.cumsum(0)
+                    results.append(result)
 
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
