@@ -319,6 +319,7 @@ def test(test_files):
                      [np.sin(theta), np.cos(theta)]], np.float32)
                 
                 feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
+                origin_past_ctrs = []
                 for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
                     if 59 not in step:
                         continue
@@ -341,7 +342,11 @@ def test(test_files):
                     idcs = step.argsort()
                     step = step[idcs]
                     traj = traj[idcs]
-            
+                  
+                    origin_past_ctr = np.zeros((60, 2), np.float32)
+                    origin_past_ctr[step, :2] = traj[:, :2].copy()
+                    origin_past_ctrs.append(origin_past_ctr)
+                  
                     feat = np.zeros((60, 3), np.float32)
                     feat[step, :2] = np.matmul(rot, (traj[:, :2] - orig.reshape(-1, 2)).T).T
                     feat[step, 2] = 1.0
@@ -356,6 +361,7 @@ def test(test_files):
                 valid_track_ids = np.asarray(valid_track_ids, np.int64)
                 feats = np.asarray(feats, np.float32)
                 ctrs = np.asarray(ctrs, np.float32)
+                origin_past_ctrs = np.asarray(origin_past_ctrs, np.float32)
                 gt_preds = np.asarray(gt_preds, np.float32)
                 has_preds = np.asarray(has_preds, bool)
 
@@ -367,6 +373,7 @@ def test(test_files):
                 scene_data['rot'] = rot
                 scene_data['gt_preds'] = gt_preds
                 scene_data['has_preds'] = has_preds
+                scene_data['origin_past_ctrs'] = origin_past_ctrs
                 
                 stores.append(scene_data)
                 if vis_count < 10:
