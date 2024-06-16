@@ -427,7 +427,7 @@ def main():
     for f_idx in range(len(test_files)):
         test_prediction = []
         for n in range(13):
-            test_prediction[n] = {}
+            test_prediction.append({})
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
         vis_count = 0
