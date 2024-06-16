@@ -599,8 +599,8 @@ def main():
                 
                 preds = pred_traj.squeeze()
                 orign = gt_past[59:60]
-                if (gt_past[59:60][0]!=0 or gt_past[59:60][1]!=0) and (
-                    gt_past[58:59][0]!=0 or gt_past[58:59][1]!=0):
+                if (gt_past[59][0]!=0 or gt_past[59][1]!=0) and (
+                    gt_past[58][0]!=0 or gt_past[58][1]!=0):
                     vel = gt_past[59:60] - gt_past[58:59]
                     vel_pred = np.repeat(vel, 60, axis=0)
                     vel_pred = orign + vel_pred.cumsum(0)
