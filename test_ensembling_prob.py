@@ -21,7 +21,6 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import math
 from scipy.special import softmax
-import pickle
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
@@ -145,7 +144,6 @@ parser.add_argument(
 parser.add_argument(
     "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
-
 root_path = "/mnt/home/code/giga-trajectory-main/"
 data_path = root_path + "dataset/"
 
@@ -162,14 +160,14 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = ['./submission/results/test_1.ndjson',
-                './submission/results/test_2.ndjson',
-                './submission/results/test_3.ndjson', 
-                './submission/results/test_4.ndjson',
-                './submission/results/test_5.ndjson', 
-                './submission/results/test_6.ndjson',
-                './submission/results/test_7.ndjson', 
-                './submission/results/test_8.ndjson',
+output_files = [test_data_path + 'results/test_1.ndjson',
+                test_data_path + 'results/test_2.ndjson',
+                test_data_path + 'results/test_3.ndjson', 
+                test_data_path + 'results/test_4.ndjson',
+                test_data_path + 'results/test_5.ndjson', 
+                test_data_path + 'results/test_6.ndjson',
+                test_data_path + 'results/test_7.ndjson', 
+                test_data_path + 'results/test_8.ndjson',
                ]
 
 import random
@@ -339,7 +337,7 @@ def main():
     ckpt13 = torch.load(ckpt_path13, map_location=lambda storage, loc: storage)
     load_pretrain(net13, ckpt13["state_dict"])
     net13.eval()
-    """
+
     #model14
     model14 = import_module(args.model14)
     config14, _, collate_fn14, net14, loss14, post_process14, opt14 = model14.get_model()
@@ -423,11 +421,8 @@ def main():
     ckpt20 = torch.load(ckpt_path20, map_location=lambda storage, loc: storage)
     load_pretrain(net20, ckpt20["state_dict"])
     net20.eval()
-    """
+
     for f_idx in range(len(test_files)):
-        test_prediction = []
-        for n in range(13):
-            test_prediction.append({})
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
         vis_count = 0
@@ -509,7 +504,6 @@ def main():
                 results13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["reg"]]
                 cls13 = [x.detach().cpu().numpy().astype(np.float64) for x in output13["cls"]]
                 cls13 = softmax(cls13, axis=-1)
-                """
                 output14 = net14(data)
                 results14 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output14["reg"]]
                 cls14 = [x.detach().cpu().numpy().astype(np.float64) for x in output14["cls"]]
@@ -538,53 +532,32 @@ def main():
                 results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]] 
                 cls20 = [x.detach().cpu().numpy().astype(np.float64) for x in output20["cls"]]
                 cls20 = softmax(cls20, axis=-1)
-                """
                 results = []
-                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
+                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
                 for i in range(len(results1)):
-                    sid = scene_ids[i]
-                    pid = scene_primary_pedestrian_ids[i]
-                    sf = end_frames[i] + 1
-                    ef = end_frames[i] + 60
-                    test_prediction[0][sid] = (results1[i].squeeze(), cls1[i], sid, pid, sf, ef)
-                    test_prediction[1][sid] = (results2[i].squeeze(), cls2[i], sid, pid, sf, ef)
-                    test_prediction[2][sid] = (results3[i].squeeze(), cls3[i], sid, pid, sf, ef)
-                    test_prediction[3][sid] = (results4[i].squeeze(), cls4[i], sid, pid, sf, ef)
-                    test_prediction[4][sid] = (results5[i].squeeze(), cls5[i], sid, pid, sf, ef)
-                    test_prediction[5][sid] = (results6[i].squeeze(), cls6[i], sid, pid, sf, ef)
-                    test_prediction[6][sid] = (results7[i].squeeze(), cls7[i], sid, pid, sf, ef)
-                    test_prediction[7][sid] = (results8[i].squeeze(), cls8[i], sid, pid, sf, ef)
-                    test_prediction[8][sid] = (results9[i].squeeze(), cls9[i], sid, pid, sf, ef)
-                    test_prediction[9][sid] = (results10[i].squeeze(), cls10[i], sid, pid, sf, ef)
-                    test_prediction[10][sid] = (results11[i].squeeze(), cls11[i], sid, pid, sf, ef)
-                    test_prediction[11][sid] = (results12[i].squeeze(), cls12[i], sid, pid, sf, ef)
-                    test_prediction[12][sid] = (results13[i].squeeze(), cls13[i], sid, pid, sf, ef)
-                    
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
                                             results5[i],results6[i],results7[i],results8[i],
                                             results9[i],results10[i],results11[i],results12[i],
                                             results13[i],
-                                            #results14[i],results15[i],results16[i],
-                                            #results17[i],results18[i],results19[i],results20[i]
+                                            results14[i],results15[i],results16[i],
+                                            results17[i],results18[i],results19[i],results20[i]
                                            ), 1).squeeze()
                     probs = np.concatenate((cls1[i],cls2[i],cls3[i],cls4[i],
                                             cls5[i],cls6[i],cls7[i],cls8[i],
                                             cls9[i],cls10[i],cls11[i],cls12[i],
                                             cls13[i],
-                                            #cls14[i],cls15[i],cls16[i],
-                                            #cls17[i],cls18[i],cls19[i],cls20[i]
+                                            cls14[i],cls15[i],cls16[i],
+                                            cls17[i],cls18[i],cls19[i],cls20[i]
                                            ), 0).squeeze()
                     traj_ends = trajs[:,-1,:].squeeze()
-                    kmeans = KMeans(n_clusters=3, n_init='auto')
-                    labels = kmeans.fit_predict(traj_ends, sample_weight=probs)
-                    cts = kmeans.cluster_centers_
-                    result = np.zeros((3, 60, 2), np.float64)
-                    orign = gt_pasts[i][59:60]
-                    for j in range(3):  
-                        vel = (cts[j] - orign)/60
-                        vel_pred = np.repeat(vel, 60, axis=0)
-                        result[j] = orign + vel_pred.cumsum(0)
-                    results.append(result)
+                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends, sample_weight=probs)
+                    reduced_traj = []
+                    for k in range(3):
+                        traj_k = trajs[labels == k]
+                        prob_k = probs[labels == k]
+                        reduced_traj.append((prob_k[:, np.newaxis, np.newaxis] * traj_k / prob_k.sum()).sum(axis=0))
+                    reduced_traj = np.stack(reduced_traj, axis=0)
+                    results.append(reduced_traj)
 
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
@@ -600,21 +573,6 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                orign = gt_past[59:60]
-                if (gt_past[59][0]!=0 or gt_past[59][1]!=0) and (
-                    gt_past[58][0]!=0 or gt_past[58][1]!=0):
-                    vel = gt_past[59:60] - gt_past[58:59]
-                    vel_pred = np.repeat(vel, 60, axis=0)
-                    vel_pred = orign + vel_pred.cumsum(0)
-                    min_idx = 0
-                    min_dis = 9999999
-                    for k in range(3):
-                        dis = math.dist(preds[k][-1], vel_pred[-1])
-                        if dis < min_dis:
-                            min_dis = dis
-                            min_idx = k
-                    preds[min_idx] = vel_pred
-                                  
                 K, L, D = preds.shape
                 for k in range(K):
                     for l in range(L):
@@ -629,12 +587,6 @@ def main():
                         track["track"] = track_data
                         writer.writerow(track)
         file.close()
-        for i in range(13):
-            file_path = './submission/test_' + str(f_idx + 1) + '_' + str(i) + '_' + '20.pkl'
-            file = open(file_path, 'wb')
-            pickle.dump(test_prediction[i], file)
-            file.close()
-        
         """
         color_box = ['red','orange','yellow','green','blue','cyan','pink','purple','black']
         for i in range(len(vis_gt_pasts)):
