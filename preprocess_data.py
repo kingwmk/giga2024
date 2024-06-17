@@ -122,6 +122,8 @@ def train(train_file, train_train_file, train_val_file):
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
                 for agent_current_step in range(1, agent_steps[-1]):
                     train_num = train_num + 1
+                    if (agent_current_step not in agent_steps) or ((agent_current_step-1) not in agent_steps):
+                            continue
                     current_step_index = agent_steps.tolist().index(agent_current_step)
                     pre_current_step_index = current_step_index-1
                     orig = agent_traj[current_step_index].copy().astype(np.float32)
