@@ -60,7 +60,7 @@ def train(train_file, train_train_file, train_val_file):
             track_yws = []
             track_xcs = []
             track_ycs = []
-            for i in tqdm(range(len(data))):
+            for i in range(len(data)):
                 if 'scene' in data[i]:
                     num_scene = num_scene + 1
                     scene_ids.append(data[i]['scene']['id'])
@@ -81,7 +81,7 @@ def train(train_file, train_train_file, train_val_file):
             track_xs = np.asarray(track_xws, np.float32)
             track_ys = np.asarray(track_yws, np.float32)
             
-            for i in range(num_scene):
+            for i in tqdm(range(num_scene)):
                 vis_future, vis_past = [], []
                 scene_data = dict()
                 scene_data['scene_id'] = scene_ids[i]
