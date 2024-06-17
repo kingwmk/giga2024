@@ -148,7 +148,7 @@ def train(train_file, train_train_file, train_val_file):
                         gt_pred[future_step] = future_traj[:,:2]
                         has_pred[future_step] = 1
             
-                        obs_mask = step < 60
+                        obs_mask = np.logical_and(step >= 0, step < 60)
                         step = step[obs_mask]
                         traj = traj[obs_mask]
                         if vis_count < 10:
