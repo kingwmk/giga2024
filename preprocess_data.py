@@ -182,7 +182,7 @@ def train(train_file, train_train_file, train_val_file):
                     scene_data['rot'] = rot
                     scene_data['gt_preds'] = gt_preds
                     scene_data['has_preds'] = has_preds
-                    stores.append(scene_data)
+                    stores.append(copy.deepcopy(scene_data))
                 
                     if vis_count < 10:
                         for vi in range(len(vis_future)):
