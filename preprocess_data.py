@@ -133,21 +133,22 @@ def train(train_file, train_train_file, train_val_file):
                 
                     feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
                     for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
-                        if agent_current_step not in step:
+                        step = step + (60 - agent_current_step - 1)
+                        if 59 not in step:
                             continue
                         valid_track_ids.append(pred_id)
                         gt_pred = np.zeros((60, 2), np.float32)
                         has_pred = np.zeros(60, bool)
-                        future_mask = np.logical_and(step >= (agent_current_step + 1), 
-                                                     step < (agent_current_step + 1 + 60))
-                        future_step = step[future_mask] - agent_current_step - 1
+                        future_mask = np.logical_and(step >= 60, 
+                                                     step < 120)
+                        future_step = step[future_mask] - 60
                         future_traj = traj[future_mask]
                         if vis_count < 10:
                             vis_future.append(future_traj)
                         gt_pred[future_step] = future_traj[:,:2]
                         has_pred[future_step] = 1
             
-                        obs_mask = step < (agent_current_step + 1)
+                        obs_mask = step < 60
                         step = step[obs_mask]
                         traj = traj[obs_mask]
                         if vis_count < 10:
