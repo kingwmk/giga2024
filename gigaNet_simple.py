@@ -22,8 +22,8 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 3000
-config["val_iters"] = 3000
+config["display_iters"] = 322976
+config["val_iters"] = 322976
 config["save_freq"] = 1.0
 config["epoch"] = 0
 config["horovod"] = True
