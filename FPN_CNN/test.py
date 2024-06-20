@@ -24,10 +24,10 @@ import math
 # define parser
 parser = argparse.ArgumentParser(description="giga")
 parser.add_argument(
-    "-m1", "--model1", default="gigaNet_simple_1", type=str, metavar="MODEL", help="model name"
+    "-m1", "--model1", default="gigaNet_simple_aug", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight1", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight1", default="1.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 
 root_path = "/mnt/home/data/giga2024/Trajectory/"
@@ -43,14 +43,14 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = ['submission/results/test_1.ndjson',
-                'submission/results/test_2.ndjson',
-                'submission/results/test_3.ndjson', 
-                'submission/results/test_4.ndjson',
-                'submission/results/test_5.ndjson', 
-                'submission/results/test_6.ndjson',
-                'submission/results/test_7.ndjson', 
-                'submission/results/test_8.ndjson',
+output_files = ['submission/results/results/test_1.ndjson',
+                'submission/results/results/test_2.ndjson',
+                'submission/results/results/test_3.ndjson', 
+                'submission/results/results/test_4.ndjson',
+                'submission/results/results/test_5.ndjson', 
+                'submission/results/results/test_6.ndjson',
+                'submission/results/results/test_7.ndjson', 
+                'submission/results/results/test_8.ndjson',
                ]
 
 def main():
