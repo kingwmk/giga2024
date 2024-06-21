@@ -22,16 +22,16 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 3000
-config["val_iters"] = 3000
+config["display_iters"] = 322976
+config["val_iters"] = 322976
 config["save_freq"] = 1.0
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
-config["num_epochs"] = 45
+config["num_epochs"] = 20
 config["start_val_epoch"] = 0
 config["lr"] = [1e-3, 5e-4, 1e-4]
-config["lr_epochs"] = [30,40,]
+config["lr_epochs"] = [10,15,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
@@ -49,14 +49,14 @@ config["val_workers"] = config["workers"]
 
 """Dataset"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
-config["train_split"] = root_path + 'train/preprocess/train_train.p'
+config["train_split"] = root_path + 'train/preprocess/train.p'
 config["val_split"] = root_path + 'train/preprocess/train_val.p'
 config["test_split"] = root_path + 'test/preprocess/test_1.p'
 
 """Model"""
 config["rot_aug"] = False
 config["n_actor"] = 64
-config["actor2actor_dist"] = 30.0
+config["actor2actor_dist"] = 25.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
@@ -140,7 +140,7 @@ class ActorNet(nn.Module):
         ng = 1
 
         n_in = 3
-        n_out = [32, 64, 64]
+        n_out = [32, 64, 128]
         blocks = [Res1d, Res1d, Res1d]
         num_blocks = [2, 2, 2]
 
@@ -276,7 +276,7 @@ class PredNet(nn.Module):
         self.cls = nn.Sequential(
             LinearRes(n_actor, n_actor, norm=norm, ng=ng), nn.Linear(n_actor, 1)
         )
-        self.softmax = nn.Softmax(dim=1)
+        #self.softmax = nn.Softmax(dim=1)
 
     def forward(self, actors: Tensor, actor_idcs: List[Tensor], actor_ctrs: List[Tensor],
                ) -> Dict[str, List[Tensor]]:
@@ -291,12 +291,11 @@ class PredNet(nn.Module):
 
         for i in range(len(actor_idcs)):
             ctrs = agent_ctrs[i].view(-1, 1, 1, 2)
-            reg[i] = reg[i] + ctrs
-
+            reg[i] = torch.cumsum(reg[i], dim=2) + ctrs
         dest_ctrs = reg[:, :, -1].detach()
         feats = self.att_dest(agents, torch.cat(agent_ctrs, 0), dest_ctrs)
         cls = self.cls(feats).view(-1, self.config["num_mods"])
-        cls = self.softmax(cls)
+        #cls = self.softmax(cls)
         
         cls, sort_idcs = cls.sort(1, descending=True)
         row_idcs = torch.arange(len(sort_idcs)).long().to(sort_idcs.device)
