@@ -38,7 +38,7 @@ test_files_path = [test_path + 'preprocess/test_1/', test_path + 'preprocess/tes
              ]
 vis_path = "/mnt/home/data/giga2024/Trajectory/vis/"
 
-def train(train_file, train_train_file, train_val_file):
+def train():
     train_val_ratio = 0.8
     t = time.time()
     train_num = 0
@@ -208,7 +208,7 @@ def train(train_file, train_train_file, train_val_file):
 
     print(train_num)
     
-def test(test_files):
+def test():
     t = time.time()
     test_num = 0
     test_num_valid = 0
@@ -375,5 +375,5 @@ def test(test_files):
                     plt.cla()
                 vis_count = vis_count + 1
 
-train(train_file, train_train_file, train_val_file)
-test(test_files)
+train()
+test()
