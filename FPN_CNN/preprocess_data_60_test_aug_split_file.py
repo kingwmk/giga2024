@@ -31,10 +31,10 @@ test_set = [test_path + 'annos/test_1.ndjson', test_path + 'annos/test_2.ndjson'
 #train_train_files_path = train_path + 'preprocess_files/'
 #train_val_files_path = train_path + 'preprocess_files/'
 train_files_path = train_path + 'preprocess_files/'
-test_files_path = [test_path + 'preprocess/test_1/', test_path + 'preprocess/test_2/',
-              test_path + 'preprocess/test_3/', test_path + 'preprocess/test_4/',
-              test_path + 'preprocess/test_5/', test_path + 'preprocess/test_6/',
-              test_path + 'preprocess/test_7/', test_path + 'preprocess/test_8/',
+test_files_path = [test_path + 'preprocess_files/test_1/', test_path + 'preprocess_files/test_2/',
+              test_path + 'preprocess_files/test_3/', test_path + 'preprocess_files/test_4/',
+              test_path + 'preprocess_files/test_5/', test_path + 'preprocess_files/test_6/',
+              test_path + 'preprocess_files/test_7/', test_path + 'preprocess_files/test_8/',
              ]
 vis_path = "/mnt/home/data/giga2024/Trajectory/vis/"
 
