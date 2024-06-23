@@ -49,9 +49,11 @@ config["val_workers"] = config["workers"]
 
 """Dataset"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
-config["train_split"] = root_path + 'train/preprocess/train.p'
-config["val_split"] = root_path + 'train/preprocess/train_val.p'
-config["test_split"] = root_path + 'test/preprocess/test_1.p'
+train_files_path = "/mnt/home/data/giga2024/Trajectory/train/preprocess_files/"
+test_files_path = "/mnt/home/data/giga2024/Trajectory/test/preprocess_files/test_1/"
+config["train_split"] = [train_files_path + name for name in os.listdir(train_files_path)]
+config["val_split"] = [train_files_path + name for name in os.listdir(train_files_path)]
+config["test_split"] = [test_files_path + name for name in os.listdir(test_files_path)]
 
 """Model"""
 config["rot_aug"] = False
