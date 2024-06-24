@@ -127,8 +127,8 @@ def train():
                         agent_steps = np.array(agent_steps) + (60 - agent_current_step - 1)
                         valid_step_mask = np.logical_and(agent_steps >= 0, agent_steps < 120)
                         valid_step = agent_steps[valid_step_mask]
-                        position[agent_idx, valid_step] = scene_pred_list[track_id]['position'
-                                                                ][valid_step_mask].float()
+                        position[agent_idx, valid_step] = torch.tensor(scene_pred_list[track_id]['position'
+                                                                ])[valid_step_mask]
                         valid_mask[agent_idx, valid_step] = True
                         current_valid_mask[agent_idx] = valid_mask[agent_idx, 59]
                         predict_mask[agent_idx, valid_step] = True
