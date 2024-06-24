@@ -69,7 +69,7 @@ def main():
     load_pretrain(net1, ckpt1["state_dict"])
     net1.eval()
     
-    for f_idx in range(len(test_files)):
+    for f_idx in range(len(test_files_path)):
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
         vis_count = 0
