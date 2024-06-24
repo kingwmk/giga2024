@@ -112,8 +112,8 @@ def train():
                     train_num = train_num + 1
                     agent_ids_list = []
                     for step in range(max(agent_current_step-59, 0), agent_current_step+1):
-                        agent_ids_list = agent_ids_list + frame_track_pedestrian_id_lists[step]
-                    agent_ids = list(np.array(agent_ids_list).unique())
+                        agent_ids_list = agent_ids_list + list(frame_track_pedestrian_id_lists[step])
+                    agent_ids = list(set(agent_ids_list))
                     num_agents = len(agent_ids)
                     valid_mask = torch.zeros(num_agents, 120, dtype=torch.bool)
                     current_valid_mask = torch.zeros(num_agents, dtype=torch.bool)
@@ -123,7 +123,7 @@ def train():
                     for track_id in agent_ids:
                         agent_idx = agent_ids.index(track_id)
                         agent_steps = scene_pred_list[track_id]['step']
-                        agent_steps = agent_steps + (60 - agent_current_step - 1)
+                        agent_steps = np.array(agent_steps) + (60 - agent_current_step - 1)
                         valid_step_mask = np.logical_and(agent_steps >= 0, agent_steps < 120)
                         valid_step = agent_steps[valid_step_mask]
                         position[agent_idx, valid_step] = scene_pred_list[track_id]['position'
