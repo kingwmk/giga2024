@@ -321,4 +321,4 @@ def test():
                 vis_count = vis_count + 1
 
 train()
-test()
+#test()
