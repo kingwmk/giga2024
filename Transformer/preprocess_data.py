@@ -1,3 +1,4 @@
+import torch
 import ndjson
 import os
 import numpy as np
