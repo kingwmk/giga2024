@@ -22,14 +22,14 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 322976
-config["val_iters"] = 322976
-config["save_freq"] = 1.0
+config["display_iters"] = 605759
+config["val_iters"] = 605759
+config["save_freq"] = 0.1
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
 config["num_epochs"] = 20
-config["start_val_epoch"] = 0
+config["start_val_epoch"] = 20
 config["lr"] = [1e-3, 5e-4, 1e-4]
 config["lr_epochs"] = [10,15,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
