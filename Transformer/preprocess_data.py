@@ -217,6 +217,7 @@ def test():
                         scene_pred_list[pred_id]['position'].append([frame_track_x[j],
                                                                   frame_track_y[j]])
                         scene_pred_list[pred_id]['step'].append(frame-1)
+                agent_ids_list = []
                 for step in range(len(frame_track_pedestrian_id_lists)):
                     agent_ids_list = agent_ids_list + list(frame_track_pedestrian_id_lists[step])
                 agent_ids = list(set(agent_ids_list))
@@ -275,5 +276,5 @@ def test():
                     plt.cla()
                 vis_count = vis_count + 1
 
-train()
-#test()
+#train()
+test()
