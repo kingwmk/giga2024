@@ -61,11 +61,12 @@ class GigaNetEncoder(nn.Module):
     def forward(self,
                 data: HeteroData,
                 map_enc: Mapping[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
-        mask = data['agent']['valid_mask'][:, :self.num_historical_steps].contiguous()
-        pos_a = data['agent']['position'][:, :self.num_historical_steps, :self.input_dim].contiguous()
-        motion_vector_a = torch.cat([pos_a.new_zeros(data['agent']['num_nodes'], 1, self.input_dim),
+        mask = data['valid_mask'][:, :self.num_historical_steps].contiguous()
+        pos_a = data['position'][:, :self.num_historical_steps, :self.input_dim].contiguous()
+        motion_vector_a = torch.cat([pos_a.new_zeros(data['num_nodes'], 1, self.input_dim),
                                      pos_a[:, 1:] - pos_a[:, :-1]], dim=1)
         head_a = torch.atan2(motion_vector_a[:, 1], motion_vector_a[:, 0])
+                    
         head_vector_a = torch.stack([head_a.cos(), head_a.sin()], dim=-1)
         x_a = torch.stack(
                 [torch.norm(motion_vector_a[:, :, :2], p=2, dim=-1),
@@ -96,11 +97,11 @@ class GigaNetEncoder(nn.Module):
         mask_s = mask.transpose(0, 1).reshape(-1)
 
         if isinstance(data, Batch):
-            batch_s = torch.cat([data['agent']['batch'] + data.num_graphs * t
+            batch_s = torch.cat([data['batch'] + data.num_graphs * t
                                  for t in range(self.num_historical_steps)], dim=0)
         else:
             batch_s = torch.arange(self.num_historical_steps,
-                                   device=pos_a.device).repeat_interleave(data['agent']['num_nodes'])
+                                   device=pos_a.device).repeat_interleave(data['num_nodes'])
 
         edge_index_a2a = radius_graph(x=pos_s[:, :2], r=self.a2a_radius, batch=batch_s, loop=False,
                                       max_num_neighbors=300)
@@ -119,4 +120,4 @@ class GigaNetEncoder(nn.Module):
             x_a = self.a2a_attn_layers[i](x_a, r_a2a, edge_index_a2a)
             x_a = x_a.reshape(self.num_historical_steps, -1, self.hidden_dim).transpose(0, 1)
 
-        return {'x_a': x_a}
+        return {'x_a': x_a, 'heading': head_a}
