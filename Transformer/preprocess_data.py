@@ -250,15 +250,14 @@ def test():
                   
                 predict_mask[current_valid_mask, 60:] = True    
               
-                data = dict()
-                data['num_nodes'] = num_agents
-                data['valid_mask'] = valid_mask
-                data['predict_mask'] = predict_mask
-                data['position'] = position
-                data['id'] = agent_id
+                scene_data['num_nodes'] = num_agents
+                scene_data['valid_mask'] = valid_mask
+                scene_data['predict_mask'] = predict_mask
+                scene_data['position'] = position
+                scene_data['id'] = agent_id
                 test_file = test_files_path[f_idx] + str(f_idx) + "_"  + str(i) + ".pkl"
                 f = open(test_file, 'wb')
-                pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
+                pickle.dump(scene_data, f, protocol=pickle.HIGHEST_PROTOCOL)
                 f.close()
                 if vis_count < 10:
                     for vi in range(len(vis_future)):
