@@ -19,8 +19,8 @@ from metrics import minADE
 from metrics import minAHE
 from metrics import minFDE
 from metrics import minFHE
-from modules import GigaNetDecoder
-from modules import GigaNetEncoder
+import GigaNetDecoder
+import GigaNetEncoder
 
 class GigaNet(pl.LightningModule):
 
