@@ -65,7 +65,7 @@ class GigaNetEncoder(nn.Module):
         pos_a = data['position'][:, :self.num_historical_steps, :self.input_dim].contiguous()
         motion_vector_a = torch.cat([pos_a.new_zeros(data['num_nodes'], 1, self.input_dim),
                                      pos_a[:, 1:] - pos_a[:, :-1]], dim=1)
-        head_a = torch.atan2(motion_vector_a[:, 1], motion_vector_a[:, 0])
+        head_a = torch.atan2(motion_vector_a[:, :, 1], motion_vector_a[:, :, 0])
                     
         head_vector_a = torch.stack([head_a.cos(), head_a.sin()], dim=-1)
         x_a = torch.stack(
