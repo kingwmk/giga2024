@@ -25,7 +25,6 @@ from modules import GigaNetEncoder
 class GigaNet(pl.LightningModule):
 
     def __init__(self,
-                 dataset: str,
                  input_dim: int,
                  hidden_dim: int,
                  output_dim: int,
@@ -51,7 +50,6 @@ class GigaNet(pl.LightningModule):
                  **kwargs) -> None:
         super(GigaNet, self).__init__()
         self.save_hyperparameters()
-        self.dataset = dataset
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.output_dim = output_dim
@@ -76,7 +74,6 @@ class GigaNet(pl.LightningModule):
         self.submission_file_name = submission_file_name
 
         self.encoder = GigaNetEncoder(
-            dataset=dataset,
             input_dim=input_dim,
             hidden_dim=hidden_dim,
             num_historical_steps=num_historical_steps,
@@ -89,7 +86,6 @@ class GigaNet(pl.LightningModule):
             dropout=dropout,
         )
         self.decoder = GigaNetDecoder(
-            dataset=dataset,
             input_dim=input_dim,
             hidden_dim=hidden_dim,
             output_dim=output_dim,
@@ -196,18 +192,14 @@ class GigaNet(pl.LightningModule):
                  sync_dist=True)
         self.log('val_cls_loss', cls_loss, prog_bar=True, on_step=False, on_epoch=True, batch_size=1, sync_dist=True)
 
-        if self.dataset == 'argoverse_v2':
-            eval_mask = data['category'] == 3
-        else:
-            raise ValueError('{} is not a valid dataset'.format(self.dataset))
+        eval_mask = data['category'] == 3
         valid_mask_eval = reg_mask[eval_mask]
         traj_eval = traj_refine[eval_mask, :, :, :self.output_dim]
-        if not self.output_head:
-            traj_2d_with_start_pos_eval = torch.cat([traj_eval.new_zeros((traj_eval.size(0), self.num_modes, 1, 2)),
+        traj_2d_with_start_pos_eval = torch.cat([traj_eval.new_zeros((traj_eval.size(0), self.num_modes, 1, 2)),
                                                      traj_eval[..., :2]], dim=-2)
-            motion_vector_eval = traj_2d_with_start_pos_eval[:, :, 1:] - traj_2d_with_start_pos_eval[:, :, :-1]
-            head_eval = torch.atan2(motion_vector_eval[..., 1], motion_vector_eval[..., 0])
-            traj_eval = torch.cat([traj_eval, head_eval.unsqueeze(-1)], dim=-1)
+        motion_vector_eval = traj_2d_with_start_pos_eval[:, :, 1:] - traj_2d_with_start_pos_eval[:, :, :-1]
+        head_eval = torch.atan2(motion_vector_eval[..., 1], motion_vector_eval[..., 0])
+        traj_eval = torch.cat([traj_eval, head_eval.unsqueeze(-1)], dim=-1)
         pi_eval = F.softmax(pi[eval_mask], dim=-1)
         gt_eval = gt[eval_mask]
 
@@ -241,10 +233,7 @@ class GigaNet(pl.LightningModule):
         traj_refine = torch.cat([pred['loc_refine_pos'][..., :self.output_dim],
                                      pred['scale_refine_pos'][..., :self.output_dim]], dim=-1)
         pi = pred['pi']
-        if self.dataset == 'argoverse_v2':
-            eval_mask = data['category'] == 3
-        else:
-            raise ValueError('{} is not a valid dataset'.format(self.dataset))
+        eval_mask = data['category'] == 3
         origin_eval = data['position'][eval_mask, self.num_historical_steps - 1]
         theta_eval = data['heading'][eval_mask, self.num_historical_steps - 1]
         cos, sin = theta_eval.cos(), theta_eval.sin()
@@ -257,22 +246,16 @@ class GigaNet(pl.LightningModule):
                                  rot_mat.unsqueeze(1)) + origin_eval[:, :2].reshape(-1, 1, 1, 2)
 
         traj_eval = traj_eval.cpu().numpy()
-        if self.dataset == 'argoverse_v2':
-            eval_id = list(compress(list(chain(*data['id'])), eval_mask))
-            if isinstance(data, Batch):
-                for i in range(data.num_graphs):
-                    self.test_predictions[data['scenario_id'][i]] = (pi_eval[i], {eval_id[i]: traj_eval[i]})
-            else:
-                self.test_predictions[data['scenario_id']] = (pi_eval[0], {eval_id[0]: traj_eval[0]})
+        eval_id = list(compress(list(chain(*data['id'])), eval_mask))
+        if isinstance(data, Batch):
+            for i in range(data.num_graphs):
+                self.test_predictions[data['scenario_id'][i]] = (pi_eval[i], {eval_id[i]: traj_eval[i]})
         else:
-            raise ValueError('{} is not a valid dataset'.format(self.dataset))
+            self.test_predictions[data['scenario_id']] = (pi_eval[0], {eval_id[0]: traj_eval[0]})
 
     def on_test_end(self):
-        if self.dataset == 'argoverse_v2':
-            ChallengeSubmission(self.test_predictions).to_parquet(
-                Path(self.submission_dir) / f'{self.submission_file_name}.parquet')
-        else:
-            raise ValueError('{} is not a valid dataset'.format(self.dataset))
+        ChallengeSubmission(self.test_predictions).to_parquet(
+            Path(self.submission_dir) / f'{self.submission_file_name}.parquet')
 
     def configure_optimizers(self):
         decay = set()
@@ -312,7 +295,6 @@ class GigaNet(pl.LightningModule):
     @staticmethod
     def add_model_specific_args(parent_parser):
         parser = parent_parser.add_argument_group('GigaNet')
-        parser.add_argument('--dataset', type=str, required=True)
         parser.add_argument('--input_dim', type=int, default=2)
         parser.add_argument('--hidden_dim', type=int, default=128)
         parser.add_argument('--output_dim', type=int, default=2)
