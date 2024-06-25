@@ -11,10 +11,10 @@ import torch.nn.functional as F
 from torch_geometric.data import Batch
 from torch_geometric.data import HeteroData
 
-from losses import MixtureNLLLoss
-from losses import NLLLoss
-from metrics import minADE
-from metrics import minFDE
+import MixtureNLLLoss
+import NLLLoss
+import minADE
+import minFDE
 import GigaNetDecoder
 import GigaNetEncoder
 
