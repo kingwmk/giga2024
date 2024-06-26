@@ -22,8 +22,8 @@ model_name = os.path.basename(file_path).split(".")[0]
 ### config ###
 config = dict()
 """Train"""
-config["display_iters"] = 322976
-config["val_iters"] = 322976
+config["display_iters"] = 300000
+config["val_iters"] = 300000
 config["save_freq"] = 1.0
 config["epoch"] = 0
 config["horovod"] = True
@@ -31,7 +31,7 @@ config["opt"] = "adam"
 config["num_epochs"] = 20
 config["start_val_epoch"] = 0
 config["lr"] = [1e-3, 5e-4, 1e-4]
-config["lr_epochs"] = [10,15,]
+config["lr_epochs"] = [10,16,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
