@@ -2,7 +2,7 @@ import os
 import shutil
 import random
 
-def copy_random_files(src_dir, dest_dir, percentage=0.01):
+def copy_random_files(src_dir, dest_dir, percentage=0.02):
     # 获取源目录中的所有文件
     all_files = [f for f in os.listdir(src_dir) if os.path.isfile(os.path.join(src_dir, f))]
     
@@ -25,7 +25,7 @@ def copy_random_files(src_dir, dest_dir, percentage=0.01):
 
 # 设置源目录和目标目录
 src_directory = "/mnt/home/data/giga2024/Trajectory/train/transformer_preprocess_files/"
-dest_directory = "/mnt/home/data/giga2024/Trajectory/val/transformer_preprocess_files/"
+dest_directory = "/mnt/home/data/giga2024/Trajectory/train/transformer_preprocess_files_val/"
 
 # 调用函数复制文件
 copy_random_files(src_directory, dest_directory)
