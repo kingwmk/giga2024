@@ -275,5 +275,5 @@ def test():
                     plt.cla()
                 vis_count = vis_count + 1
 
-#train()
+train()
 test()
