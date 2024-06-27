@@ -175,8 +175,8 @@ def train(epoch, config, train_loader, net, loss, post_process, opt, val_loader=
 
         output = net(data)
         loss_out = loss(output, data)
-        post_out = post_process(output, data)
-        post_process.append(metrics, loss_out, post_out)
+        #post_out = post_process(output, data)
+        #post_process.append(metrics, loss_out, post_out)
 
         opt.zero_grad()
         loss_out["loss"].backward()
@@ -187,7 +187,7 @@ def train(epoch, config, train_loader, net, loss, post_process, opt, val_loader=
             num_iters % save_iters == 0 or epoch >= config["num_epochs"]
         ):
             save_ckpt(net, opt, config["save_dir"], epoch)
-
+        """
         if num_iters % display_iters == 0:
             dt = time.time() - start_time
             metrics = sync(metrics)
@@ -197,10 +197,11 @@ def train(epoch, config, train_loader, net, loss, post_process, opt, val_loader=
             metrics = dict()
 
         if epoch >= config["start_val_epoch"] and num_iters % val_iters == 0:
-            val(config, val_loader, net, loss, post_process, epoch)
-
+            val(config, val_loader, net, loss, post_process, epoch) 
+        """
         if epoch >= config["num_epochs"]:
-            val(config, val_loader, net, loss, post_process, epoch)
+        #    val(config, val_loader, net, loss, post_process, epoch)
+            
             return
 
 
