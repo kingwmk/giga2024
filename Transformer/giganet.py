@@ -41,8 +41,6 @@ class GigaNet(pl.LightningModule):
                  lr: float,
                  weight_decay: float,
                  T_max: int,
-                 submission_dir: str,
-                 submission_file_name: str,
                  **kwargs) -> None:
         super(GigaNet, self).__init__()
         self.save_hyperparameters()
@@ -66,8 +64,6 @@ class GigaNet(pl.LightningModule):
         self.lr = lr
         self.weight_decay = weight_decay
         self.T_max = T_max
-        self.submission_dir = submission_dir
-        self.submission_file_name = submission_file_name
 
         self.encoder = GigaNetEncoder(
             input_dim=input_dim,
