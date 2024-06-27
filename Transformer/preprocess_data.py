@@ -121,8 +121,11 @@ def train():
                     predict_mask = torch.zeros(num_agents, 120, dtype=torch.bool)
                     agent_id: List[Optional[str]] = [None] * num_agents
                     position = torch.zeros(num_agents, 120, 2, dtype=torch.float)
+                    agent_category = torch.zeros(num_agents, dtype=torch.uint8)
                     for track_id in agent_ids:
                         agent_idx = agent_ids.index(track_id)
+                        if scene_data['scene_primary_pedestrian_id'] == track_id:
+                            agent_category[agent_idx] = 1
                         agent_steps = scene_pred_list[track_id]['step']
                         agent_steps = np.array(agent_steps) + (60 - agent_current_step - 1)
                         valid_step_mask = np.logical_and(agent_steps >= 0, agent_steps < 120)
@@ -141,16 +144,16 @@ def train():
                         if not current_valid_mask[agent_idx]:
                             predict_mask[agent_idx, 60:] = False
                         agent_id[agent_idx] = track_id
-                    data = dict()
-                    data['num_nodes'] = num_agents
-                    data['valid_mask'] = valid_mask
-                    data['predict_mask'] = predict_mask
-                    data['position'] = position
-                    data['id'] = agent_id
+                    scene_data['num_nodes'] = num_agents
+                    scene_data['valid_mask'] = valid_mask
+                    scene_data['predict_mask'] = predict_mask
+                    scene_data['position'] = position
+                    scene_data['category'] = agent_category
+                    scene_data['id'] = agent_id
                     train_file = train_files_path + str(f_idx) + "_"  + str(i) + "_" + str(agent_current_step
                                                                                           ) + ".pkl"
                     f = open(train_file, 'wb')
-                    pickle.dump(data, f, protocol=pickle.HIGHEST_PROTOCOL)
+                    pickle.dump(scene_data, f, protocol=pickle.HIGHEST_PROTOCOL)
                     f.close()
     print(train_num)
     
@@ -227,8 +230,11 @@ def test():
                 predict_mask = torch.zeros(num_agents, 120, dtype=torch.bool)
                 agent_id: List[Optional[str]] = [None] * num_agents
                 position = torch.zeros(num_agents, 120, 2, dtype=torch.float)
+                agent_category = torch.zeros(num_agents, dtype=torch.uint8)
                 for track_id in agent_ids:
                     agent_idx = agent_ids.index(track_id)
+                    if scene_data['scene_primary_pedestrian_id'] == track_id:
+                        agent_category[agent_idx] = 1
                     agent_steps = scene_pred_list[track_id]['step']
                     agent_steps = np.array(agent_steps) 
                     valid_step_mask = np.logical_and(agent_steps >= 0, agent_steps < 60)
@@ -254,6 +260,7 @@ def test():
                 scene_data['valid_mask'] = valid_mask
                 scene_data['predict_mask'] = predict_mask
                 scene_data['position'] = position
+                scene_data['category'] = agent_category
                 scene_data['id'] = agent_id
                 test_file = test_files_path[f_idx] + str(f_idx) + "_"  + str(i) + ".pkl"
                 f = open(test_file, 'wb')
