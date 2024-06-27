@@ -85,7 +85,6 @@ class GigaNet(pl.LightningModule):
             input_dim=input_dim,
             hidden_dim=hidden_dim,
             output_dim=output_dim,
-            output_head=output_head,
             num_historical_steps=num_historical_steps,
             num_future_steps=num_future_steps,
             num_modes=num_modes,
@@ -99,9 +98,9 @@ class GigaNet(pl.LightningModule):
             dropout=dropout,
         )
 
-        self.reg_loss = NLLLoss(component_distribution=['laplace'] * output_dim + ['von_mises'] * output_head,
+        self.reg_loss = NLLLoss(component_distribution=['laplace'] * output_dim,
                                 reduction='none')
-        self.cls_loss = MixtureNLLLoss(component_distribution=['laplace'] * output_dim + ['von_mises'] * output_head,
+        self.cls_loss = MixtureNLLLoss(component_distribution=['laplace'] * output_dim,
                                        reduction='none')
 
         self.minADE = minADE(max_guesses=3)
@@ -129,7 +128,8 @@ class GigaNet(pl.LightningModule):
         pi = pred['pi']
         gt = data['target'][..., :self.output_dim]
         l2_norm = (torch.norm(traj_propose[..., :self.output_dim] -
-                              gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1) * reg_mask.unsqueeze(1)).sum(dim=-1)
+                              gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1
+                             ) * reg_mask.unsqueeze(1)).sum(dim=-1)
         best_mode = l2_norm.argmin(dim=-1)
         traj_propose_best = traj_propose[torch.arange(traj_propose.size(0)), best_mode]
         traj_refine_best = traj_refine[torch.arange(traj_refine.size(0)), best_mode]
@@ -137,8 +137,7 @@ class GigaNet(pl.LightningModule):
                                          gt[..., :self.output_dim]).sum(dim=-1) * reg_mask
         reg_loss_propose = reg_loss_propose.sum(dim=0) / reg_mask.sum(dim=0).clamp_(min=1)
         reg_loss_propose = reg_loss_propose.mean()
-        reg_loss_refine = self.reg_loss(traj_refine_best,
-                                        gt[..., :self.output_dim + self.output_head]).sum(dim=-1) * reg_mask
+        reg_loss_refine = self.reg_loss(traj_refine_best, gt[..., :self.output_dim]).sum(dim=-1) * reg_mask
         reg_loss_refine = reg_loss_refine.sum(dim=0) / reg_mask.sum(dim=0).clamp_(min=1)
         reg_loss_refine = reg_loss_refine.mean()
         cls_loss = self.cls_loss(pred=traj_refine[:, :, -1:].detach(),
@@ -165,7 +164,8 @@ class GigaNet(pl.LightningModule):
         pi = pred['pi']
         gt = data['target'][..., :self.output_dim]
         l2_norm = (torch.norm(traj_propose[..., :self.output_dim] -
-                              gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1) * reg_mask.unsqueeze(1)).sum(dim=-1)
+                              gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1
+                             ) * reg_mask.unsqueeze(1)).sum(dim=-1)
         best_mode = l2_norm.argmin(dim=-1)
         traj_propose_best = traj_propose[torch.arange(traj_propose.size(0)), best_mode]
         traj_refine_best = traj_refine[torch.arange(traj_refine.size(0)), best_mode]
@@ -178,7 +178,7 @@ class GigaNet(pl.LightningModule):
         reg_loss_refine = reg_loss_refine.sum(dim=0) / reg_mask.sum(dim=0).clamp_(min=1)
         reg_loss_refine = reg_loss_refine.mean()
         cls_loss = self.cls_loss(pred=traj_refine[:, :, -1:].detach(),
-                                 target=gt[:, -1:, :self.output_dim + self.output_head],
+                                 target=gt[:, -1:, :self.output_dim],
                                  prob=pi,
                                  mask=reg_mask[:, -1:]) * cls_mask
         cls_loss = cls_loss.sum() / cls_mask.sum().clamp_(min=1)
