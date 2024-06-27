@@ -16,11 +16,11 @@ if __name__ == '__main__':
 
     parser = ArgumentParser()
     parser.add_argument('--resume', default="", type=str, metavar="RESUME", help="checkpoint path")
-    parser.add_argument('--train_batch_size', type=int, default=5)
+    parser.add_argument('--train_batch_size', type=int, default=4)
     parser.add_argument('--val_batch_size', type=int, default=4)
     parser.add_argument('--test_batch_size', type=int, default=4)
     parser.add_argument('--shuffle', type=bool, default=True)
-    parser.add_argument('--num_workers', type=int, default=7)
+    parser.add_argument('--num_workers', type=int, default=8)
     parser.add_argument('--pin_memory', type=bool, default=True)
     parser.add_argument('--persistent_workers', type=bool, default=True)
     parser.add_argument('--train_processed_dir', type=str, default=None)
