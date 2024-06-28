@@ -15,8 +15,8 @@ from losses import MixtureNLLLoss
 from losses import NLLLoss
 from metrics import minADE
 from metrics import minFDE
-import GigaNetDecoder
-import GigaNetEncoder
+from giganet_decoder import GigaNetDecoder
+from giganet_encoder import GigaNetEncoder
 
 class GigaNet(pl.LightningModule):
 
