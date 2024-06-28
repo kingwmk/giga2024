@@ -21,7 +21,6 @@ class GigaNetEncoder(nn.Module):
                  hidden_dim: int,
                  num_historical_steps: int,
                  time_span: Optional[int],
-                 pl2a_radius: float,
                  a2a_radius: float,
                  num_freq_bands: int,
                  num_layers: int,
