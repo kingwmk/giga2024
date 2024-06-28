@@ -2,8 +2,8 @@ from typing import Callable, Optional
 
 import pytorch_lightning as pl
 from torch_geometric.loader import DataLoader
-import GigaDataset
-import TargetBuilder
+from giga_dataset import GigaDataset
+from target_builder import TargetBuilder
 
 class GigaDataModule(pl.LightningDataModule):
 
