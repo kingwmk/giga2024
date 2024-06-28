@@ -72,7 +72,7 @@ class GigaNet(pl.LightningModule):
             time_span=time_span,
             a2a_radius=a2a_radius,
             num_freq_bands=num_freq_bands,
-            num_agent_layers=num_agent_layers,
+            num_layers=num_agent_layers,
             num_heads=num_heads,
             head_dim=head_dim,
             dropout=dropout,
