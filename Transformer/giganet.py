@@ -296,6 +296,4 @@ class GigaNet(pl.LightningModule):
         parser.add_argument('--lr', type=float, default=5e-4)
         parser.add_argument('--weight_decay', type=float, default=1e-4)
         parser.add_argument('--T_max', type=int, default=64)
-        parser.add_argument('--submission_dir', type=str, default='./')
-        parser.add_argument('--submission_file_name', type=str, default='submission')
         return parent_parser
