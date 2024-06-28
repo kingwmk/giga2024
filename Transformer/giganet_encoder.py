@@ -58,8 +58,7 @@ class GigaNetEncoder(nn.Module):
         self.apply(weight_init)
 
     def forward(self,
-                data: HeteroData,
-                map_enc: Mapping[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
+                data: HeteroData) -> Dict[str, torch.Tensor]:
         mask = data['valid_mask'][:, :self.num_historical_steps].contiguous()
         pos_a = data['position'][:, :self.num_historical_steps, :self.input_dim].contiguous()
         motion_vector_a = torch.cat([pos_a.new_zeros(data['num_nodes'], 1, self.input_dim),
