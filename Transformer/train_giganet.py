@@ -8,7 +8,7 @@ from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.strategies import DDPStrategy
 
-from datamodules import GigaDataModule
+import GigaDataModule
 import GigaNet
 
 if __name__ == '__main__':
@@ -23,8 +23,10 @@ if __name__ == '__main__':
     parser.add_argument('--num_workers', type=int, default=8)
     parser.add_argument('--pin_memory', type=bool, default=True)
     parser.add_argument('--persistent_workers', type=bool, default=True)
-    parser.add_argument('--train_processed_dir', type=str, default=None)
-    parser.add_argument('--val_processed_dir', type=str, default=None)
+    parser.add_argument('--train_processed_dir', type=str, 
+                        default="/mnt/home/data/giga2024/Trajectory/train/transformer_preprocess_files/")
+    parser.add_argument('--val_processed_dir', type=str, 
+                        default="/mnt/home/data/giga2024/Trajectory/train/transformer_preprocess_files_val/")
     parser.add_argument('--test_processed_dir', type=str, default=None)
     parser.add_argument('--accelerator', type=str, default='auto')
     parser.add_argument('--devices', type=int, default=8)
