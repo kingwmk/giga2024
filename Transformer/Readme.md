@@ -1,1 +1,1 @@
-
+python train_giganet.py --train_batch_size 4 --val_batch_size 4 --test_batch_size 4 --devices 8 --num_historical_steps 60 --num_future_steps 60 --num_recurrent_steps 3 --time_span 30 --a2a_radius 30 --num_t2m_steps 30 --a2m_radius 30
