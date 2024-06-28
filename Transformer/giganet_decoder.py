@@ -39,7 +39,6 @@ class GigaNetDecoder(nn.Module):
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
         self.output_dim = output_dim
-        self.output_head = output_head
         self.num_historical_steps = num_historical_steps
         self.num_future_steps = num_future_steps
         self.num_modes = num_modes
