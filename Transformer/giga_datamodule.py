@@ -38,18 +38,18 @@ class GigaDataModule(pl.LightningDataModule):
         self.test_transform = test_transform
 
     def prepare_data(self) -> None:
-        ArgoverseV2Dataset(self.train_processed_dir, self.train_transform)
-        ArgoverseV2Dataset(self.val_processed_dir, self.val_transform)
-        ArgoverseV2Dataset(self.test_processed_dir, self.test_transform)
+        GigaDataset(self.train_processed_dir, self.train_transform)
+        GigaDataset(self.val_processed_dir, self.val_transform)
+        GigaDataset(self.test_processed_dir, self.test_transform)
 
     def setup(self, stage: Optional[str] = None) -> None:
         if stage == "fit" or stage is None:
-            self.train_dataset = ArgoverseV2Dataset(self.train_processed_dir,
+            self.train_dataset = GigaDataset(self.train_processed_dir,
                                                 self.train_transform)
-            self.val_dataset = ArgoverseV2Dataset(self.val_processed_dir,
+            self.val_dataset = GigaDataset(self.val_processed_dir,
                                               self.val_transform)
         if stage == "test" or stage is None:
-            self.test_dataset = ArgoverseV2Dataset(self.test_processed_dir,
+            self.test_dataset = GigaDataset(self.test_processed_dir,
                                                self.test_transform)
 
     def train_dataloader(self):
