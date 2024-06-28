@@ -58,7 +58,7 @@ class GigaNetDecoder(nn.Module):
         self.r_t2m_emb = FourierEmbedding(input_dim=input_dim_r_t, hidden_dim=hidden_dim, num_freq_bands=num_freq_bands)
         self.r_a2m_emb = FourierEmbedding(input_dim=input_dim_r_a2m, hidden_dim=hidden_dim,
                                           num_freq_bands=num_freq_bands)
-        self.y_emb = FourierEmbedding(input_dim=output_dim + output_head, hidden_dim=hidden_dim,
+        self.y_emb = FourierEmbedding(input_dim=output_dim, hidden_dim=hidden_dim,
                                       num_freq_bands=num_freq_bands)
         self.traj_emb = nn.GRU(input_size=hidden_dim, hidden_size=hidden_dim, num_layers=1, bias=True,
                                batch_first=False, dropout=0.0, bidirectional=False)
