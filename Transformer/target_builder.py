@@ -16,7 +16,7 @@ class TargetBuilder(BaseTransform):
         origin = data['position'][:, self.num_historical_steps - 1]
         origin_last = data['position'][:, self.num_historical_steps - 2]
         motion_vector = origin - origin_last
-        theta = torch.atan2(motion_vector[1], motion_vector[0])
+        theta = torch.atan2(motion_vector[:, 1], motion_vector[:, 0])
         cos, sin = theta.cos(), theta.sin()
         rot_mat = theta.new_zeros(data['num_nodes'], 2, 2)
         rot_mat[:, 0, 0] = cos
