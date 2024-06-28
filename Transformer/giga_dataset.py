@@ -1,4 +1,5 @@
 from torch_geometric.data import Dataset
+from torch_geometric.data import HeteroData
 import pickle
 
 class GigaDataset(Dataset):
@@ -13,7 +14,7 @@ class GigaDataset(Dataset):
     def get(self, idx: int):
         file = self.processed_dir + self.processed_file_names[idx]
         with open(file, 'rb') as handle:
-            return pickle.load(handle)
+            return HeteroData(pickle.load(handle))
 
 
 
