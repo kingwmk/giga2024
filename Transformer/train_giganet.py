@@ -8,8 +8,8 @@ from pytorch_lightning.callbacks import LearningRateMonitor
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.strategies import DDPStrategy
 
-import GigaDataModule
-import GigaNet
+from giga_datamodule import GigaDataModule
+from giga_dataset import GigaNet
 
 if __name__ == '__main__':
     pl.seed_everything(2024, workers=True)
