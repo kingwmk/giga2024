@@ -94,10 +94,8 @@ class GigaNet(pl.LightningModule):
             dropout=dropout,
         )
 
-        self.reg_loss = NLLLoss(component_distribution=['laplace'] * output_dim,
-                                reduction='none')
-        self.cls_loss = MixtureNLLLoss(component_distribution=['laplace'] * output_dim,
-                                       reduction='none')
+        self.reg_loss = NLLLoss(component_distribution=['laplace'] * output_dim, reduction='none')
+        self.cls_loss = MixtureNLLLoss(component_distribution=['laplace'] * output_dim, reduction='none')
 
         self.minADE = minADE(max_guesses=3)
         self.minFDE = minFDE(max_guesses=3)
@@ -184,14 +182,9 @@ class GigaNet(pl.LightningModule):
                  sync_dist=True)
         self.log('val_cls_loss', cls_loss, prog_bar=True, on_step=False, on_epoch=True, batch_size=1, sync_dist=True)
 
-        eval_mask = data['category'] == 3
+        eval_mask = data['category'] == 1
         valid_mask_eval = reg_mask[eval_mask]
         traj_eval = traj_refine[eval_mask, :, :, :self.output_dim]
-        traj_2d_with_start_pos_eval = torch.cat([traj_eval.new_zeros((traj_eval.size(0), self.num_modes, 1, 2)),
-                                                     traj_eval[..., :2]], dim=-2)
-        motion_vector_eval = traj_2d_with_start_pos_eval[:, :, 1:] - traj_2d_with_start_pos_eval[:, :, :-1]
-        head_eval = torch.atan2(motion_vector_eval[..., 1], motion_vector_eval[..., 0])
-        traj_eval = torch.cat([traj_eval, head_eval.unsqueeze(-1)], dim=-1)
         pi_eval = F.softmax(pi[eval_mask], dim=-1)
         gt_eval = gt[eval_mask]
 
@@ -225,7 +218,7 @@ class GigaNet(pl.LightningModule):
         traj_refine = torch.cat([pred['loc_refine_pos'][..., :self.output_dim],
                                      pred['scale_refine_pos'][..., :self.output_dim]], dim=-1)
         pi = pred['pi']
-        eval_mask = data['category'] == 3
+        eval_mask = data['category'] == 1
         origin_eval = data['position'][eval_mask, self.num_historical_steps - 1]
         theta_eval = data['heading'][eval_mask, self.num_historical_steps - 1]
         cos, sin = theta_eval.cos(), theta_eval.sin()
@@ -244,10 +237,6 @@ class GigaNet(pl.LightningModule):
                 self.test_predictions[data['scenario_id'][i]] = (pi_eval[i], {eval_id[i]: traj_eval[i]})
         else:
             self.test_predictions[data['scenario_id']] = (pi_eval[0], {eval_id[0]: traj_eval[0]})
-
-    def on_test_end(self):
-        ChallengeSubmission(self.test_predictions).to_parquet(
-            Path(self.submission_dir) / f'{self.submission_file_name}.parquet')
 
     def configure_optimizers(self):
         decay = set()
