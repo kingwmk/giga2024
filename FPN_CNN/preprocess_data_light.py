@@ -24,9 +24,9 @@ test_set = [test_path + 'annos/test_1.ndjson', test_path + 'annos/test_2.ndjson'
             test_path + 'annos/test_7.ndjson', test_path + 'annos/test_8.ndjson', 
            ]
 
-train_file = train_path + 'preprocess_whole/train.p'
-train_train_file = train_path + 'preprocess_whole/train_train.p'
-train_val_file = train_path + 'preprocess_whole/train_val.p'
+train_file = train_path + 'preprocess_light/train.p'
+train_train_file = train_path + 'preprocess_light/train_train.p'
+train_val_file = train_path + 'preprocess_light/train_val.p'
 test_files = [test_path + 'preprocess/test_1.p', test_path + 'preprocess/test_2.p', 
               test_path + 'preprocess/test_3.p', test_path + 'preprocess/test_4.p', 
               test_path + 'preprocess/test_5.p', test_path + 'preprocess/test_6.p', 
