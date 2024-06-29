@@ -88,7 +88,7 @@ class GigaNetEncoder(nn.Module):
              rel_head_t,
              edge_index_t[0] - edge_index_t[1]], dim=-1)
         r_t = self.r_t_emb(continuous_inputs=r_t, categorical_embs=None)
-
+        """
         pos_s = pos_a.transpose(0, 1).reshape(-1, self.input_dim)
         head_s = head_a.transpose(0, 1).reshape(-1)
         head_vector_s = head_vector_a.transpose(0, 1).reshape(-1, 2)
@@ -110,12 +110,13 @@ class GigaNetEncoder(nn.Module):
              angle_between_2d_vectors(ctr_vector=head_vector_s[edge_index_a2a[1]], nbr_vector=rel_pos_a2a[:, :2]),
              rel_head_a2a], dim=-1)
         r_a2a = self.r_a2a_emb(continuous_inputs=r_a2a, categorical_embs=None)
+        """
         for i in range(self.num_layers):
             x_a = x_a.reshape(-1, self.hidden_dim)
             x_a = self.t_attn_layers[i](x_a, r_t, edge_index_t)
-            x_a = x_a.reshape(-1, self.num_historical_steps,
-                              self.hidden_dim).transpose(0, 1).reshape(-1, self.hidden_dim)
-            x_a = self.a2a_attn_layers[i](x_a, r_a2a, edge_index_a2a)
-            x_a = x_a.reshape(self.num_historical_steps, -1, self.hidden_dim).transpose(0, 1)
+            #x_a = x_a.reshape(-1, self.num_historical_steps,
+            #                  self.hidden_dim).transpose(0, 1).reshape(-1, self.hidden_dim)
+            #x_a = self.a2a_attn_layers[i](x_a, r_a2a, edge_index_a2a)
+            #x_a = x_a.reshape(self.num_historical_steps, -1, self.hidden_dim).transpose(0, 1)
 
         return {'x_a': x_a, 'heading': head_a}
