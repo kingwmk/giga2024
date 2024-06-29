@@ -6,7 +6,7 @@ class GigaDataset(Dataset):
     def __init__(self, processed_dir, transform = None) -> None:
         self._processed_dir = processed_dir
         self._processed_file_names = [name for name in os.listdir(processed_dir)]
-        super(GigaDataset, self).__init__(processed_dir=processed_dir, transform=transform)
+        super(GigaDataset, self).__init__(transform=transform)
         
     @property
     def processed_dir(self):
