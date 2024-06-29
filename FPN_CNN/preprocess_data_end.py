@@ -306,15 +306,12 @@ def test(test_files):
                     if 59 not in step:
                         continue
                     valid_track_ids.append(pred_id)
-                    gt_pred = np.zeros((60, 2), np.float32)
-                    has_pred = np.zeros(60, bool)
-                    future_mask = np.logical_and(step >= 60, step < 120)
-                    future_step = step[future_mask] - 60
-                    future_traj = traj[future_mask]
-                    if vis_count < 10:
-                        vis_future.append(future_traj)
-                    gt_pred[future_step] = future_traj[:,:2]
-                    has_pred[future_step] = 1
+                    gt_pred = np.zeros((1, 2), np.float32)
+                    has_pred = np.zeros(1, bool)
+                    future_mask = step == 119
+                    if future_mask.sum() > 0:
+                        gt_pred = traj[future_mask]
+                        has_pred= 1
             
                     obs_mask = step < 60
                     step = step[obs_mask]
@@ -353,8 +350,8 @@ def test(test_files):
                 scene_data['orig'] = orig
                 scene_data['theta'] = theta
                 scene_data['rot'] = rot
-                scene_data['gt_preds'] = gt_preds
-                scene_data['has_preds'] = has_preds
+                scene_data['gt_preds'] = gt_preds[0:1]
+                scene_data['has_preds'] = has_preds[0:1]
                 scene_data['origin_past_ctrs'] = origin_past_ctrs
                 
                 stores.append(scene_data)
