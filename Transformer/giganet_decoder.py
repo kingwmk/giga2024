@@ -97,8 +97,8 @@ class GigaNetDecoder(nn.Module):
     def forward(self,
                 data: HeteroData,
                 scene_enc: Mapping[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
-        pos_m = data['position'][:, self.num_historical_steps - 1, :self.input_dim]
-        pos_m_last = data['position'][:, self.num_historical_steps - 2, :self.input_dim]
+        pos_m = data['agent']['position'][:, self.num_historical_steps - 1, :self.input_dim]
+        pos_m_last = data['agent']['position'][:, self.num_historical_steps - 2, :self.input_dim]
         motion_vector_last = pos_m - pos_m_last
         head_m = torch.atan2(motion_vector_last[:, 1], motion_vector_last[:, 0])
         head_vector_m = torch.stack([head_m.cos(), head_m.sin()], dim=-1)
@@ -107,11 +107,11 @@ class GigaNetDecoder(nn.Module):
         x_a = scene_enc['x_a'][:, -1].repeat(self.num_modes, 1)
         m = self.mode_emb.weight.repeat(scene_enc['x_a'].size(0), 1)
 
-        mask_src = data['valid_mask'][:, :self.num_historical_steps].contiguous()
+        mask_src = data['agent']['valid_mask'][:, :self.num_historical_steps].contiguous()
         mask_src[:, :self.num_historical_steps - self.num_t2m_steps] = False
-        mask_dst = data['predict_mask'].any(dim=-1, keepdim=True).repeat(1, self.num_modes)
+        mask_dst = data['agent']['predict_mask'].any(dim=-1, keepdim=True).repeat(1, self.num_modes)
 
-        pos_t = data['position'][:, :self.num_historical_steps, :self.input_dim].reshape(-1, self.input_dim)
+        pos_t = data['agent']['position'][:, :self.num_historical_steps, :self.input_dim].reshape(-1, self.input_dim)
         head_t = scene_enc['heading'][:, :self.num_historical_steps].reshape(-1)
         edge_index_t2m = bipartite_dense_to_sparse(mask_src.unsqueeze(2) & mask_dst[:, -1:].unsqueeze(1))
         rel_pos_t2m = pos_t[edge_index_t2m[0]] - pos_m[edge_index_t2m[1]]
@@ -128,7 +128,7 @@ class GigaNetDecoder(nn.Module):
         edge_index_a2m = radius_graph(
             x=pos_m[:, :2],
             r=self.a2m_radius,
-            batch=data['batch'] if isinstance(data, Batch) else None,
+            batch=data['agent']['batch'] if isinstance(data, Batch) else None,
             loop=False,
             max_num_neighbors=300)
         edge_index_a2m = edge_index_a2m[:, mask_src[:, -1][edge_index_a2m[0]] & mask_dst[edge_index_a2m[1], 0]]
@@ -140,7 +140,7 @@ class GigaNetDecoder(nn.Module):
              rel_head_a2m], dim=-1)
         r_a2m = self.r_a2m_emb(continuous_inputs=r_a2m, categorical_embs=None)
         edge_index_a2m = torch.cat(
-            [edge_index_a2m + i * edge_index_a2m.new_tensor([data['num_nodes']]) for i in
+            [edge_index_a2m + i * edge_index_a2m.new_tensor([data['agent']['num_nodes']]) for i in
              range(self.num_modes)], dim=1)
         r_a2m = r_a2m.repeat(self.num_modes, 1)
 
