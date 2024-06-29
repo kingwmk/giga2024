@@ -13,18 +13,18 @@ class TargetBuilder(BaseTransform):
         self.num_future_steps = num_future_steps
 
     def __call__(self, data: HeteroData) -> HeteroData:
-        origin = data['position'][:, self.num_historical_steps - 1]
-        origin_last = data['position'][:, self.num_historical_steps - 2]
+        origin = data['agent']['position'][:, self.num_historical_steps - 1]
+        origin_last = data['agent']['position'][:, self.num_historical_steps - 2]
         motion_vector = origin - origin_last
         theta = torch.atan2(motion_vector[:, 1], motion_vector[:, 0])
         cos, sin = theta.cos(), theta.sin()
-        rot_mat = theta.new_zeros(data['num_nodes'], 2, 2)
+        rot_mat = theta.new_zeros(data['agent']['num_nodes'], 2, 2)
         rot_mat[:, 0, 0] = cos
         rot_mat[:, 0, 1] = -sin
         rot_mat[:, 1, 0] = sin
         rot_mat[:, 1, 1] = cos
-        data['target'] = origin.new_zeros(data['num_nodes'], self.num_future_steps, 2)
-        data['target'][..., :2] = torch.bmm(data['position'][:, self.num_historical_steps:, :2] -
+        data['agent']['target'] = origin.new_zeros(data['agent']['num_nodes'], self.num_future_steps, 2)
+        data['agent']['target'][..., :2] = torch.bmm(data['agent']['position'][:, self.num_historical_steps:, :2] -
                                                      origin[:, :2].unsqueeze(1), rot_mat)
 
         return data
