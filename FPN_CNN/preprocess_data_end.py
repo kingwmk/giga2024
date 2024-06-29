@@ -177,9 +177,9 @@ def train(train_file, train_train_file, train_val_file):
                     data['theta'] = theta
                     data['rot'] = rot
                     data['gt_preds'] = gt_preds[0:1]
-                    assert has_preds[0] == True
                     data['has_preds'] = has_preds[0:1]
-                    stores.append(copy.deepcopy(data))
+                    if has_preds[0] == True:
+                        stores.append(copy.deepcopy(data))
 
     f = open(train_file, 'wb')
     pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -377,4 +377,4 @@ def test(test_files):
         f.close()
 
 train(train_file, train_train_file, train_val_file)
-#test(test_files)
+test(test_files)
