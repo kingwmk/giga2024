@@ -24,7 +24,7 @@ config = dict()
 """Train"""
 config["display_iters"] = 300000
 config["val_iters"] = 300000
-config["save_freq"] = 1.0
+config["save_freq"] = 0.2
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
