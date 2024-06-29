@@ -1,7 +1,7 @@
 from torch_geometric.data import Dataset
 from torch_geometric.data import HeteroData
 import pickle
-
+import os
 class GigaDataset(Dataset):
     def __init__(self, processed_dir, transform = None) -> None:
         self._processed_dir = processed_dir
