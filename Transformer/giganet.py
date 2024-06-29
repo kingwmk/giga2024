@@ -112,15 +112,15 @@ class GigaNet(pl.LightningModule):
     def training_step(self,
                       data,
                       batch_idx):
-        reg_mask = data['predict_mask'][:, self.num_historical_steps:]
-        cls_mask = data['predict_mask'][:, -1]
+        reg_mask = data['agent']['predict_mask'][:, self.num_historical_steps:]
+        cls_mask = data['agent']['predict_mask'][:, -1]
         pred = self(data)
         traj_propose = torch.cat([pred['loc_propose_pos'][..., :self.output_dim],
                                       pred['scale_propose_pos'][..., :self.output_dim]], dim=-1)
         traj_refine = torch.cat([pred['loc_refine_pos'][..., :self.output_dim],
                                      pred['scale_refine_pos'][..., :self.output_dim]], dim=-1)
         pi = pred['pi']
-        gt = data['target'][..., :self.output_dim]
+        gt = data['agent']['target'][..., :self.output_dim]
         l2_norm = (torch.norm(traj_propose[..., :self.output_dim] -
                               gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1
                              ) * reg_mask.unsqueeze(1)).sum(dim=-1)
@@ -148,15 +148,15 @@ class GigaNet(pl.LightningModule):
     def validation_step(self,
                         data,
                         batch_idx):
-        reg_mask = data['predict_mask'][:, self.num_historical_steps:]
-        cls_mask = data['predict_mask'][:, -1]
+        reg_mask = data['agent']['predict_mask'][:, self.num_historical_steps:]
+        cls_mask = data['agent']['predict_mask'][:, -1]
         pred = self(data)
         traj_propose = torch.cat([pred['loc_propose_pos'][..., :self.output_dim],
                                       pred['scale_propose_pos'][..., :self.output_dim]], dim=-1)
         traj_refine = torch.cat([pred['loc_refine_pos'][..., :self.output_dim],
                                      pred['scale_refine_pos'][..., :self.output_dim]], dim=-1)
         pi = pred['pi']
-        gt = data['target'][..., :self.output_dim]
+        gt = data['agent']['target'][..., :self.output_dim]
         l2_norm = (torch.norm(traj_propose[..., :self.output_dim] -
                               gt[..., :self.output_dim].unsqueeze(1), p=2, dim=-1
                              ) * reg_mask.unsqueeze(1)).sum(dim=-1)
@@ -182,7 +182,7 @@ class GigaNet(pl.LightningModule):
                  sync_dist=True)
         self.log('val_cls_loss', cls_loss, prog_bar=True, on_step=False, on_epoch=True, batch_size=1, sync_dist=True)
 
-        eval_mask = data['category'] == 1
+        eval_mask = data['agent']['category'] == 1
         valid_mask_eval = reg_mask[eval_mask]
         traj_eval = traj_refine[eval_mask, :, :, :self.output_dim]
         pi_eval = F.softmax(pi[eval_mask], dim=-1)
@@ -218,9 +218,9 @@ class GigaNet(pl.LightningModule):
         traj_refine = torch.cat([pred['loc_refine_pos'][..., :self.output_dim],
                                      pred['scale_refine_pos'][..., :self.output_dim]], dim=-1)
         pi = pred['pi']
-        eval_mask = data['category'] == 1
-        origin_eval = data['position'][eval_mask, self.num_historical_steps - 1]
-        theta_eval = data['heading'][eval_mask, self.num_historical_steps - 1]
+        eval_mask = data['agent']['category'] == 1
+        origin_eval = data['agent']['position'][eval_mask, self.num_historical_steps - 1]
+        theta_eval = data['agent']['heading'][eval_mask, self.num_historical_steps - 1]
         cos, sin = theta_eval.cos(), theta_eval.sin()
         rot_mat = torch.zeros(eval_mask.sum(), 2, 2, device=self.device)
         rot_mat[:, 0, 0] = cos
@@ -231,12 +231,12 @@ class GigaNet(pl.LightningModule):
                                  rot_mat.unsqueeze(1)) + origin_eval[:, :2].reshape(-1, 1, 1, 2)
 
         traj_eval = traj_eval.cpu().numpy()
-        eval_id = list(compress(list(chain(*data['id'])), eval_mask))
+        eval_id = list(compress(list(chain(*data['agent']['id'])), eval_mask))
         if isinstance(data, Batch):
             for i in range(data.num_graphs):
-                self.test_predictions[data['scenario_id'][i]] = (pi_eval[i], {eval_id[i]: traj_eval[i]})
+                self.test_predictions[data['agent']['scenario_id'][i]] = (pi_eval[i], {eval_id[i]: traj_eval[i]})
         else:
-            self.test_predictions[data['scenario_id']] = (pi_eval[0], {eval_id[0]: traj_eval[0]})
+            self.test_predictions[data['agent']['scenario_id']] = (pi_eval[0], {eval_id[0]: traj_eval[0]})
 
     def configure_optimizers(self):
         decay = set()
