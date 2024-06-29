@@ -24,12 +24,12 @@ config = dict()
 """Train"""
 config["display_iters"] = 300000
 config["val_iters"] = 300000
-config["save_freq"] = 1.0
+config["save_freq"] = 0.2
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
 config["num_epochs"] = 20
-config["start_val_epoch"] = 0
+config["start_val_epoch"] = 20
 config["lr"] = [1e-3, 5e-4, 1e-4]
 config["lr_epochs"] = [10,16,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
