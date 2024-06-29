@@ -22,7 +22,9 @@ class GigaDataset(Dataset):
     def get(self, idx: int):
         file = self._processed_dir + self._processed_file_names[idx]
         with open(file, 'rb') as handle:
-            return HeteroData(pickle.load(handle))
+            data = dict()
+            data['agent'] = pickle.load(handle)
+            return HeteroData(data)
 
 
 
