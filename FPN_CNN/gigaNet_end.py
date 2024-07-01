@@ -423,9 +423,9 @@ class PredLoss(nn.Module):
                 has_preds: List[Tensor]) -> Dict[str, Union[Tensor, int]]:
         cls, reg = out["cls"], out["reg"]
         cls = torch.cat([x.unsqueeze(0) for x in cls], 0)
-        reg = torch.cat([x for x in reg], 0)
+        reg = torch.cat([x for x in reg], 0).squeeze()
         
-        gt_preds = torch.cat([x[0:1] for x in gt_preds], 0)
+        gt_preds = torch.cat([x[0:1] for x in gt_preds], 0).squeeze()
         has_preds = torch.cat([x[0:1] for x in has_preds], 0)
 
         loss_out = dict()
