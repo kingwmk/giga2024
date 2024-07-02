@@ -29,9 +29,9 @@ config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
 config["num_epochs"] = 20
-config["start_val_epoch"] = 20
-config["lr"] = [1e-3, 5e-4, 1e-4]
-config["lr_epochs"] = [10,16,]
+config["start_val_epoch"] = 0
+config["lr"] = [5e-4, 1e-4]
+config["lr_epochs"] = [10,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
@@ -539,11 +539,11 @@ class PostProcess(nn.Module):
         gt_preds = np.concatenate(metrics["gt_preds"], 0)
         has_preds = metrics["has_preds"]
         #has_preds = np.concatenate(metrics["has_preds"], 0)
-        ade1, fde1, ade, fde, brier_fde, min_idcs, giga_score = pred_metrics(preds, gt_preds, has_preds, preds_cls)
+        ade1, fde1, ade, fde, giga_score = pred_metrics(preds, gt_preds, has_preds, preds_cls)
 
         print(
-            "loss %2.4f cls %2.4f, end %2.4f, ade1 %2.4f, fde1 %2.4f, ade %2.4f, fde %2.4f, brier_fde %2.4f, giga_score %2.4f"
-            % (loss, cls, end, ade1, fde1, ade, fde, brier_fde, giga_score)
+            "loss %2.4f cls %2.4f, end %2.4f, ade1 %2.4f, fde1 %2.4f, ade %2.4f, fde %2.4f, giga_score %2.4f"
+            % (loss, cls, end, ade1, fde1, ade, fde, giga_score)
         )
         print()
 
@@ -554,29 +554,21 @@ def pred_metrics(preds, gt_preds, has_preds, preds_cls):
     gt_preds = np.asarray(gt_preds, np.float32)
     cls = np.asarray(preds_cls, np.float32)
     m, num_mods, num_preds, _ = preds.shape
-    has_preds = torch.cat([x for x in has_preds], 0)
-    last = has_preds.float() + 0.1 * torch.arange(num_preds).float().to(
-            has_preds.device
-        ) / float(num_preds)
-    max_last, last_idcs = last.max(1)
     
     """batch_size x num_mods x num_preds"""
     err = np.sqrt(((preds - np.expand_dims(gt_preds, 1)) ** 2).sum(3))
     
-    row_idcs_last = np.arange(len(last_idcs)).astype(np.int64) 
-    ade1 =  np.asarray([err[i, 0, :last_idcs[i]].mean() for i in range(m)]).mean()
-    fde1 = err[row_idcs_last, 0, last_idcs].mean()
+    ade1 =  np.asarray([err[i, 0].mean() for i in range(m)]).mean()
+    fde1 = err[row_idcs_last, 0].mean()
     #cls = softmax(cls, axis=1)
-    min_idcs = err[row_idcs_last, :, last_idcs].argmin(1)
+    min_idcs = err.argmin(1)
     row_idcs = np.arange(len(min_idcs)).astype(np.int64)
     err = err[row_idcs, min_idcs]
     cls = cls[row_idcs, min_idcs]
-    ade = np.asarray([err[i, :last_idcs[i]].mean() for i in range(m)]).mean()
-    fde = err[row_idcs_last, last_idcs].mean()
-    one_arr = np.ones(m)
-    brier_fde = (err[row_idcs_last, last_idcs] + (one_arr-cls)**2).mean()
+    ade = np.asarray([err[i].mean() for i in range(m)]).mean()
+    fde = err.mean()
     giga_score = 0.7*ade + 0.3*fde
-    return ade1, fde1, ade, fde, brier_fde, min_idcs, giga_score
+    return ade1, fde1, ade, fde, giga_score
 
 class gigaDataset(Dataset):
     def __init__(self, split_file):
