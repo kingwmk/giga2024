@@ -114,7 +114,7 @@ class Net(nn.Module):
         test_out = self.test_net(actors, actor_idcs, actor_ctrs)
         test_ctrs = test_out["reg"]
         actor_ctrs_test = copy.deepcopy(actor_ctrs)
-        for i in len(actor_ctrs_test):
+        for i in range(len(actor_ctrs_test)):
             actor_ctrs_test[i][0:1] = test_ctrs[i][0:1].squeeze()
             
         actors = self.a2a_test(actors, actor_idcs, actor_ctrs_test)
