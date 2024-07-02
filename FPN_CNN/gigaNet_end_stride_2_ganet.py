@@ -64,7 +64,7 @@ config["num_mods"] = 3
 config["cls_coef"] = 1.0
 config["end_coef"] = 1.0
 config["test_cls_coef"] = 1.0
-config["test_coef"] = 1.0
+config["test_end_coef"] = 0.2
 
 config["mgn"] = 0.2
 config["cls_th"] = 2.0
@@ -575,13 +575,13 @@ class PredLoss(nn.Module):
         mgn = mgn[mask0 * mask1]
         mask = mgn < self.config["mgn"]
         
-        coef = self.config["cls_coef"]
+        coef = self.config["test_cls_coef"]
         loss_out["test_cls_loss"] += coef * (
             self.config["mgn"] * mask.sum() - mgn[mask].sum()
         )
 
         test_reg = test_reg[row_idcs, min_idcs]
-        coef = self.config["end_coef"]
+        coef = self.config["test_end_coef"]
         loss_out["test_end_loss"] += coef * (self.reg_loss(test_reg[row_idcs], gt_preds[row_idcs]))
 
         return loss_out
