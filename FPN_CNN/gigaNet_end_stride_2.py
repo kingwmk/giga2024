@@ -539,11 +539,11 @@ class PostProcess(nn.Module):
         gt_preds = np.concatenate(metrics["gt_preds"], 0)
         has_preds = metrics["has_preds"]
         #has_preds = np.concatenate(metrics["has_preds"], 0)
-        ade1, fde1, ade, fde, giga_score = pred_metrics(preds, gt_preds, has_preds, preds_cls)
+        ade1, ade = pred_metrics(preds, gt_preds, has_preds, preds_cls)
 
         print(
-            "loss %2.4f cls %2.4f, end %2.4f, ade1 %2.4f, fde1 %2.4f, ade %2.4f, fde %2.4f, giga_score %2.4f"
-            % (loss, cls, end, ade1, fde1, ade, fde, giga_score)
+            "loss %2.4f cls %2.4f, end %2.4f, ade1 %2.4f, ade %2.4f"
+            % (loss, cls, end, ade1, ade)
         )
         print()
 
@@ -557,18 +557,12 @@ def pred_metrics(preds, gt_preds, has_preds, preds_cls):
     
     """batch_size x num_mods x num_preds"""
     err = np.sqrt(((preds - np.expand_dims(gt_preds, 1)) ** 2).sum(3))
-    
     ade1 =  np.asarray([err[i, 0].mean() for i in range(m)]).mean()
-    fde1 = err[row_idcs_last, 0].mean()
-    #cls = softmax(cls, axis=1)
     min_idcs = err.argmin(1)
     row_idcs = np.arange(len(min_idcs)).astype(np.int64)
     err = err[row_idcs, min_idcs]
-    cls = cls[row_idcs, min_idcs]
     ade = np.asarray([err[i].mean() for i in range(m)]).mean()
-    fde = err.mean()
-    giga_score = 0.7*ade + 0.3*fde
-    return ade1, fde1, ade, fde, giga_score
+    return ade1, ade
 
 class gigaDataset(Dataset):
     def __init__(self, split_file):
