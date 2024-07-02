@@ -49,7 +49,7 @@ config["val_workers"] = config["workers"]
 
 """Dataset"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
-config["train_split"] = root_path + 'train/preprocess_end_stride_2/train.p'
+config["train_split"] = root_path + 'train/preprocess_end_stride_2/train_train.p'
 config["val_split"] = root_path + 'train/preprocess_end_stride_2/train_val.p'
 config["test_split"] = root_path + 'test/preprocess/test_1.p'
 
