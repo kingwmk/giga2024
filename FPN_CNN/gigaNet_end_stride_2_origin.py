@@ -55,7 +55,7 @@ config["test_split"] = root_path + 'test/preprocess/test_1.p'
 
 """Model"""
 config["rot_aug"] = False
-config["n_actor"] = 64
+config["n_actor"] = 128
 config["actor2actor_dist"] = 25.0
 config["pred_size"] = 1
 config["pred_step"] = 1
@@ -142,7 +142,7 @@ class ActorNet(nn.Module):
         ng = 1
 
         n_in = 5
-        n_out = [16, 32, 64]
+        n_out = [32, 64, 128]
         blocks = [Res1d, Res1d, Res1d]
         num_blocks = [2, 2, 2]
 
