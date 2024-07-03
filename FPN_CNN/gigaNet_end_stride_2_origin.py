@@ -112,7 +112,7 @@ class Net(nn.Module):
             out["reg"][i] = torch.matmul(out["reg"][i], rot[i]) + orig[i].view(1, 1, 1, -1)
         return out
   
-def actor_gather(actors: List[Tensor]) -> Tuple[Tensor, List[Tensor]]:
+def actor_gather(actors: List[Tensor], origin_past_ctrs) -> Tuple[Tensor, List[Tensor]]:
     batch_size = len(actors)
     num_actors = [len(x) for x in actors]
 
