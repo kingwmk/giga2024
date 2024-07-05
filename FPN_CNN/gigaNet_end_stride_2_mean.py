@@ -281,7 +281,7 @@ class PredNet(nn.Module):
         )
         #self.softmax = nn.Softmax(dim=1)
 
-    def forward(self, actors: Tensor, actor_idcs: List[Tensor], actor_ctrs: List[Tensor],
+    def forward(self, actors: Tensor, actor_idcs: List[Tensor], actor_ctrs: List[Tensor], actor_means
                ) -> Dict[str, List[Tensor]]:
         agent_index = torch.tensor([idcs[0] for idcs in actor_idcs])
         agent_ctrs = [actor_ctr[0:1] for actor_ctr in actor_ctrs]
