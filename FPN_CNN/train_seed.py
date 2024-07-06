@@ -187,20 +187,19 @@ def train(epoch, config, train_loader, net, loss, post_process, opt, val_loader=
             num_iters % save_iters == 0 or epoch >= config["num_epochs"]
         ):
             save_ckpt(net, opt, config["save_dir"], epoch)
-        if num_iters % display_iters == 0:
+
             dt = time.time() - start_time
             metrics = sync(metrics)
-            if hvd.rank() == 0:
-                post_process.display(metrics, dt, epoch, lr)
+            post_process.display(metrics, dt, epoch, lr)
             start_time = time.time()
             metrics = dict()
-
-        if epoch >= config["start_val_epoch"] and num_iters % val_iters == 0:
-            val(config, val_loader, net, loss, post_process, epoch)
             
+            val(config, val_loader, net, loss, post_process, epoch)
+
         if epoch >= config["num_epochs"]:
             val(config, val_loader, net, loss, post_process, epoch)
             return
+
 
 def val(config, data_loader, net, loss, post_process, epoch):
     net.eval()
