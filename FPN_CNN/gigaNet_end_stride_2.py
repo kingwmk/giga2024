@@ -24,14 +24,14 @@ config = dict()
 """Train"""
 config["display_iters"] = 162676
 config["val_iters"] = 162676
-config["save_freq"] = 0.2
+config["save_freq"] = 0.1
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
-config["num_epochs"] = 20
-config["start_val_epoch"] = 0
+config["num_epochs"] = 3
+config["start_val_epoch"] = 1.5
 config["lr"] = [5e-4, 1e-4]
-config["lr_epochs"] = [10,]
+config["lr_epochs"] = [2,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
