@@ -110,6 +110,7 @@ class Net(nn.Module):
         # transform prediction to world coordinates
         for i in range(len(out["reg"])):
             out["reg"][i] = torch.matmul(out["reg"][i], rot[i]) + orig[i].view(1, 1, 1, -1)
+            out["reg_refine"][i] = torch.matmul(out["reg_refine"][i], rot[i]) + orig[i].view(1, 1, 1, -1)
         return out
   
 def actor_gather(actors: List[Tensor]) -> Tuple[Tensor, List[Tensor]]:
@@ -439,7 +440,7 @@ class PredLoss(nn.Module):
         has_preds = torch.cat([x[0:1] for x in has_preds], 0)
 
         loss_out = dict()
-        zero = 0.0 * (cls.sum() + reg.sum())
+        zero = 0.0 * (cls.sum() + reg.sum() + reg_refine.sum())
         loss_out["cls_loss"] = zero.clone()
         loss_out["num_cls"] = 0       
         loss_out["end_loss"] = zero.clone()
@@ -481,7 +482,6 @@ class PredLoss(nn.Module):
         loss_out["num_end"] += len(reg)  
 
         reg_refine = reg_refine[row_idcs, min_idcs]
-        coef = self.config["end_coef"]
         loss_out["refine_loss"] += coef * (self.reg_loss(reg_refine[row_idcs], gt_preds[row_idcs]))
                   
         return loss_out
