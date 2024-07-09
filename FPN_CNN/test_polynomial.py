@@ -118,19 +118,19 @@ def main():
                 
                 preds = pred_traj.squeeze()
                 result = np.zeros((3, 60, 2), np.float64)
-                step_obs = np.linspace(0, 59, 60)
-                step_end = 119
+                step_obs = np.linspace(0, 9, 10)
+                step_end = 69
                 step_full = np.append(step_obs, step_end)
-                degree = 3
+                degree = 5
                 for j in range(3):  
-                    x = gt_past[:, 0]
-                    y = gt_past[:, 1]
+                    x = gt_past[50:, 0]
+                    y = gt_past[50:, 1]
                     x_full = np.append(x, preds[j, 0])
                     y_full = np.append(y, preds[j, 1])
                     
                     p_x = Polynomial.fit(step_full, x_full, degree)
                     p_y = Polynomial.fit(step_full, y_full, degree)
-                    step_interp = np.linspace(60, 118, 59)
+                    step_interp = np.linspace(10, 68, 59)
                     x_interp = p_x(step_interp)
                     y_interp = p_y(step_interp)
                     result[j,:-1, 0] = x_interp
