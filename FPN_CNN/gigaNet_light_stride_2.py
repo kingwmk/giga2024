@@ -24,14 +24,14 @@ config = dict()
 """Train"""
 config["display_iters"] = 162676
 config["val_iters"] = 162676
-config["save_freq"] = 0.2
+config["save_freq"] = 0.1
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
 config["num_epochs"] = 20
-config["start_val_epoch"] = 20
-config["lr"] = [1e-3, 5e-4, 1e-4]
-config["lr_epochs"] = [10,16,]
+config["start_val_epoch"] = 1.0
+config["lr"] = [5e-4, 1e-4]
+config["lr_epochs"] = [10,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
 
 if "save_dir" not in config:
@@ -55,15 +55,15 @@ config["test_split"] = root_path + 'test/preprocess_light_stride_2/test_1.p'
 
 """Model"""
 config["rot_aug"] = False
-config["n_actor"] = 64
+config["n_actor"] = 128
 config["actor2actor_dist"] = 25.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
 config["num_mods"] = 3
 config["cls_coef"] = 1.0
-config["reg_coef"] = 0.7
-config["end_coef"] = 0.3
+config["reg_coef"] = 1.0
+config["end_coef"] = 1.0
 config["con_coef"] = 1.0
 config["mgn"] = 0.2
 config["cls_th"] = 2.0
@@ -140,7 +140,7 @@ class ActorNet(nn.Module):
         ng = 1
 
         n_in = 3
-        n_out = [16, 32, 64]
+        n_out = [32, 64, 128]
         blocks = [Res1d, Res1d, Res1d]
         num_blocks = [2, 2, 2]
 
