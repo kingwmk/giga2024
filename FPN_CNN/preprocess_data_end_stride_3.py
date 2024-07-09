@@ -116,7 +116,7 @@ def train(train_file, train_train_file, train_val_file):
                 trajs = [agent_traj] + trajs
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
-                for agent_current_step in range(1, agent_steps[-1], 2):
+                for agent_current_step in range(1, agent_steps[-1], 3):
                     if agent_current_step + 60 > agent_steps[-1]:
                         continue
                     if (agent_current_step not in agent_steps) or ((agent_current_step-1) not in agent_steps):
