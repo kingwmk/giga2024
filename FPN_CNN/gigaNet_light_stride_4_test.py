@@ -594,7 +594,7 @@ def pred_metrics(preds, gt_preds, has_preds, preds_cls):
     row_idcs = np.arange(len(min_idcs)).astype(np.int64)
     err = err[row_idcs, min_idcs]
     cls = cls[row_idcs, min_idcs]
-    ade = np.asarray([err[i, :last_idcs[i]].mean() for i in range(m)]).mean()
+    ade = np.asarray([err[i, :last_idcs[i]+1].mean() for i in range(m)]).mean()
     fde = err[row_idcs_last, last_idcs].mean()
     one_arr = np.ones(m)
     brier_fde = (err[row_idcs_last, last_idcs] + (one_arr-cls)**2).mean()
