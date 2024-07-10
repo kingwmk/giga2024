@@ -56,7 +56,7 @@ config["test_split"] = root_path + 'test/preprocess_light_stride_4_test_2d/test_
 """Model"""
 config["rot_aug"] = False
 config["n_actor"] = 128
-config["actor2actor_dist"] = 20.0
+config["actor2actor_dist"] = 25.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
