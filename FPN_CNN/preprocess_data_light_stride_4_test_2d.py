@@ -28,17 +28,17 @@ test_set = [test_path + 'annos/test_1.ndjson', test_path + 'annos/test_2.ndjson'
             test_path + 'annos/test_7.ndjson', test_path + 'annos/test_8.ndjson', 
            ]
 
-train_file = train_path + 'preprocess_light_stride_4_test_nofeatmask/train.p'
-train_train_file = train_path + 'preprocess_light_stride_4_test_nofeatmask/train_train.p'
-train_val_file = train_path + 'preprocess_light_stride_4_test_nofeatmask/train_val.p'
-test_files = [test_path + 'preprocess_light_stride_4_test_nofeatmask/test_1.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_2.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_3.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_4.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_5.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_6.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_7.p', 
-              test_path + 'preprocess_light_stride_4_test_nofeatmask/test_8.p', 
+train_file = train_path + 'preprocess_light_stride_4_test_2d/train.p'
+train_train_file = train_path + 'preprocess_light_stride_4_test_2d/train_train.p'
+train_val_file = train_path + 'preprocess_light_stride_4_test_2d/train_val.p'
+test_files = [test_path + 'preprocess_light_stride_4_test_2d/test_1.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_2.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_3.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_4.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_5.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_6.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_7.p', 
+              test_path + 'preprocess_light_stride_4_test_2d/test_8.p', 
              ]
 
 vis_path = "/mnt/home/data/giga2024/Trajectory/vis/"
