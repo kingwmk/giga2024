@@ -587,7 +587,7 @@ def pred_metrics(preds, gt_preds, has_preds, preds_cls):
     err = np.sqrt(((preds - np.expand_dims(gt_preds, 1)) ** 2).sum(3))
     
     row_idcs_last = np.arange(len(last_idcs)).astype(np.int64) 
-    ade1 =  np.asarray([err[i, 0, :last_idcs[i]].mean() for i in range(m)]).mean()
+    ade1 =  np.asarray([err[i, 0, :last_idcs[i]+1].mean() for i in range(m)]).mean()
     fde1 = err[row_idcs_last, 0, last_idcs].mean()
     #cls = softmax(cls, axis=1)
     min_idcs = err[row_idcs_last, :, last_idcs].argmin(1)
