@@ -42,8 +42,8 @@ if "save_dir" not in config:
 if not os.path.isabs(config["save_dir"]):
     config["save_dir"] = os.path.join(root_path, "best_model", config["save_dir"])
 
-config["batch_size"] = 16
-config["val_batch_size"] = 16
+config["batch_size"] = 8
+config["val_batch_size"] = 8
 config["workers"] = 8
 config["val_workers"] = config["workers"]
 
@@ -56,7 +56,7 @@ config["test_split"] = root_path + 'test/preprocess_light_stride_2/test_1.p'
 """Model"""
 config["rot_aug"] = False
 config["n_actor"] = 128
-config["actor2actor_dist"] = 20.0
+config["actor2actor_dist"] = 25.0
 config["pred_size"] = 60
 config["pred_step"] = 1
 config["num_preds"] = config["pred_size"] // config["pred_step"]
