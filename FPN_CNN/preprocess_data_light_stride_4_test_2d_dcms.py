@@ -138,8 +138,16 @@ def train(train_file, train_train_file, train_val_file):
                     rot = np.asarray([
                          [np.cos(theta), -np.sin(theta)],
                          [np.sin(theta), np.cos(theta)]], np.float32)
+                    pre_pre_current_step_index = current_step_index - 2
+                    orig_dcms = agent_traj[pre_current_step_index].copy().astype(np.float32)
+                    pre_dcms = agent_traj[pre_pre_current_step_index] - orig_dcms
+                    theta_dcms = np.pi - np.arctan2(pre_dcms[1], pre_dcms[0])
+                    rot_dcms = np.asarray([
+                         [np.cos(theta_dcms), -np.sin(theta_dcms)],
+                         [np.sin(theta_dcms), np.cos(theta_dcms)]], np.float32)                    
                 
                     feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
+                    feats_dcms, ctrs_dcms, gt_preds_dcms, has_preds_dcms = [], [], [], []
                     for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
                         step = step + (60 - agent_current_step - 1)
                         if 59 not in step:
