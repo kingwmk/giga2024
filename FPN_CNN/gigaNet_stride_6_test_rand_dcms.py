@@ -100,6 +100,20 @@ class Net(nn.Module):
         self.pred_net = PredNet(config)
 
     def forward(self, data: Dict) -> Dict[str, List[Tensor]]:
+        self.eval()
+        actors, actor_idcs = actor_gather(gpu(data["feats_dcms"]))
+        actor_ctrs = gpu(data["ctrs_dcms"])
+        actors_1 = self.actor_net1(actors, actor_ctrs)
+        actors_2 = self.actor_net2(actors, actor_ctrs)
+        actors = actors_1 + actors_2
+        actors = self.a2a(actors, actor_idcs, actor_ctrs)
+        # prediction
+        out_dcms = self.pred_net(actors, actor_idcs, actor_ctrs)
+        rot_dcms, orig_dcms = gpu(data["rot_dcms"]), gpu(data["orig_dcms"])
+        # transform prediction to world coordinates
+        for i in range(len(out_dcms["reg"])):
+            out_dcms["reg"][i] = torch.matmul(out_dcms["reg"][i], rot_dcms[i]) + orig_dcms[i].view(1, 1, 1, -1)
+        self.train()
         actors, actor_idcs = actor_gather(gpu(data["feats"]))
         actor_ctrs = gpu(data["ctrs"])
         actors_1 = self.actor_net1(actors, actor_ctrs)
@@ -112,6 +126,8 @@ class Net(nn.Module):
         # transform prediction to world coordinates
         for i in range(len(out["reg"])):
             out["reg"][i] = torch.matmul(out["reg"][i], rot[i]) + orig[i].view(1, 1, 1, -1)
+        out["cls_dcms"] = out_dcms["cls"]
+        out["reg_dcms"] = out_dcms["reg"]
         return out
   
 def actor_gather(actors: List[Tensor]) -> Tuple[Tensor, List[Tensor]]:
@@ -422,14 +438,18 @@ class PredLoss(nn.Module):
         self.reg_loss = nn.SmoothL1Loss(reduction="sum")
 
     def forward(self, out: Dict[str, List[Tensor]], gt_preds: List[Tensor], 
-                has_preds: List[Tensor]) -> Dict[str, Union[Tensor, int]]:
+                has_preds: List[Tensor], has_preds_dcms) -> Dict[str, Union[Tensor, int]]:
         cls, reg = out["cls"], out["reg"]
         cls = torch.cat([x.unsqueeze(0) for x in cls], 0)
         reg = torch.cat([x for x in reg], 0)
-        
+                    
+        reg_dcms = out["reg_dcms"]
+        reg_dcms = torch.cat([x for x in reg_dcms], 0).detach()
+                    
         gt_preds = torch.cat([x[0:1] for x in gt_preds], 0)
         has_preds = torch.cat([x[0:1] for x in has_preds], 0)
-
+        has_preds_dcms = torch.cat([x[0:1] for x in has_preds_dcms], 0)
+                    
         loss_out = dict()
         zero = 0.0 * (cls.sum() + reg.sum())
         loss_out["reg_loss"] = zero.clone()
@@ -438,7 +458,9 @@ class PredLoss(nn.Module):
         loss_out["num_cls"] = 0       
         loss_out["end_loss"] = zero.clone()
         loss_out["num_end"] = 0
-        
+        loss_out["con_loss"] = zero.clone()
+        loss_out["num_con"] = 0
+                    
         num_mods, num_preds = self.config["num_mods"], self.config["num_preds"]
 
         last = has_preds.float() + 0.1 * torch.arange(num_preds).float().to(
@@ -451,7 +473,10 @@ class PredLoss(nn.Module):
         gt_preds = gt_preds[mask]
         has_preds = has_preds[mask]
         last_idcs = last_idcs[mask]
-        
+                    
+        reg_dcms = reg_dcms[mask]
+        has_preds_dcms = has_preds_dcms[mask]
+                    
         row_idcs = torch.arange(len(last_idcs)).long().to(last_idcs.device)
         dist = []
         for j in range(num_mods):
@@ -488,7 +513,32 @@ class PredLoss(nn.Module):
         coef = self.config["end_coef"]
         loss_out["end_loss"] += coef * (self.reg_loss(reg[row_idcs, last_idcs], gt_preds[row_idcs, last_idcs]))
         loss_out["num_end"] += len(reg)  
+
+        last_idcs_dcms = last_idcs
+        last_idcs_reg = last_idcs - 1
+        row_idcs = torch.arange(len(last_idcs)).long().to(last_idcs_dcms.device)
+        dist = []
+        for j in range(num_mods):
+            dist.append(
+                torch.sqrt(
+                    (
+                        (reg_dcms[row_idcs, j, last_idcs_dcms] - reg[row_idcs, last_idcs_reg])
+                        ** 2
+                    ).sum(1)
+                )
+            )
+        dist = torch.cat([x.unsqueeze(1) for x in dist], 1)
+        min_dist, min_idcs = dist.min(1)
+        min_reg_dcms = reg_dcms[row_idcs, min_idcs]   
         
+        has_preds_dcms[row_idcs,0] = False
+        reg_has_preds = has_preds.clone() 
+        reg_has_preds[row_idcs,last_idcs] = False
+        coef = self.config["con_coef"]
+        loss_out["con_loss"] += coef * (self.reg_loss(min_reg_dcms[has_preds_dcms], 
+                                                      reg[reg_has_preds]))
+        loss_out["num_con"] += has_preds_dcms.sum().item()
+                    
         return loss_out
 
 class Loss(nn.Module):
@@ -505,6 +555,8 @@ class Loss(nn.Module):
             loss_out["num_reg"] + 1e-10
         ) + loss_out["end_loss"] / (
             loss_out["num_end"] + 1e-10
+        ) + loss_out["con_loss"] / (
+            loss_out["num_con"] + 1e-10
         ) 
         return loss_out
 
@@ -555,7 +607,8 @@ class PostProcess(nn.Module):
         cls = metrics["cls_loss"] / (metrics["num_cls"] + 1e-10)
         reg = metrics["reg_loss"] / (metrics["num_reg"] + 1e-10)
         end = metrics["end_loss"] / (metrics["num_end"] + 1e-10)
-        loss = cls + reg + end
+        con = metrics["con_loss"] / (metrics["num_con"] + 1e-10)
+        loss = cls + reg + end + con
 
         preds = np.concatenate(metrics["preds"], 0)
         preds_cls = np.concatenate(metrics["cls"], 0)
