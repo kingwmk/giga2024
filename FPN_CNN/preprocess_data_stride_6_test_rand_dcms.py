@@ -124,7 +124,7 @@ def train(train_file, train_train_file, train_val_file):
                 trajs = [agent_traj] + trajs
                 steps = [agent_steps] + steps
                 scene_pred_ids = [agent_scene_pred_ids] + scene_pred_ids
-                start_index = random.randint(1, 6) 
+                start_index = random.randint(2, 7) 
                 for agent_current_step in range(start_index, agent_steps[-1], 6):
                     if agent_current_step + 60 > agent_steps[-1] and f_idx < 8:
                         continue
@@ -154,7 +154,7 @@ def train(train_file, train_train_file, train_val_file):
                     feats_dcms, ctrs_dcms, gt_preds_dcms, has_preds_dcms = [], [], [], []
                     for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
                         step_curr = step + (60 - agent_current_step - 1)
-                        if 59 not in step_curr or 58 not in step_curr:
+                        if 59 not in step_curr or 58 not in step_curr or 57 not in step_curr:
                             continue
                         valid_track_ids.append(pred_id)
                         gt_pred = np.zeros((60, 2), np.float32)
@@ -223,16 +223,10 @@ def train(train_file, train_train_file, train_val_file):
                     ctrs = np.asarray(ctrs, np.float32)
                     gt_preds = np.asarray(gt_preds, np.float32)
                     has_preds = np.asarray(has_preds, bool)
-                    if agent_current_step == 1:
-                       feats_dcms = feats.copy()
-                       ctrs_dcms = ctrs.copy()
-                       gt_preds_dcms = gt_preds.copy()
-                       has_preds_dcms = has_preds.copy()
-                    else:
-                       feats_dcms = np.asarray(feats_dcms, np.float32)
-                       ctrs_dcms = np.asarray(ctrs_dcms, np.float32)
-                       gt_preds_dcms = np.asarray(gt_preds_dcms, np.float32)
-                       has_preds_dcms = np.asarray(has_preds_dcms, bool)
+                    feats_dcms = np.asarray(feats_dcms, np.float32)
+                    ctrs_dcms = np.asarray(ctrs_dcms, np.float32)
+                    gt_preds_dcms = np.asarray(gt_preds_dcms, np.float32)
+                    has_preds_dcms = np.asarray(has_preds_dcms, bool)
                   
                     data = dict()
                     data['feats'] = feats
