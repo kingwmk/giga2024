@@ -154,7 +154,7 @@ def train(train_file, train_train_file, train_val_file):
                     feats_dcms, ctrs_dcms, gt_preds_dcms, has_preds_dcms = [], [], [], []
                     for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
                         step_curr = step + (60 - agent_current_step - 1)
-                        if 59 not in step_curr:
+                        if 59 not in step_curr or 58 not in step_curr:
                             continue
                         valid_track_ids.append(pred_id)
                         gt_pred = np.zeros((60, 2), np.float32)
@@ -187,12 +187,52 @@ def train(train_file, train_train_file, train_val_file):
                         feats.append(feat)
                         gt_preds.append(gt_pred)
                         has_preds.append(has_pred)
-                    
+
+                        step_dcms = step + (60 - (agent_current_step - 1) - 1)
+                        gt_pred_dcms = np.zeros((60, 2), np.float32)
+                        has_pred_dcms = np.zeros(60, bool)
+                        future_mask = np.logical_and(step_dcms >= 60, 
+                                                     step_dcms < 120)
+                        future_step = step_dcms[future_mask] - 60
+                        future_traj = traj[future_mask]
+                        gt_pred_dcms[future_step] = future_traj[:,:2]
+                        has_pred_dcms[future_step] = 1
+            
+                        obs_mask = np.logical_and(step_dcms >= 0, step_dcms < 60)
+                        step_dcms = step_dcms[obs_mask]
+                        traj_dcms = traj[obs_mask]
+                        idcs = step_dcms.argsort()
+                        step_dcms = step_dcms[idcs]
+                        traj_dcms = traj_dcms[idcs]
+            
+                        feat_dcms = np.zeros((60, 3), np.float32)
+                        feat_dcms[step_dcms, :2] = np.matmul(rot_dcms, (traj_dcms[:, :2] - orig_dcms.reshape(-1, 2)
+                                                                       ).T).T
+                        feat_dcms[step_dcms, 2] = 1.0
+                        
+                        ctrs_dcms.append(feat_dcms[-1, :2].copy())
+                        feat_dcms[1:, :2] -= feat_dcms[:-1, :2]
+                        feat_dcms[step_dcms[0], :2] = 0
+                        
+                        feats_dcms.append(feat_dcms)
+                        gt_preds_dcms.append(gt_pred_dcms)
+                        has_preds_dcms.append(has_pred_dcms)
+              
                     valid_track_ids = np.asarray(valid_track_ids, np.int64)
                     feats = np.asarray(feats, np.float32)
                     ctrs = np.asarray(ctrs, np.float32)
                     gt_preds = np.asarray(gt_preds, np.float32)
                     has_preds = np.asarray(has_preds, bool)
+                    if agent_current_step == 1:
+                       feats_dcms = feats.copy()
+                       ctrs_dcms = ctrs.copy()
+                       gt_preds_dcms = gt_preds.copy()
+                       has_preds_dcms = has_preds.copy()
+                    else:
+                       feats_dcms = np.asarray(feats_dcms, np.float32)
+                       ctrs_dcms = np.asarray(ctrs_dcms, np.float32)
+                       gt_preds_dcms = np.asarray(gt_preds_dcms, np.float32)
+                       has_preds_dcms = np.asarray(has_preds_dcms, bool)
                   
                     data = dict()
                     data['feats'] = feats
@@ -202,6 +242,14 @@ def train(train_file, train_train_file, train_val_file):
                     data['rot'] = rot
                     data['gt_preds'] = gt_preds[0:1]
                     data['has_preds'] = has_preds[0:1]
+                  
+                    data['feats_dcms'] = feats_dcms
+                    data['ctrs_dcms'] = ctrs_dcms
+                    data['orig_dcms'] = orig_dcms
+                    data['theta_dcms'] = theta_dcms
+                    data['rot_dcms'] = rot_dcms
+                    data['gt_preds_dcms'] = gt_preds_dcms[0:1]
+                    data['has_preds_dcms'] = has_preds_dcms[0:1]
                     stores.append(copy.deepcopy(data))
                 
                     if vis_count < 10:
