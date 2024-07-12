@@ -1,0 +1,9 @@
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2035  --seed 2035
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2046  --seed 2046
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2057  --seed 2057
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2068  --seed 2068
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2079  --seed 2079
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2080  --seed 2080
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2091  --seed 2091
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2002  --seed 2002
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2013  --seed 2013
