@@ -381,11 +381,21 @@ def test(test_files):
                 rot = np.asarray([
                      [np.cos(theta), -np.sin(theta)],
                      [np.sin(theta), np.cos(theta)]], np.float32)
-                
+              
+                current_step_index_dcms = agent_steps.tolist().index(agent_current_step - 1)
+                pre_current_step_index_dcms = current_step_index_dcms - 1
+                orig_dcms = agent_traj[current_step_index_dcms].copy().astype(np.float32)
+                pre_dcms = agent_traj[pre_current_step_index_dcms] - orig_dcms
+                theta_dcms = np.pi - np.arctan2(pre_dcms[1], pre_dcms[0])
+                rot_dcms = np.asarray([
+                         [np.cos(theta_dcms), -np.sin(theta_dcms)],
+                         [np.sin(theta_dcms), np.cos(theta_dcms)]], np.float32)
+              
                 feats, ctrs, gt_preds, has_preds, valid_track_ids = [], [], [], [], []
+                feats_dcms, ctrs_dcms, gt_preds_dcms, has_preds_dcms = [], [], [], []
                 origin_past_ctrs = []
                 for traj, step, pred_id in zip(trajs, steps, scene_pred_ids):
-                    if 59 not in step:
+                    if 59 not in step or (58 not in step):
                         continue
                     valid_track_ids.append(pred_id)
                     gt_pred = np.zeros((60, 2), np.float32)
@@ -421,14 +431,49 @@ def test(test_files):
                     feats.append(feat)
                     gt_preds.append(gt_pred)
                     has_preds.append(has_pred)
-                
+                  
+                    step_dcms = (step + 1)[:-1].copy()
+                    traj = traj[:-1].copy()
+                    gt_pred_dcms = np.zeros((60, 2), np.float32)
+                    has_pred_dcms = np.zeros(60, bool)
+                    future_mask = np.logical_and(step_dcms >= 60, 
+                                                     step_dcms < 120)
+                    future_step = step_dcms[future_mask] - 60
+                    future_traj = traj[future_mask]
+                    gt_pred_dcms[future_step] = future_traj[:,:2]
+                    has_pred_dcms[future_step] = 1
+            
+                    obs_mask = np.logical_and(step_dcms >= 0, step_dcms < 60)
+                    step_dcms = step_dcms[obs_mask]
+                    traj_dcms = traj[obs_mask]
+                    idcs = step_dcms.argsort()
+                    step_dcms = step_dcms[idcs]
+                    traj_dcms = traj_dcms[idcs]
+            
+                    feat_dcms = np.zeros((60, 3), np.float32)
+                    feat_dcms[step_dcms, :2] = np.matmul(rot_dcms, (traj_dcms[:, :2] - orig_dcms.reshape(-1, 2)
+                                                                       ).T).T
+                    feat_dcms[step_dcms, 2] = 1.0
+                        
+                    ctrs_dcms.append(feat_dcms[-1, :2].copy())
+                    feat_dcms[1:, :2] -= feat_dcms[:-1, :2]
+                    feat_dcms[step_dcms[0], :2] = 0
+                        
+                    feats_dcms.append(feat_dcms)
+                    gt_preds_dcms.append(gt_pred_dcms)
+                    has_preds_dcms.append(has_pred_dcms)
+              
                 valid_track_ids = np.asarray(valid_track_ids, np.int64)
                 feats = np.asarray(feats, np.float32)
                 ctrs = np.asarray(ctrs, np.float32)
                 origin_past_ctrs = np.asarray(origin_past_ctrs, np.float32)
                 gt_preds = np.asarray(gt_preds, np.float32)
                 has_preds = np.asarray(has_preds, bool)
-
+                feats_dcms = np.asarray(feats_dcms, np.float32)
+                ctrs_dcms = np.asarray(ctrs_dcms, np.float32)
+                gt_preds_dcms = np.asarray(gt_preds_dcms, np.float32)
+                has_preds_dcms = np.asarray(has_preds_dcms, bool)
+              
                 scene_data['track_ids'] = valid_track_ids
                 scene_data['feats'] = feats
                 scene_data['ctrs'] = ctrs
@@ -438,6 +483,14 @@ def test(test_files):
                 scene_data['gt_preds'] = gt_preds
                 scene_data['has_preds'] = has_preds
                 scene_data['origin_past_ctrs'] = origin_past_ctrs
+
+                scene_data['feats_dcms'] = feats_dcms
+                scene_data['ctrs_dcms'] = ctrs_dcms
+                scene_data['orig_dcms'] = orig_dcms
+                scene_data['theta_dcms'] = theta_dcms
+                scene_data['rot_dcms'] = rot_dcms
+                scene_data['gt_preds_dcms'] = gt_preds_dcms[0:1]
+                scene_data['has_preds_dcms'] = has_preds_dcms[0:1]
                 
                 stores.append(scene_data)
                 if vis_count < 10:
@@ -461,5 +514,5 @@ def test(test_files):
         pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
         f.close()
 
-train(train_file, train_train_file, train_val_file)
-#test(test_files)
+#train(train_file, train_train_file, train_val_file)
+test(test_files)
