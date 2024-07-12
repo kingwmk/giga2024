@@ -382,7 +382,7 @@ def test(test_files):
                      [np.cos(theta), -np.sin(theta)],
                      [np.sin(theta), np.cos(theta)]], np.float32)
               
-                current_step_index_dcms = agent_steps.tolist().index(agent_current_step - 1)
+                current_step_index_dcms = agent_steps.tolist().index(58)
                 pre_current_step_index_dcms = current_step_index_dcms - 1
                 orig_dcms = agent_traj[current_step_index_dcms].copy().astype(np.float32)
                 pre_dcms = agent_traj[pre_current_step_index_dcms] - orig_dcms
