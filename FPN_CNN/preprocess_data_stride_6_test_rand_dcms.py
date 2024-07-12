@@ -188,7 +188,7 @@ def train(train_file, train_train_file, train_val_file):
                         gt_preds.append(gt_pred)
                         has_preds.append(has_pred)
 
-                        step_dcms = step + (60 - (agent_current_step - 1) - 1)
+                        step_dcms = (step + (60 - (agent_current_step - 1) - 1))[:-1]
                         gt_pred_dcms = np.zeros((60, 2), np.float32)
                         has_pred_dcms = np.zeros(60, bool)
                         future_mask = np.logical_and(step_dcms >= 60, 
