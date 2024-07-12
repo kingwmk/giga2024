@@ -618,8 +618,8 @@ class PostProcess(nn.Module):
         ade1, fde1, ade, fde, brier_fde, min_idcs, giga_score = pred_metrics(preds, gt_preds, has_preds, preds_cls)
 
         print(
-            "loss %2.4f cls %2.4f reg %2.4f, end %2.4f, ade1 %2.4f, fde1 %2.4f, ade %2.4f, fde %2.4f, brier_fde %2.4f, giga_score %2.4f"
-            % (loss, cls, reg, end, ade1, fde1, ade, fde, brier_fde, giga_score)
+            "loss %2.4f cls %2.4f reg %2.4f, end %2.4f, con %2.4f, ade1 %2.4f, fde1 %2.4f, ade %2.4f, fde %2.4f, brier_fde %2.4f, giga_score %2.4f"
+            % (loss, cls, reg, end, con, ade1, fde1, ade, fde, brier_fde, giga_score)
         )
         print()
 
