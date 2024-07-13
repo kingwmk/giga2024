@@ -24,71 +24,73 @@ import math
 # define parser
 parser = argparse.ArgumentParser(description="giga")
 parser.add_argument(
-    "-m1", "--model1", default="gigaNet_simple_1", type=str, metavar="MODEL", help="model name"
+    "-m1", "--model1", default="gigaNet_light_stride_4_test", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight1", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight1", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m2", "--model2", default="gigaNet_simple_2", type=str, metavar="MODEL", help="model name"
+    "-m2", "--model2", default="gigaNet_light_stride_4_test", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight2", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight2", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m3", "--model3", default="gigaNet_simple_3", type=str, metavar="MODEL", help="model name"
+    "-m3", "--model3", default="gigaNet_light_stride_4_test_2035", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight3", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight3", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m4", "--model4", default="gigaNet_simple_4", type=str, metavar="MODEL", help="model name"
+    "-m4", "--model4", default="gigaNet_light_stride_4_test_2046", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight4", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight4", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m5", "--model5", default="gigaNet_simple_5", type=str, metavar="MODEL", help="model name"
+    "-m5", "--model5", default="gigaNet_light_stride_4_test_2057", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight5", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight5", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m6", "--model6", default="gigaNet_simple_6", type=str, metavar="MODEL", help="model name"
+    "-m6", "--model6", default="gigaNet_light_stride_4_test_2068", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight6", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight6", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m7", "--model7", default="gigaNet_simple_7", type=str, metavar="MODEL", help="model name"
+    "-m7", "--model7", default="gigaNet_light_stride_4_test_2079", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight7", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight7", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m8", "--model8", default="gigaNet_simple_8", type=str, metavar="MODEL", help="model name"
+    "-m8", "--model8", default="gigaNet_light_stride_4_test_2080", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight8", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight8", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m9", "--model9", default="gigaNet_simple_9", type=str, metavar="MODEL", help="model name"
+    "-m9", "--model9", default="gigaNet_light_stride_4_test_2091", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight9", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight9", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m10", "--model10", default="gigaNet_simple_10", type=str, metavar="MODEL", help="model name"
+    "-m10", "--model10", default="gigaNet_light_stride_4_test_2002", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight10", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight10", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m11", "--model11", default="gigaNet_simple_11", type=str, metavar="MODEL", help="model name"
+    "-m11", "--model11", default="gigaNet_light_stride_4_test_2013", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight11", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight11", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
+
+"""
 parser.add_argument(
     "-m12", "--model12", default="gigaNet_simple_12", type=str, metavar="MODEL", help="model name"
 )
@@ -104,7 +106,6 @@ parser.add_argument(
 parser.add_argument(
     "-m14", "--model14", default="gigaNet_simple_14", type=str, metavar="MODEL", help="model name"
 )
-"""
 parser.add_argument(
     "--weight14", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
@@ -145,9 +146,6 @@ parser.add_argument(
     "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 """
-root_path = "/mnt/home/code/giga-trajectory-main/"
-data_path = root_path + "dataset/"
-
 root_path = "/mnt/home/data/giga2024/Trajectory/"
 test_data_path = root_path + "test/"
 
@@ -161,23 +159,15 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = [test_data_path + 'results/test_1.ndjson',
-                test_data_path + 'results/test_2.ndjson',
-                test_data_path + 'results/test_3.ndjson', 
-                test_data_path + 'results/test_4.ndjson',
-                test_data_path + 'results/test_5.ndjson', 
-                test_data_path + 'results/test_6.ndjson',
-                test_data_path + 'results/test_7.ndjson', 
-                test_data_path + 'results/test_8.ndjson',
+output_files = ['submission/results/results/test_1.ndjson',
+                'submission/results/results/test_2.ndjson',
+                'submission/results/results/test_3.ndjson', 
+                'submission/results/results/test_4.ndjson',
+                'submission/results/results/test_5.ndjson', 
+                'submission/results/results/test_6.ndjson',
+                'submission/results/results/test_7.ndjson', 
+                'submission/results/results/test_8.ndjson',
                ]
-
-import random
-def random_color():
-    colorArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
-    color = ""
-    for i in range(6):
-        color += colorArr[random.randint(0, 14)]
-    return "#" + color
 
 def main():
     # Import all settings for experiment.
@@ -315,114 +305,6 @@ def main():
     load_pretrain(net11, ckpt11["state_dict"])
     net11.eval()
     
-    #model12
-    model12 = import_module(args.model12)
-    config12, _, collate_fn12, net12, loss12, post_process12, opt12 = model12.get_model()
-
-    # load pretrain model
-    ckpt_path12 = args.weight12
-    if not os.path.isabs(ckpt_path12):
-        ckpt_path12 = os.path.join(config12["save_dir"], ckpt_path12)
-    ckpt12 = torch.load(ckpt_path12, map_location=lambda storage, loc: storage)
-    load_pretrain(net12, ckpt12["state_dict"])
-    net12.eval()
-    
-    #model13
-    model13 = import_module(args.model13)
-    config13, _, collate_fn13, net13, loss13, post_process13, opt13 = model13.get_model()
-
-    # load pretrain model
-    ckpt_path13 = args.weight13
-    if not os.path.isabs(ckpt_path13):
-        ckpt_path13 = os.path.join(config13["save_dir"], ckpt_path13)
-    ckpt13 = torch.load(ckpt_path13, map_location=lambda storage, loc: storage)
-    load_pretrain(net13, ckpt13["state_dict"])
-    net13.eval()
-    """
-    #model14
-    model14 = import_module(args.model14)
-    config14, _, collate_fn14, net14, loss14, post_process14, opt14 = model14.get_model()
-
-    # load pretrain model
-    ckpt_path14 = args.weight14
-    if not os.path.isabs(ckpt_path14):
-        ckpt_path14 = os.path.join(config14["save_dir"], ckpt_path14)
-    ckpt14 = torch.load(ckpt_path14, map_location=lambda storage, loc: storage)
-    load_pretrain(net14, ckpt14["state_dict"])
-    net14.eval()
-    
-    #model5
-    model15 = import_module(args.model15)
-    config15, _, collate_fn15, net15, loss15, post_process15, opt15 = model15.get_model()
-
-    # load pretrain model
-    ckpt_path15 = args.weight15
-    if not os.path.isabs(ckpt_path15):
-        ckpt_path15 = os.path.join(config15["save_dir"], ckpt_path15)
-    ckpt15 = torch.load(ckpt_path15, map_location=lambda storage, loc: storage)
-    load_pretrain(net15, ckpt15["state_dict"])
-    net15.eval()
-    
-    #model6
-    model16 = import_module(args.model16)
-    config16, _, collate_fn16, net16, loss16, post_process16, opt16 = model16.get_model()
-
-    # load pretrain model
-    ckpt_path16 = args.weight16
-    if not os.path.isabs(ckpt_path16):
-        ckpt_path16 = os.path.join(config16["save_dir"], ckpt_path16)
-    ckpt16 = torch.load(ckpt_path16, map_location=lambda storage, loc: storage)
-    load_pretrain(net16, ckpt16["state_dict"])
-    net16.eval()   
-    
-    #model17
-    model17 = import_module(args.model17)
-    config17, _, collate_fn17, net17, loss17, post_process17, opt17 = model17.get_model()
-
-    # load pretrain model
-    ckpt_path17 = args.weight17
-    if not os.path.isabs(ckpt_path17):
-        ckpt_path17 = os.path.join(config17["save_dir"], ckpt_path17)
-    ckpt17 = torch.load(ckpt_path17, map_location=lambda storage, loc: storage)
-    load_pretrain(net17, ckpt17["state_dict"])
-    net17.eval()
-    
-    #model18
-    model18 = import_module(args.model18)
-    config18, _, collate_fn18, net18, loss18, post_process18, opt18 = model18.get_model()
-
-    # load pretrain model
-    ckpt_path18 = args.weight18
-    if not os.path.isabs(ckpt_path18):
-        ckpt_path18 = os.path.join(config18["save_dir"], ckpt_path18)
-    ckpt18 = torch.load(ckpt_path18, map_location=lambda storage, loc: storage)
-    load_pretrain(net18, ckpt18["state_dict"])
-    net18.eval()   
-    
-    #model19
-    model19 = import_module(args.model19)
-    config19, _, collate_fn19, net19, loss19, post_process19, opt19 = model19.get_model()
-
-    # load pretrain model
-    ckpt_path19 = args.weight19
-    if not os.path.isabs(ckpt_path19):
-        ckpt_path19 = os.path.join(config19["save_dir"], ckpt_path19)
-    ckpt19 = torch.load(ckpt_path19, map_location=lambda storage, loc: storage)
-    load_pretrain(net19, ckpt19["state_dict"])
-    net19.eval()
-    
-    #model20
-    model20 = import_module(args.model20)
-    config20, _, collate_fn20, net20, loss20, post_process20, opt20 = model20.get_model()
-
-    # load pretrain model
-    ckpt_path20 = args.weight20
-    if not os.path.isabs(ckpt_path20):
-        ckpt_path20 = os.path.join(config20["save_dir"], ckpt_path20)
-    ckpt20 = torch.load(ckpt_path20, map_location=lambda storage, loc: storage)
-    load_pretrain(net20, ckpt20["state_dict"])
-    net20.eval()
-    """
     for f_idx in range(len(test_files)):
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
@@ -453,8 +335,8 @@ def main():
                 for pred_id in range(len(scene_primary_pedestrian_ids)):
                     assert scene_primary_pedestrian_ids[pred_id] == track_ids[pred_id]
 
-                output1 = net1(data)
-                results1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output1["reg"]]
+                output = net1(data)
+                results = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
                 output2 = net2(data)
                 results2 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output2["reg"]]
                 output3 = net3(data)
@@ -479,7 +361,6 @@ def main():
                 results12 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output12["reg"]]
                 output13 = net13(data)
                 results13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["reg"]]
-                """
                 output14 = net14(data)
                 results14 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output14["reg"]]
                 output15 = net15(data)
@@ -493,28 +374,27 @@ def main():
                 output19 = net19(data)
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
                 output20 = net20(data)
-                results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]] 
-                """
-                results = []
-                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["ctrs"]]
+                results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]]
+                
+                gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
                 for i in range(len(results1)):
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
                                             results5[i],results6[i],results7[i],results8[i],
                                            results9[i],results10[i],results11[i],results12[i],
-                                            results13[i],
-                                            #results14[i],results15[i],results16[i],
-                                           #results17[i],results18[i],results19[i],results20[i]
-                                           ), 1).squeeze()
-                    traj_ends = trajs[:,-1,:].squeeze()
-                    labels = KMeans(n_clusters=3, n_init='auto').fit_predict(traj_ends)
-                    reduced_traj = []
-                    for k in range(3):
-                        traj_k = trajs[labels == k]
-                        traj_mean = np.mean(traj_k, axis=0)  
-                        reduced_traj.append(traj_mean)
-                    reduced_traj = np.stack(reduced_traj, axis=0)
-                    results.append(reduced_traj)
-
+                                            results13[i],results14[i],results15[i],results16[i],
+                                           results17[i],results18[i],results19[i],results20[i]), 1).squeeze()
+                    traj_ends = trajs[:,-2,:].squeeze()
+                    kmeans = KMeans(n_clusters=3, random_state=0).fit(traj_ends)
+                    cts = kmeans.cluster_centers_
+                    result = np.zeros((3, 60, 2), np.float64)
+                    orign = gt_past[59:60]
+                    for j in range(3):  
+                        vel = (cts[j] - orign)/60
+                        vel_pred = np.repeat(vel, 60, axis=0)
+                    results.append(result)
+                    vis_result_centers.append(kmeans.cluster_centers_)
+                    vis_assemble_results.append(result)
+                    vis_count = vis_count + 1
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
                                                 start_frames, end_frames, track_ids, results, gt_pasts)):
@@ -543,23 +423,6 @@ def main():
                         track["track"] = track_data
                         writer.writerow(track)
         file.close()
-        """
-        color_box = ['red','orange','yellow','green','blue','cyan','pink','purple','black']
-        for i in range(len(vis_gt_pasts)):
-            plt.plot(vis_gt_pasts[i][:,0], vis_gt_pasts[i][:,1], 
-                     "-", linewidth=1.5, color='orange')
-            for j in range(9):
-                plt.scatter(vis_gt_pasts[i][j,0], vis_gt_pasts[i][j,1], linewidth=1.6, color=color_box[j])
-        
-            for j in range(len(vis_assemble_results[i])):
-                plt.plot(vis_assemble_results[i][j,:,0], vis_assemble_results[i][j,:,1], 
-                         "-", linewidth=1.5, color='g')
-                plt.scatter(vis_result_centers[i][j][0], vis_result_centers[i][j][1], 
-                            linewidth=1.5, color='r')
-            save_path = data_path + "vis/vis_test_assemble_preds/" + str(f_idx)+"_"+str(vis_pp_ids[i]) + ".png"
-            plt.savefig(save_path)
-            plt.cla()
-        """
         
 if __name__ == "__main__":
     main()
