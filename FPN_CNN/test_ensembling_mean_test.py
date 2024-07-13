@@ -279,6 +279,7 @@ def main():
                 
                 
                 gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
+                results = []
                 for i in range(len(results1)):
                     trajs = np.concatenate((results1[i],results3[i],
                                             results5[i],results7[i],
