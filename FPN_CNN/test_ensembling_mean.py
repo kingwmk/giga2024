@@ -42,110 +42,108 @@ parser.add_argument(
     "--weight3", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m4", "--model4", default="gigaNet_light_stride_4_test_2046", type=str, metavar="MODEL", help="model name"
+    "-m4", "--model4", default="gigaNet_light_stride_4_test_2035", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight4", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight4", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m5", "--model5", default="gigaNet_light_stride_4_test_2057", type=str, metavar="MODEL", help="model name"
+    "-m5", "--model5", default="gigaNet_light_stride_4_test_2046", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
     "--weight5", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m6", "--model6", default="gigaNet_light_stride_4_test_2068", type=str, metavar="MODEL", help="model name"
+    "-m6", "--model6", default="gigaNet_light_stride_4_test_2046", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight6", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight6", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m7", "--model7", default="gigaNet_light_stride_4_test_2079", type=str, metavar="MODEL", help="model name"
+    "-m7", "--model7", default="gigaNet_light_stride_4_test_2057", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
     "--weight7", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m8", "--model8", default="gigaNet_light_stride_4_test_2080", type=str, metavar="MODEL", help="model name"
+    "-m8", "--model8", default="gigaNet_light_stride_4_test_2057", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight8", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight8", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m9", "--model9", default="gigaNet_light_stride_4_test_2091", type=str, metavar="MODEL", help="model name"
+    "-m9", "--model9", default="gigaNet_light_stride_4_test_2068", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
     "--weight9", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m10", "--model10", default="gigaNet_light_stride_4_test_2002", type=str, metavar="MODEL", help="model name"
+    "-m10", "--model10", default="gigaNet_light_stride_4_test_2068", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight10", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight10", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
-    "-m11", "--model11", default="gigaNet_light_stride_4_test_2013", type=str, metavar="MODEL", help="model name"
+    "-m11", "--model11", default="gigaNet_light_stride_4_test_2079", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
     "--weight11", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
+parser.add_argument(
+    "-m12", "--model12", default="gigaNet_light_stride_4_test_2079", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight12", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m13", "--model13", default="gigaNet_light_stride_4_test_2080", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight13", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m14", "--model14", default="gigaNet_light_stride_4_test_2080", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight14", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m15", "--model15", default="gigaNet_light_stride_4_test_2091", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight15", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m16", "--model16", default="gigaNet_light_stride_4_test_2091", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight16", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m17", "--model17", default="gigaNet_light_stride_4_test_2002", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight17", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m18", "--model18", default="gigaNet_light_stride_4_test_2002", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight18", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m19", "--model19", default="gigaNet_light_stride_4_test_2013", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight19", default="0.902.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
+parser.add_argument(
+    "-m20", "--model20", default="gigaNet_light_stride_4_test_2013", type=str, metavar="MODEL", help="model name"
+)
+parser.add_argument(
+    "--weight20", default="1.504.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+)
 
-"""
-parser.add_argument(
-    "-m12", "--model12", default="gigaNet_simple_12", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight12", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m13", "--model13", default="gigaNet_simple_13", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight13", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m14", "--model14", default="gigaNet_simple_14", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight14", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m15", "--model15", default="gigaNet_simple_15", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight15", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m16", "--model16", default="gigaNet_simple_16", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight16", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m17", "--model17", default="gigaNet_simple_17", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight17", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m18", "--model18", default="gigaNet_simple_18", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight18", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m19", "--model19", default="gigaNet_simple_19", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight19", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-parser.add_argument(
-    "-m20", "--model20", default="gigaNet_simple_20", type=str, metavar="MODEL", help="model name"
-)
-parser.add_argument(
-    "--weight20", default="20.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
-)
-"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
 test_data_path = root_path + "test/"
 
@@ -305,6 +303,114 @@ def main():
     load_pretrain(net11, ckpt11["state_dict"])
     net11.eval()
     
+    #model12
+    model12 = import_module(args.model12)
+    config12, _, collate_fn12, net12, loss12, post_process12, opt12 = model12.get_model()
+
+    # load pretrain model
+    ckpt_path12 = args.weight12
+    if not os.path.isabs(ckpt_path12):
+        ckpt_path12 = os.path.join(config12["save_dir"], ckpt_path12)
+    ckpt12 = torch.load(ckpt_path12, map_location=lambda storage, loc: storage)
+    load_pretrain(net12, ckpt12["state_dict"])
+    net12.eval()
+    
+    #model13
+    model13 = import_module(args.model13)
+    config13, _, collate_fn13, net13, loss13, post_process13, opt13 = model13.get_model()
+
+    # load pretrain model
+    ckpt_path13 = args.weight13
+    if not os.path.isabs(ckpt_path13):
+        ckpt_path13 = os.path.join(config13["save_dir"], ckpt_path13)
+    ckpt13 = torch.load(ckpt_path13, map_location=lambda storage, loc: storage)
+    load_pretrain(net13, ckpt13["state_dict"])
+    net13.eval()
+    
+    #model14
+    model14 = import_module(args.model14)
+    config14, _, collate_fn14, net14, loss14, post_process14, opt14 = model14.get_model()
+
+    # load pretrain model
+    ckpt_path14 = args.weight14
+    if not os.path.isabs(ckpt_path14):
+        ckpt_path14 = os.path.join(config14["save_dir"], ckpt_path14)
+    ckpt14 = torch.load(ckpt_path14, map_location=lambda storage, loc: storage)
+    load_pretrain(net14, ckpt14["state_dict"])
+    net14.eval()
+    
+    #model5
+    model15 = import_module(args.model15)
+    config15, _, collate_fn15, net15, loss15, post_process15, opt15 = model15.get_model()
+
+    # load pretrain model
+    ckpt_path15 = args.weight15
+    if not os.path.isabs(ckpt_path15):
+        ckpt_path15 = os.path.join(config15["save_dir"], ckpt_path15)
+    ckpt15 = torch.load(ckpt_path15, map_location=lambda storage, loc: storage)
+    load_pretrain(net15, ckpt15["state_dict"])
+    net15.eval()
+    
+    #model6
+    model16 = import_module(args.model16)
+    config16, _, collate_fn16, net16, loss16, post_process16, opt16 = model16.get_model()
+
+    # load pretrain model
+    ckpt_path16 = args.weight16
+    if not os.path.isabs(ckpt_path16):
+        ckpt_path16 = os.path.join(config16["save_dir"], ckpt_path16)
+    ckpt16 = torch.load(ckpt_path16, map_location=lambda storage, loc: storage)
+    load_pretrain(net16, ckpt16["state_dict"])
+    net16.eval()   
+    
+    #model17
+    model17 = import_module(args.model17)
+    config17, _, collate_fn17, net17, loss17, post_process17, opt17 = model17.get_model()
+
+    # load pretrain model
+    ckpt_path17 = args.weight17
+    if not os.path.isabs(ckpt_path17):
+        ckpt_path17 = os.path.join(config17["save_dir"], ckpt_path17)
+    ckpt17 = torch.load(ckpt_path17, map_location=lambda storage, loc: storage)
+    load_pretrain(net17, ckpt17["state_dict"])
+    net17.eval()
+    
+    #model18
+    model18 = import_module(args.model18)
+    config18, _, collate_fn18, net18, loss18, post_process18, opt18 = model18.get_model()
+
+    # load pretrain model
+    ckpt_path18 = args.weight18
+    if not os.path.isabs(ckpt_path18):
+        ckpt_path18 = os.path.join(config18["save_dir"], ckpt_path18)
+    ckpt18 = torch.load(ckpt_path18, map_location=lambda storage, loc: storage)
+    load_pretrain(net18, ckpt18["state_dict"])
+    net18.eval()   
+    
+    #model19
+    model19 = import_module(args.model19)
+    config19, _, collate_fn19, net19, loss19, post_process19, opt19 = model19.get_model()
+
+    # load pretrain model
+    ckpt_path19 = args.weight19
+    if not os.path.isabs(ckpt_path19):
+        ckpt_path19 = os.path.join(config19["save_dir"], ckpt_path19)
+    ckpt19 = torch.load(ckpt_path19, map_location=lambda storage, loc: storage)
+    load_pretrain(net19, ckpt19["state_dict"])
+    net19.eval()
+    
+    #model20
+    model20 = import_module(args.model20)
+    config20, _, collate_fn20, net20, loss20, post_process20, opt20 = model20.get_model()
+
+    # load pretrain model
+    ckpt_path20 = args.weight20
+    if not os.path.isabs(ckpt_path20):
+        ckpt_path20 = os.path.join(config20["save_dir"], ckpt_path20)
+    ckpt20 = torch.load(ckpt_path20, map_location=lambda storage, loc: storage)
+    load_pretrain(net20, ckpt20["state_dict"])
+    net20.eval()
+    
     for f_idx in range(len(test_files)):
         vis_results, vis_assemble_results, vis_result_centers, vis_gt_pasts, vis_pp_ids = [], [], [], [], []
         #10 vis sample per test_file
@@ -384,13 +490,14 @@ def main():
                                             results13[i],results14[i],results15[i],results16[i],
                                            results17[i],results18[i],results19[i],results20[i]), 1).squeeze()
                     traj_ends = trajs[:,-2,:].squeeze()
-                    kmeans = KMeans(n_clusters=3, random_state=0).fit(traj_ends)
+                    kmeans = KMeans(n_clusters=3, n_init='auto', random_state=0).fit(traj_ends)
                     cts = kmeans.cluster_centers_
                     result = np.zeros((3, 60, 2), np.float64)
                     orign = gt_past[59:60]
                     for j in range(3):  
                         vel = (cts[j] - orign)/60
                         vel_pred = np.repeat(vel, 60, axis=0)
+                        result[j] = orign + vel_pred.cumsum(0)
                     results.append(result)
                     vis_result_centers.append(kmeans.cluster_centers_)
                     vis_assemble_results.append(result)
