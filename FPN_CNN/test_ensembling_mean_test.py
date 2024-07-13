@@ -252,7 +252,7 @@ def main():
                     assert scene_primary_pedestrian_ids[pred_id] == track_ids[pred_id]
 
                 output = net1(data)
-                results = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
+                results1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
                 output3 = net3(data)
                 results3 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output3["reg"]]
                 
