@@ -442,7 +442,7 @@ def main():
                     assert scene_primary_pedestrian_ids[pred_id] == track_ids[pred_id]
 
                 output = net1(data)
-                results = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
+                results1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
                 output2 = net2(data)
                 results2 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output2["reg"]]
                 output3 = net3(data)
@@ -481,7 +481,7 @@ def main():
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
                 output20 = net20(data)
                 results20 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output20["reg"]]
-                
+                results = []
                 gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
                 for i in range(len(results1)):
                     trajs = np.concatenate((results1[i],results2[i],results3[i],results4[i],
@@ -493,7 +493,7 @@ def main():
                     kmeans = KMeans(n_clusters=3, n_init='auto', random_state=0).fit(traj_ends)
                     cts = kmeans.cluster_centers_
                     result = np.zeros((3, 60, 2), np.float64)
-                    orign = gt_past[59:60]
+                    orign = gt_pasts[i][59:60]
                     for j in range(3):  
                         vel = (cts[j] - orign)/60
                         vel_pred = np.repeat(vel, 60, axis=0)
