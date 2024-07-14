@@ -307,7 +307,7 @@ def main():
                                             results5[i],results7[i],
                                            results9[i],results11[i],
                                             results13[i],results15[i],
-                                           results17[i]), results19[i]), 1).squeeze()
+                                           results17[i], results19[i]), 1).squeeze()
                     probs = np.concatenate((prob1[i],prob3[i],
                                             prob5[i],prob7[i],
                                             prob9[i],prob11[i],
