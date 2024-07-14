@@ -229,6 +229,8 @@ def main():
     load_pretrain(net17, ckpt17["state_dict"])
     net17.eval()
 
+    model19 = import_module(args.model19)
+    config19, _, collate_fn19, net19, loss19, post_process19, opt19 = model19.get_model()
     # load pretrain model
     ckpt_path19 = args.weight19
     if not os.path.isabs(ckpt_path19):
