@@ -297,6 +297,7 @@ def main():
                 output17 = net17(data)
                 results17 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output17["reg"]]
                 prob17 = [x.detach().cpu().numpy().astype(np.float64) for x in output17["cls"]]
+                output19 = net19(data)
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
                 prob19 = [x.detach().cpu().numpy().astype(np.float64) for x in output19["cls"]]
               
