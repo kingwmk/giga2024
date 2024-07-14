@@ -20,6 +20,7 @@ import ndjson
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import math
+from scipy.special import softmax
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
@@ -272,34 +273,34 @@ def main():
 
                 output = net1(data)
                 results1 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output["reg"]]
-                prob1 = [x.detach().cpu().numpy().astype(np.float64) for x in output["cls"]]
+                prob1 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output["cls"]]
                 output3 = net3(data)
                 results3 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output3["reg"]]
-                prob3 = [x.detach().cpu().numpy().astype(np.float64) for x in output3["cls"]]
+                prob3 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output3["cls"]]
                 output5 = net5(data)
                 results5 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output5["reg"]]
-                prob5 = [x.detach().cpu().numpy().astype(np.float64) for x in output5["cls"]]
+                prob5 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output5["cls"]]
                 output7 = net7(data)
                 results7 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output7["reg"]]
-                prob7 = [x.detach().cpu().numpy().astype(np.float64) for x in output7["cls"]]
+                prob7 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output7["cls"]]
                 output9 = net9(data)
                 results9 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output9["reg"]]
-                prob9 = [x.detach().cpu().numpy().astype(np.float64) for x in output9["cls"]]
+                prob9 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output9["cls"]]
                 output11 = net11(data)
                 results11 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output11["reg"]]
-                prob11 = [x.detach().cpu().numpy().astype(np.float64) for x in output11["cls"]]
+                prob11 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output11["cls"]]
                 output13 = net13(data)
                 results13 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output13["reg"]]
-                prob13 = [x.detach().cpu().numpy().astype(np.float64) for x in output13["cls"]]
+                prob13 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output13["cls"]]
                 output15 = net15(data)
                 results15 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output15["reg"]]
-                prob15 = [x.detach().cpu().numpy().astype(np.float64) for x in output15["cls"]]
+                prob15 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output15["cls"]]
                 output17 = net17(data)
                 results17 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output17["reg"]]
-                prob17 = [x.detach().cpu().numpy().astype(np.float64) for x in output17["cls"]]
+                prob17 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output17["cls"]]
                 output19 = net19(data)
                 results19 = [x[0:1,:3].detach().cpu().numpy().astype(np.float64) for x in output19["reg"]]
-                prob19 = [x.detach().cpu().numpy().astype(np.float64) for x in output19["cls"]]
+                prob19 = [softmax(x.detach().cpu().numpy().astype(np.float64)) for x in output19["cls"]]
               
                 gt_pasts = [x[0].cpu().numpy().astype(np.float64) for x in data["origin_past_ctrs"]]
                 results = []
