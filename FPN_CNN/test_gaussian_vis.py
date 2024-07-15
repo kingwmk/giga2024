@@ -117,7 +117,7 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                sigma = 6
+                sigma = 10
                 preds = np.array([gaussian_smoothing(preds[s], sigma) for s in range(preds.shape[0])])
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
