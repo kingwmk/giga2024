@@ -1,9 +1,13 @@
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2035  --seed 2035 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2046  --seed 2046 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2057  --seed 2057 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2068  --seed 2068 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2079  --seed 2079 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2080  --seed 2080 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2091  --seed 2091 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2002  --seed 2002 --resume 1.002.ckpt
-horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_light_stride_4_test_2013  --seed 2013 --resume 1.002.ckpt
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2026 --seed 2026
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2028 --seed 2028
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2030 --seed 2030
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2032 --seed 2032
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2034 --seed 2034
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2037 --seed 2037
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2039 --seed 2039
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2041 --seed 2041
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2043 --seed 2043
+horovodrun -np 8 -H localhost:8 python train_seed.py -m gigaNet_stride_6_test_rand_dcms_2045 --seed 2045
+
+
+
