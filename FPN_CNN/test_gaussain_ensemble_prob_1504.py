@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 import math
 from scipy.ndimage import gaussian_filter1d
 from scipy.special import softmax
+from sklearn.cluster import KMeans
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
