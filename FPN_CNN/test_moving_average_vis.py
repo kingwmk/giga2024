@@ -116,12 +116,8 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                result = np.zeros((3, 60, 2), np.float64)
-                window_size = 5
-                for j in range(3):
-                    result[j] = np.array([moving_average(preds[j][s], window_size) 
-                                          for s in range(preds[j].shape[0])]) 
-                preds = result
+                window_size = 5 
+                preds = np.array([moving_average(preds[s], window_size) for s in range(preds.shape[0])])
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
                 vis_pp_ids.append(scene_primary_pedestrian_id)
