@@ -116,7 +116,7 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                window_size = 5 
+                window_size = 6
                 preds = np.array([moving_average(preds[s], window_size) for s in range(preds.shape[0])])
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
@@ -154,11 +154,7 @@ def main():
             plt.savefig(save_path)
             plt.cla()
           
-def moving_average(data, window_size):
-    # 确保窗口大小是奇数
-    if window_size % 2 == 0:
-        window_size += 1
-    
+def moving_average(data, window_size):    
     half_window = window_size // 2
     smooth_data = np.zeros_like(data)
     
