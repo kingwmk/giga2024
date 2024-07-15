@@ -117,7 +117,7 @@ def main():
                 writer.writerow(scene)
                 
                 preds = pred_traj.squeeze()
-                sigma = 2
+                sigma = 6
                 preds = np.array([gaussian_smoothing(preds[s], sigma) for s in range(preds.shape[0])])
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
@@ -160,7 +160,7 @@ def main():
 def gaussian_smoothing(data, sigma):
     smooth_data = np.zeros_like(data)
     for i in range(data.shape[1]):
-        smooth_data[:, i] = gaussian_filter1d(data[:, i], sigma=sigma)
+        smooth_data[:, i] = gaussian_filter1d(data[:, i], sigma=sigma, mode='nearest')
     return smooth_data
   
 if __name__ == "__main__":
