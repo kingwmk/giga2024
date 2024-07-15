@@ -1,3 +1,6 @@
 python test_gaussain_ensemble_prob_1504.py
+python test_gaussain_ensemble_mean_1504.py
 python test_gaussain_ensemble_prob_1604.py
+python test_gaussain_ensemble_mean_1604.py
 python test_gaussain_ensemble_prob_1704.py
+python test_gaussain_ensemble_mean_1704.py
