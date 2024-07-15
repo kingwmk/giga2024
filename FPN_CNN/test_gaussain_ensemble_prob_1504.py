@@ -330,7 +330,7 @@ def main():
                                             results13[i],results15[i],
                                            results17[i],results19[i]), 1).squeeze()
                     sigma = 10
-                    trajs = np.array([gaussian_smoothing(trajs[s], sigma) for s in trajs(preds.shape[0])])
+                    trajs = np.array([gaussian_smoothing(trajs[s], sigma) for s in range(trajs.shape[0])])
                     probs = np.concatenate((cls1[i],cls3[i],
                                             cls5[i],cls7[i],
                                             cls9[i],cls11[i],
