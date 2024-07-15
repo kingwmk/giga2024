@@ -159,10 +159,18 @@ def main():
             plt.cla()
           
 def moving_average(data, window_size):
-    # 扩展数据的两端以处理边界效应
-    extended_data = np.pad(data, ((window_size // 2, window_size // 2), (0, 0)), mode='edge')
-    cumsum = np.cumsum(extended_data, axis=0)
-    smooth_data = (cumsum[window_size:] - cumsum[:-window_size]) / window_size
+    # 确保窗口大小是奇数
+    if window_size % 2 == 0:
+        window_size += 1
+    
+    half_window = window_size // 2
+    smooth_data = np.zeros_like(data)
+    
+    for i in range(data.shape[1]):  # 对每一维度进行处理
+        extended_data = np.pad(data[:, i], (half_window, half_window), mode='edge')
+        cumsum = np.cumsum(extended_data)
+        smooth_data[:, i] = (cumsum[window_size:] - cumsum[:-window_size]) / window_size
+    
     return smooth_data
   
 if __name__ == "__main__":
