@@ -1,5 +1,3 @@
-python test_1002.py
-python test_1103.py
-python test_1203.py
-python test_1303.py
-python test_1403.py
+python test_gaussain_ensemble_prob_1504.py
+python test_gaussain_ensemble_prob_1604.py
+python test_gaussain_ensemble_prob_1704.py
