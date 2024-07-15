@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 import math
 from scipy.ndimage import gaussian_filter1d
 from scipy.special import softmax
+from sklearn.cluster import KMeans
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
@@ -109,14 +110,14 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = ['submission/1604/test_1.ndjson',
-                'submission/1604/test_2.ndjson',
-                'submission/1604/test_3.ndjson', 
-                'submission/1604/test_4.ndjson',
-                'submission/1604/test_5.ndjson', 
-                'submission/1604/test_6.ndjson',
-                'submission/1604/test_7.ndjson', 
-                'submission/1604/test_8.ndjson',
+output_files = ['submission/1604_gaussain_prob/test_1.ndjson',
+                'submission/1604_gaussain_prob/test_2.ndjson',
+                'submission/1604_gaussain_prob/test_3.ndjson', 
+                'submission/1604_gaussain_prob/test_4.ndjson',
+                'submission/1604_gaussain_prob/test_5.ndjson', 
+                'submission/1604_gaussain_prob/test_6.ndjson',
+                'submission/1604_gaussain_prob/test_7.ndjson', 
+                'submission/1604_gaussain_prob/test_8.ndjson',
                ]
 
 def main():
@@ -383,6 +384,6 @@ def gaussian_smoothing(data, sigma):
     smooth_data = np.zeros_like(data)
     for i in range(data.shape[1]):
         smooth_data[:, i] = gaussian_filter1d(data[:, i], sigma=sigma, mode='nearest')
-      
+    return smooth_data  
 if __name__ == "__main__":
     main()
