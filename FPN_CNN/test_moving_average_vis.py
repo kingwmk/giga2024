@@ -159,8 +159,11 @@ def main():
             plt.cla()
           
 def moving_average(data, window_size):
-    cumsum = np.cumsum(np.insert(data, 0, 0), axis=0)
-    smooth_data = (cumsum[window_size:] - cumsum[:-window_size]) / window_size
+    # 对每一维度的数据进行移动平均
+    smooth_data = np.zeros_like(data)
+    for i in range(data.shape[1]):
+        cumsum = np.cumsum(np.insert(data[:, i], 0, 0))
+        smooth_data[:, i] = (cumsum[window_size:] - cumsum[:-window_size]) / window_size
     return smooth_data
   
 if __name__ == "__main__":
