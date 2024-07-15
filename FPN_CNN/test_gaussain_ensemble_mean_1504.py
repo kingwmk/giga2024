@@ -108,14 +108,14 @@ test_files = [test_data_path + 'preprocess/test_1.p',
               test_data_path + 'preprocess/test_8.p', 
              ]
     
-output_files = ['submission/1504/test_1.ndjson',
-                'submission/1504/test_2.ndjson',
-                'submission/1504/test_3.ndjson', 
-                'submission/1504/test_4.ndjson',
-                'submission/1504/test_5.ndjson', 
-                'submission/1504/test_6.ndjson',
-                'submission/1504/test_7.ndjson', 
-                'submission/1504/test_8.ndjson',
+output_files = ['submission/1504_gaussain_mean/test_1.ndjson',
+                'submission/1504_gaussain_mean/test_2.ndjson',
+                'submission/1504_gaussain_mean/test_3.ndjson', 
+                'submission/1504_gaussain_mean/test_4.ndjson',
+                'submission/1504_gaussain_mean/test_5.ndjson', 
+                'submission/1504_gaussain_mean/test_6.ndjson',
+                'submission/1504_gaussain_mean/test_7.ndjson', 
+                'submission/1504_gaussain_mean/test_8.ndjson',
                ]
 
 def main():
@@ -307,7 +307,7 @@ def main():
                                             results13[i],results15[i],
                                            results17[i],results19[i]), 1).squeeze()
                     sigma = 10
-                    trajs = np.array([gaussian_smoothing(trajs[s], sigma) for s in trajs(preds.shape[0])])
+                    trajs = np.array([gaussian_smoothing(trajs[s], sigma) for s in range(trajs.shape[0])])
                     traj_ends = trajs[:,-1,:].squeeze()
                     kmeans = KMeans(n_clusters=3, n_init='auto', random_state=0).fit(traj_ends)
                     cts = kmeans.cluster_centers_
@@ -317,9 +317,6 @@ def main():
                         cluster_index = labels == j
                         result[j] = np.mean(trajs[cluster_index], 0)
                     results.append(result)
-                    vis_result_centers.append(kmeans.cluster_centers_)
-                    vis_assemble_results.append(result)
-                    vis_count = vis_count + 1
             for i, (scene_id, scene_primary_pedestrian_id, start_frame, end_frame, track_id,
                     pred_traj, gt_past) in enumerate(zip(scene_ids, scene_primary_pedestrian_ids, 
                                                 start_frames, end_frames, track_ids, results, gt_pasts)):
@@ -353,6 +350,6 @@ def gaussian_smoothing(data, sigma):
     smooth_data = np.zeros_like(data)
     for i in range(data.shape[1]):
         smooth_data[:, i] = gaussian_filter1d(data[:, i], sigma=sigma, mode='nearest')
-      
+    return smooth_data
 if __name__ == "__main__":
     main()
