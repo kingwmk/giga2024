@@ -119,11 +119,11 @@ def main():
                 preds = pred_traj.squeeze()
                 sigma = 10
                 preds_end = preds[:,-1]
-                gt_past_cat = np.repeat(np.expand_dims(gt_past[-5:], axis=0), repeats=3, axis=0)
+                gt_past_cat = np.repeat(np.expand_dims(gt_past[58:59], axis=0), repeats=3, axis=0)
                 pred_gt_cat = np.concatenate([gt_past_cat, preds], axis=1)
                 pred_gt_cat = np.array([gaussian_smoothing(pred_gt_cat[s], sigma) 
                                         for s in range(pred_gt_cat.shape[0])])
-                preds = pred_gt_cat[:,5:]
+                preds = pred_gt_cat[:,1:]
                 preds[:,-1] = preds_end
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
