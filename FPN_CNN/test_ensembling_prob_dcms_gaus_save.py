@@ -615,7 +615,7 @@ def main():
                         writer.writerow(track)
         file.close()
         result_save_path = "./raw_results/" + str(f_idx) + ".pkl"
-        with open(result_save_path), 'wb') as handle:
+        with open(result_save_path, 'wb') as handle:
             pickle.dump(save, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         color_box = ['red', 'orange', 'yellow', 'green', 'blue', 'cyan', 'pink', 'purple', 'white', 'black']
