@@ -411,19 +411,19 @@ def test(test_files):
             
                     obs_mask = np.logical_and(step_curr >= 0, step_curr < 32)
                     step_curr = step_curr[obs_mask]
-                    traj = traj[obs_mask]
+                    traj_curr = traj[obs_mask]
                     if vis_count < 10:
                         vis_past.append(traj)
                     idcs = step_curr.argsort()
                     step_curr = step_curr[idcs]
-                    traj = traj[idcs]
+                    traj_curr = traj_curr[idcs]
                   
                     origin_past_ctr = np.zeros((30, 2), np.float32)
-                    origin_past_ctr[step_curr, :2] = traj[:, :2].copy()
+                    origin_past_ctr[step_curr, :2] = traj_curr[:, :2].copy()
                     origin_past_ctrs.append(origin_past_ctr)
                   
                     feat = np.zeros((30, 3), np.float32)
-                    feat[step_curr, :2] = np.matmul(rot, (traj[:, :2] - orig.reshape(-1, 2)).T).T
+                    feat[step_curr, :2] = np.matmul(rot, (traj_curr[:, :2] - orig.reshape(-1, 2)).T).T
                     feat[step_curr, 2] = 1.0
             
                     ctrs.append(feat[-1, :2].copy())
