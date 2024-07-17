@@ -34,7 +34,7 @@ parser.add_argument(
     "-m2", "--model2", default="gigaNet_stride_6_test_rand_dcms", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight2", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight2", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m3", "--model3", default="gigaNet_stride_6_test_rand_dcms_2026", type=str, metavar="MODEL", help="model name"
@@ -46,7 +46,7 @@ parser.add_argument(
     "-m4", "--model4", default="gigaNet_stride_6_test_rand_dcms_2026", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight4", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight4", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m5", "--model5", default="gigaNet_stride_6_test_rand_dcms_2028", type=str, metavar="MODEL", help="model name"
@@ -58,7 +58,7 @@ parser.add_argument(
     "-m6", "--model6", default="gigaNet_stride_6_test_rand_dcms_2028", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight6", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight6", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m7", "--model7", default="gigaNet_stride_6_test_rand_dcms_2030", type=str, metavar="MODEL", help="model name"
@@ -70,7 +70,7 @@ parser.add_argument(
     "-m8", "--model8", default="gigaNet_stride_6_test_rand_dcms_2030", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight8", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight8", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m9", "--model9", default="gigaNet_stride_6_test_rand_dcms_2032", type=str, metavar="MODEL", help="model name"
@@ -82,7 +82,7 @@ parser.add_argument(
     "-m10", "--model10", default="gigaNet_stride_6_test_rand_dcms_2032", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight10", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight10", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m11", "--model11", default="gigaNet_stride_6_test_rand_dcms_2034", type=str, metavar="MODEL", help="model name"
@@ -94,7 +94,7 @@ parser.add_argument(
     "-m12", "--model12", default="gigaNet_stride_6_test_rand_dcms_2034", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight12", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight12", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m13", "--model13", default="gigaNet_stride_6_test_rand_dcms_2037", type=str, metavar="MODEL", help="model name"
@@ -106,7 +106,7 @@ parser.add_argument(
     "-m14", "--model14", default="gigaNet_stride_6_test_rand_dcms_2037", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight14", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight14", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m15", "--model15", default="gigaNet_stride_6_test_rand_dcms_2039", type=str, metavar="MODEL", help="model name"
@@ -118,7 +118,7 @@ parser.add_argument(
     "-m16", "--model16", default="gigaNet_stride_6_test_rand_dcms_2039", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight16", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight16", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m17", "--model17", default="gigaNet_stride_6_test_rand_dcms_2041", type=str, metavar="MODEL", help="model name"
@@ -130,7 +130,7 @@ parser.add_argument(
     "-m18", "--model18", default="gigaNet_stride_6_test_rand_dcms_2041", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight18", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight18", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 parser.add_argument(
     "-m19", "--model19", default="gigaNet_stride_6_test_rand_dcms_2043", type=str, metavar="MODEL", help="model name"
@@ -142,7 +142,7 @@ parser.add_argument(
     "-m20", "--model20", default="gigaNet_stride_6_test_rand_dcms_2043", type=str, metavar="MODEL", help="model name"
 )
 parser.add_argument(
-    "--weight20", default="2.607.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
+    "--weight20", default="2.608.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
 
 root_path = "/mnt/home/data/giga2024/Trajectory/"
