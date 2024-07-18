@@ -418,11 +418,11 @@ def test(test_files):
                     step_curr = step_curr[idcs]
                     traj_curr = traj_curr[idcs]
                   
-                    origin_past_ctr = np.zeros((30, 2), np.float32)
+                    origin_past_ctr = np.zeros((32, 2), np.float32)
                     origin_past_ctr[step_curr, :2] = traj_curr[:, :2].copy()
                     origin_past_ctrs.append(origin_past_ctr)
                   
-                    feat = np.zeros((30, 3), np.float32)
+                    feat = np.zeros((32, 3), np.float32)
                     feat[step_curr, :2] = np.matmul(rot, (traj_curr[:, :2] - orig.reshape(-1, 2)).T).T
                     feat[step_curr, 2] = 1.0
             
@@ -451,7 +451,7 @@ def test(test_files):
                     step_dcms = step_dcms[idcs]
                     traj_dcms = traj_dcms[idcs]
             
-                    feat_dcms = np.zeros((60, 3), np.float32)
+                    feat_dcms = np.zeros((32, 3), np.float32)
                     feat_dcms[step_dcms, :2] = np.matmul(rot_dcms, (traj_dcms[:, :2] - orig_dcms.reshape(-1, 2)
                                                                        ).T).T
                     feat_dcms[step_dcms, 2] = 1.0
@@ -515,5 +515,5 @@ def test(test_files):
         pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
         f.close()
 
-train(train_file, train_train_file, train_val_file)
+#train(train_file, train_train_file, train_val_file)
 test(test_files)
