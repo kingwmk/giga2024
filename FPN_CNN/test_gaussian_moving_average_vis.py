@@ -120,7 +120,7 @@ def main():
                 sigma = 20
                 preds = np.array([gaussian_smoothing(preds[s], sigma) for s in range(preds.shape[0])])
                 window_size = 6
-                gt_past_cat = np.repeat(np.expand_dims(gt_past[58:59], axis=0), repeats=3, axis=0)
+                gt_past_cat = np.repeat(np.expand_dims(gt_past[58:59,:2], axis=0), repeats=3, axis=0)
                 pred_gt_cat = np.concatenate([gt_past_cat, preds], axis=1)
                 pred_gt_cat = np.array([moving_average(pred_gt_cat[s], window_size) 
                                   for s in range(pred_gt_cat.shape[0])])
