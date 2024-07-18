@@ -145,14 +145,15 @@ def main():
 
         color_box = ['red', 'orange', 'yellow', 'green', 'blue', 'cyan', 'pink', 'purple', 'white', 'black']
         for i in range(len(vis_gt_pasts)):
-            if i > 30:
-                continue
+#            if i > 30:
+#                continue
             plt.plot(vis_gt_pasts[i][:,0], vis_gt_pasts[i][:,1], 
                      "-", linewidth=1.5, color='orange')
             for j in range(0,60):
                 idx = j // 6
                 c = color_box[idx]
-                plt.scatter(vis_gt_pasts[i][j,0], vis_gt_pasts[i][j,1], linewidth=1.6, color=c)
+                if vis_gt_pasts[i][j,2] == 1.0:
+                    plt.scatter(vis_gt_pasts[i][j,0], vis_gt_pasts[i][j,1], linewidth=1.6, color=c)
         
             for j in range(len(vis_results[i])):
                 plt.plot(vis_results[i][j,:,0], vis_results[i][j,:,1], 
