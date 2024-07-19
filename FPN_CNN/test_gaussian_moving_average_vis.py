@@ -151,7 +151,7 @@ def main():
             vis_gt_pasts[i] = vis_gt_pasts[i][valid_index]
             plt.plot(vis_gt_pasts[i][:,0], vis_gt_pasts[i][:,1], 
                      "-", linewidth=1.5, color='orange')
-            for j in range(0,60):
+            for j in range(0,len(vis_gt_pasts[i])):
                 idx = j // 6
                 c = color_box[idx]
                 if vis_gt_pasts[i][j,2] == 1.0:
