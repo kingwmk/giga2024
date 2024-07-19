@@ -120,6 +120,7 @@ def main():
                 valid_index = gt_past[:,2] == 1
                 observed_trajectories = gt_past[valid_index,:2]
                 observed_L = len(observed_trajectories)
+                observed_trajectories = np.repeat(np.expand_dims(observed_trajectories, axis=0), repeats=3, axis=0)
                 assert observed_L > 1
                 predict_L = 60
                 predicted_trajectories = pred_traj.squeeze()
