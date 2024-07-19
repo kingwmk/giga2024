@@ -191,7 +191,7 @@ def train(train_file, train_train_file, train_val_file):
             
                         ctrs.append(feat[-1, :2].copy())
                                         
-                        feat = gaussian_smoothing(feat[step_curr, :2]) 
+                        feat[step_curr, :2] = gaussian_smoothing(feat[step_curr, :2]) 
                         feat[1:, :2] -= feat[:-1, :2]
                         feat[step_curr[0], :2] = 0
                         feats.append(feat)
@@ -222,7 +222,7 @@ def train(train_file, train_train_file, train_val_file):
                         feat_dcms[step_dcms, 2] = 1.0
                         
                         ctrs_dcms.append(feat_dcms[-1, :2].copy())
-                        feat_dcms = gaussian_smoothing(feat_dcms[step_dcms, :2]) 
+                        feat_dcms[step_dcms, :2] = gaussian_smoothing(feat_dcms[step_dcms, :2]) 
                       
                         feat_dcms[1:, :2] -= feat_dcms[:-1, :2]
                         feat_dcms[step_dcms[0], :2] = 0
@@ -437,7 +437,7 @@ def test(test_files):
                     feat = np.zeros((60, 3), np.float32)
                     feat[step_curr, :2] = np.matmul(rot, (traj_curr[:, :2] - orig.reshape(-1, 2)).T).T
                     feat[step_curr, 2] = 1.0
-                    feat = gaussian_smoothing(feat[step_curr, :2]) 
+                    feat[step_curr, :2] = gaussian_smoothing(feat[step_curr, :2]) 
                     ctrs.append(feat[-1, :2].copy())
                     feat[1:, :2] -= feat[:-1, :2]
                     feat[step_curr[0], :2] = 0
@@ -467,7 +467,7 @@ def test(test_files):
                     feat_dcms[step_dcms, :2] = np.matmul(rot_dcms, (traj_dcms[:, :2] - orig_dcms.reshape(-1, 2)
                                                                        ).T).T
                     feat_dcms[step_dcms, 2] = 1.0
-                    feat_dcms = gaussian_smoothing(feat_dcms[step_dcms, :2]) 
+                    feat_dcms[step_dcms, :2] = gaussian_smoothing(feat_dcms[step_dcms, :2]) 
                   
                     ctrs_dcms.append(feat_dcms[-1, :2].copy())
                     feat_dcms[1:, :2] -= feat_dcms[:-1, :2]
@@ -528,5 +528,5 @@ def test(test_files):
         pickle.dump(stores, f, protocol=pickle.HIGHEST_PROTOCOL)
         f.close()
 
-#train(train_file, train_train_file, train_val_file)
+train(train_file, train_train_file, train_val_file)
 test(test_files)
