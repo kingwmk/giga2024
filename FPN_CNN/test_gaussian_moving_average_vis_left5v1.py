@@ -173,8 +173,8 @@ def gaussian_smoothing(data, sigma):
     return smooth_data
   
 def moving_average(data, window_size):    
-    left_window = window_size//3*2
-    right_window = window_size//3
+    left_window = window_size//6*5
+    right_window = window_size//6
     smooth_data = np.zeros_like(data)
     
     for i in range(data.shape[1]):  # 对每一维度进行处理
