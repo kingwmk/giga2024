@@ -145,8 +145,10 @@ def main():
 
         color_box = ['red', 'orange', 'yellow', 'green', 'blue', 'cyan', 'pink', 'purple', 'white', 'black']
         for i in range(len(vis_gt_pasts)):
-#            if i > 30:
-#                continue
+            if i > 30:
+                continue
+            valid_index = vis_gt_pasts[i][:,2] == 1.0
+            vis_gt_pasts[i] = vis_gt_pasts[i][valid_index]
             plt.plot(vis_gt_pasts[i][:,0], vis_gt_pasts[i][:,1], 
                      "-", linewidth=1.5, color='orange')
             for j in range(0,60):
