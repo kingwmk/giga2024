@@ -18,7 +18,7 @@ train_set = [train_path + 'annos/train_4.ndjson',
              test_path + 'annos/test_4.ndjson', 
             ]
 
-vis_path = "/mnt/home/data/giga2024/Trajectory/vis/"
+vis_path = "/mnt/home/data/giga2024/Trajectory/abnormal_vis/"
 def train():
     stores = []
     train_val_ratio = 0.8
@@ -97,14 +97,18 @@ def train():
                         trajs.append(actor_traj)
                         steps.append(actor_steps)
                         scene_pred_ids.append(pred_key) 
-                
+                      
+                plt.scatter(agent_traj[0,0], agent_traj[0,1], linewidth=1.6, color='red')
                 plt.plot(agent_traj[:,0], agent_traj[:,1], "-", linewidth=1, color='green')
-                save_path = vis_path + str(f_idx) + "_agent_"  + str(agent_scene_pred_ids) + ".png"
+                plt.scatter(agent_traj[-1,0], agent_traj[-1,1], linewidth=1.6, color='black')
+                save_path = vis_path + str(f_idx) + "_agent_"  + str(agent_scene_pred_ids) + "_" + str(len(agent_traj)) + ".png"
                 plt.savefig(save_path)
                 plt.cla()
                 for i, traj in enumerate(trajs):
+                    plt.scatter(traj[0,0], traj[0,1], linewidth=1.6, color='red')
                     plt.plot(traj[:,0], traj[:,1], "-", linewidth=1, color='blue')
-                    save_path = vis_path + str(f_idx) + "_"  + str(scene_pred_ids[i]) + ".png"
+                    plt.scatter(traj[-1,0], traj[-1,1], linewidth=1.6, color='black')
+                    save_path = vis_path + str(f_idx) + "_"  + str(scene_pred_ids[i]) + "_" + str(len(traj)) + ".png"
                     plt.savefig(save_path)
                     plt.cla()
 
