@@ -14,11 +14,17 @@ import random
 root_path = "/mnt/home/data/giga2024/Trajectory/"
 train_path = root_path + 'train/'
 test_path = root_path + 'test/'
-train_set = [train_path + 'annos/train_4.ndjson',
-             test_path + 'annos/test_4.ndjson', 
+train_set = [train_path + 'annos/train_1.ndjson', train_path + 'annos/train_2.ndjson',
+             train_path + 'annos/train_3.ndjson', train_path + 'annos/train_4.ndjson',
+             train_path + 'annos/train_5.ndjson', train_path + 'annos/train_6.ndjson',
+             train_path + 'annos/train_7.ndjson', train_path + 'annos/train_8.ndjson', 
+             test_path + 'annos/test_1.ndjson', test_path + 'annos/test_2.ndjson',
+             test_path + 'annos/test_3.ndjson', test_path + 'annos/test_4.ndjson', 
+             test_path + 'annos/test_5.ndjson', test_path + 'annos/test_6.ndjson',
+             test_path + 'annos/test_7.ndjson', test_path + 'annos/test_8.ndjson',
             ]
 
-vis_path = "/mnt/home/data/giga2024/Trajectory/abnormal_vis/"
+vis_path = "/mnt/home/data/giga2024/Trajectory/traj_vis/"
 def train():
     stores = []
     train_val_ratio = 0.8
@@ -50,7 +56,7 @@ def train():
                     num_track = num_track + 1
                     track_frames.append(data[i]['track']['f'])
                     track_pedestrian_ids.append(data[i]['track']['p'])
-                    if f_idx < 1:
+                    if f_idx < 8:
                         track_xws.append(data[i]['track']['x_w'])
                         track_yws.append(data[i]['track']['y_w'])
                     else:
@@ -104,13 +110,6 @@ def train():
                 save_path = vis_path + str(f_idx) + "_agent_"  + str(agent_scene_pred_ids) + "_" + str(len(agent_traj)) + ".png"
                 plt.savefig(save_path)
                 plt.cla()
-                for i, traj in enumerate(trajs):
-                    plt.scatter(traj[0,0], traj[0,1], linewidth=1.6, color='red')
-                    plt.plot(traj[:,0], traj[:,1], "-", linewidth=1, color='blue')
-                    plt.scatter(traj[-1,0], traj[-1,1], linewidth=1.6, color='black')
-                    save_path = vis_path + str(f_idx) + "_"  + str(scene_pred_ids[i]) + "_" + str(len(traj)) + ".png"
-                    plt.savefig(save_path)
-                    plt.cla()
 
 train()
 
