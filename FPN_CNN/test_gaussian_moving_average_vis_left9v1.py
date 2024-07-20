@@ -119,7 +119,7 @@ def main():
                 preds = pred_traj.squeeze()
                 sigma = 20
                 preds = np.array([gaussian_smoothing(preds[s], sigma) for s in range(preds.shape[0])])
-                window_size = 6
+                window_size = 10
                 gt_past_cat = np.repeat(np.expand_dims(gt_past[58:59,:2], axis=0), repeats=3, axis=0)
                 pred_gt_cat = np.concatenate([gt_past_cat, preds], axis=1)
                 pred_gt_cat = np.array([moving_average(pred_gt_cat[s], window_size) 
@@ -173,8 +173,8 @@ def gaussian_smoothing(data, sigma):
     return smooth_data
   
 def moving_average(data, window_size):    
-    left_window = window_size//3*2
-    right_window = window_size//3
+    left_window = window_size//10*9
+    right_window = window_size//10
     smooth_data = np.zeros_like(data)
     
     for i in range(data.shape[1]):  # 对每一维度进行处理
