@@ -431,6 +431,7 @@ def test(test_files):
                     feat = np.zeros((60, 3), np.float32)
                     feat[step, :2] = np.matmul(rot, (traj[:, :2] - orig.reshape(-1, 2)).T).T
                     feat[step, 2] = 1.0
+                    x_min, x_max, y_min, y_max = pred_range
                     if feat[-1, 0] < x_min or feat[-1, 0] > x_max or feat[-1, 1] < y_min or feat[-1, 1] > y_max:
                         continue            
                     ctrs.append(feat[-1, :2].copy())
