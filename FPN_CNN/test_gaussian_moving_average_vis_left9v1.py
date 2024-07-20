@@ -161,7 +161,11 @@ def main():
                 plt.plot(vis_results[i][j,:,0], vis_results[i][j,:,1], 
                          "-", linewidth=1.5, color='g')
                 plt.scatter(vis_results[i][j,-1,0], vis_results[i][j,-1,1], 
-                            linewidth=1.6, color='r')
+                            linewidth=2, color='r')
+                for s in range(0,len(vis_results[i][j])):
+                    idx = s // 6
+                    c = color_box[idx]
+                    plt.scatter(vis_results[i][j][s,0],vis_results[i][j][s,1], linewidth=1.6, color=c)               
             save_path = "./vis/vis_test/" + str(f_idx)+"_"+str(vis_pp_ids[i]) + ".png"
             plt.savefig(save_path)
             plt.cla()
