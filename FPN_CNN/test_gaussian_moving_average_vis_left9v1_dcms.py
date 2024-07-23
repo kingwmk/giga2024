@@ -21,6 +21,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import math
 from scipy.ndimage import gaussian_filter1d
+from scipy.optimize import linear_sum_assignment
 
 # define parser
 parser = argparse.ArgumentParser(description="giga")
@@ -134,6 +135,14 @@ def main():
                 pred_gt_cat = np.array([moving_average(pred_gt_cat[s], window_size) 
                                   for s in range(pred_gt_cat.shape[0])])
                 preds_dcms = pred_gt_cat[:,1:]
+
+                end_preds = preds[:, -2, :]  # (3, 2)
+                end_preds_dcms = preds_dcms[:, -1, :]  # (3, 2)
+                distance_matrix = np.linalg.norm(end_preds[:, np.newaxis, :] 
+                                                 - end_preds_dcms[np.newaxis, :, :], axis=2)
+                row_ind, col_ind = linear_sum_assignment(distance_matrix)
+                preds = preds[row_ind]  
+                preds_dcms = preds_dcms[col_ind]                             
                 preds[:,:-1] = (preds_dcms[:,1:] + preds[:,:-1])/2                    
                 vis_results.append(preds)
                 vis_gt_pasts.append(gt_past)
