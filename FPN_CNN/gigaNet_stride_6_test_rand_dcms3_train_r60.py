@@ -29,8 +29,8 @@ config["save_freq"] = 0.1
 config["epoch"] = 0
 config["horovod"] = True
 config["opt"] = "adam"
-config["num_epochs"] = 20
-config["start_val_epoch"] = 0
+config["num_epochs"] = 10
+config["start_val_epoch"] = 2
 config["lr"] = [5e-4, 1e-4]
 config["lr_epochs"] = [10,]
 config["lr_func"] = StepLR(config["lr"], config["lr_epochs"])
@@ -50,8 +50,8 @@ config["val_workers"] = config["workers"]
 
 """Dataset"""
 root_path = "/mnt/home/data/giga2024/Trajectory/"
-config["train_split"] = root_path + 'train/preprocess_stride_6_test_dcms/train.p'
-config["val_split"] = root_path + 'train/preprocess_stride_6_test_dcms/train_val.p'
+config["train_split"] = root_path + 'train/preprocess_stride_6_test_dcms_r60/train.p'
+config["val_split"] = root_path + 'train/preprocess_stride_6_test_dcms_r60/train_val.p'
 config["test_split"] = root_path + 'test/preprocess/test_1.p'
 
 """Model"""
@@ -523,7 +523,7 @@ class PredLoss(nn.Module):
         end_reg_dcms = reg_dcms[:, :, -1, :]  # (N, 3, 2)
         distance_matrix = torch.cdist(end_reg, end_reg_dcms)
         for i in range(len(reg)):
-            row_ind, col_ind = linear_sum_assignment(distance_matrix[i])
+            row_ind, col_ind = linear_sum_assignment(distance_matrix[i].detach().cpu().numpy())
             for j in range(3):
                 reg_tmp = reg[i, row_ind[j]]
                 reg_dcms_tmp = reg_dcms[i, col_ind[j]]
