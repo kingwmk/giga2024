@@ -61,7 +61,8 @@ def main():
     args = parser.parse_args()
     if args.result_path != None:
         for i in range(len(output_files)):
-            os.makedirs('submission/' + args.result_path)
+            if not os.path.isdir('submission/' + args.result_path): 
+                os.makedirs('submission/' + args.result_path)
             result_path ='submission/' + args.result_path + '/test_' + str(i+1) + '.ndjson'
             output_files[i] = result_path
     
