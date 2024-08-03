@@ -30,7 +30,9 @@ parser.add_argument(
 parser.add_argument(
     "--weight1", default="1.000.ckpt", type=str, metavar="WEIGHT", help="checkpoint path"
 )
-
+parser.add_argument(
+    "--result_path", default=None, type=str, help="result path"
+)
 root_path = "/mnt/home/data/giga2024/Trajectory/"
 test_data_path = root_path + "test/"
 
@@ -57,7 +59,11 @@ output_files = ['submission/results/results/test_1.ndjson',
 def main():
     # Import all settings for experiment.
     args = parser.parse_args()
-
+    if args.result_path != None:
+        for i in range(len(output_files)):
+            result_path ='submission/' + args.result_path + '/results/results/test_' + str(i+1) + '.ndjson'
+            output_files[i] = result_path
+    
     #model1
     model1 = import_module(args.model1)
     config1, gigaDataset, collate_fn1, net1, loss1, post_process1, opt1 = model1.get_model()
