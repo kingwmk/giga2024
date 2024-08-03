@@ -61,7 +61,7 @@ def main():
     args = parser.parse_args()
     if args.result_path != None:
         for i in range(len(output_files)):
-            result_path ='submission/' + args.result_path + '/results/results/test_' + str(i+1) + '.ndjson'
+            result_path ='submission/' + args.result_path + '/test_' + str(i+1) + '.ndjson'
             output_files[i] = result_path
     
     #model1
